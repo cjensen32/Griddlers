@@ -3,5 +3,5 @@
 commit_msg.txt
 *.env*
 
-# IntelliJ IDEA files
-.idea/**/workspace.xml
+# Muting intellij content for now
+.idea
