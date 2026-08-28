@@ -1,0 +1,7 @@
+# MISC
+.DS_Store
+commit_msg.txt
+*.env*
+
+# Muting intellij content for now
+.idea

@@ -1,0 +1,1 @@
+if my goal for this project is more towards learning how to code this instead of having agents do it for me, how would you suggest modifying the workflow and toolchain to make it more adaptable to a more inexperienced developer with no application deployment on app store experience
