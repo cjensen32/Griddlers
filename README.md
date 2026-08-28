@@ -14,9 +14,8 @@ These surfaces have separate ownership. Code builds independently; lessons may r
 
 ## Start here
 
-1. Read `lessons/LEARNING_GUIDE.md` for the learner and assistant working rules.
-2. Read `lessons/SPEC.md` for the course structure and chapter sequence.
-3. Complete the recall drills in `lessons/CHAPTER-1-REVIEW.md`.
-4. Begin Chapter 2, Lesson 2.1 by writing the POM from memory before consulting Chapter 1.
+1. Read `lessons/SYLLABUS.md` for the course map, how a chapter runs, and where each rule lives.
+2. Read `lessons/TESTING_STANDARDS.md` for the three test tiers.
+4. Begin at `lessons/ch02-the-workshop-rebuilt/`, the open chapter. Lesson 2.1 asks for the POM from memory, before consulting Chapter 1.
 
 Repository scope and architecture are recorded in `.agents/PROJECT.md`. Lesson-owned decisions are recorded in the chapter that makes them.

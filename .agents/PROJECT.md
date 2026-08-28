@@ -32,7 +32,7 @@ Dependency direction is `tools -> engine`, never the reverse. Browser play logic
 
 - Chapter 1 is complete and remains in the separate Job Application Tracker repository.
 - Chapter 2 is open and owns `lessons/ch02-the-workshop-rebuilt/`.
-- Chapters 3-14 are goal lines in `lessons/SPEC.md` and gain lessons only on arrival.
+- Chapters 3-14 are goal lines in `lessons/SYLLABUS.md` and gain lessons only on arrival.
 - Only one chapter is open at a time, and only two of its lessons are written at once.
 
 ## Definition of done

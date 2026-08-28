@@ -44,7 +44,7 @@ One turn of this loop per lesson. The agent writes the assignment; the learner w
 3. The learner asks questions against the lesson, which the agent answers with concepts and examples on unrelated code.
 4. The learner submits the lesson.
 5. The agent approves it, or returns it with what is missing and which concept to revisit - never with the correction written out.
-6. The learner commits.
+6. The learner commits. Ask roughly how many hours the lesson took and record it against the chapter in the syllabus's course map - a guess is fine, an unrecorded chapter is not.
 7. **The agent refits the queued lesson to what was actually built.** This is the step that keeps the chapter coherent: the queued lesson was written before the learner's choices existed, so its file names, its assumptions, and its verification are corrected against the approved result before the learner ever opens it.
 8. Only once the queued lesson is refitted does the agent write out the stub behind it, so a written lesson is always waiting.
 
@@ -65,4 +65,4 @@ Every lesson names observable verification and its test tier. The learner writes
 - Make the smallest correction that resolves a demonstrated conflict or stale reference.
 - Keep test maintenance explicit: tests may be revised, restructured, or deleted as behavior grows.
 - Verify course edits with `git diff --check`, a relative-link audit, an unresolved-variable audit, a scan for implementation or test leakage, and a check that no Markdown line ends mid-sentence.
-- Follow the Markdown rule in `lessons/COURSE_STANDARDS.md`: one line per logical line, no hard wrapping, and reflows committed separately from content changes.
+- Follow the Markdown rule in `.agents/reference/COURSE_STANDARDS.md`: one line per logical line, no hard wrapping, and reflows committed separately from content changes.

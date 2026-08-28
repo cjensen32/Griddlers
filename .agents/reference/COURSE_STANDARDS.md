@@ -27,7 +27,7 @@ These are conventions for this completed tracker, not universal rules imposed by
 
 ## Tests
 
-- Follow the [test-writing standards](TESTING_STANDARDS.md), including the three tiers and the maintenance rules.
+- Follow the [test-writing standards](../../lessons/TESTING_STANDARDS.md), including the three tiers and the maintenance rules.
 - Test observable behavior at the narrowest useful boundary.
 - Inject streams and other boundaries for deterministic in-process tests; use a subprocess for a real `main`, its exit code, or an EOF lifecycle.
 - Restore global streams in `finally` or avoid replacing them.
@@ -40,6 +40,7 @@ These are conventions for this completed tracker, not universal rules imposed by
 - Never break a line mid-sentence, mid-clause, or mid-list-item. A newline inside a paragraph is a claim that the thought ended there, and hard-wrapped prose makes every later edit produce a reflowed diff that hides what actually changed.
 - Keep a line break only where it carries meaning: between paragraphs, between the stacked bold-label lines of a document header, between list items, between table rows, and inside fenced code blocks, which are never reflowed.
 - Apply the same rule to Markdown embedded in code fences and blockquotes; a blockquote's blank `>` line separates its paragraphs and stays.
+- Leave `.agents/archive/**` alone. It is a frozen record of what was said and decided, and reflowing it rewrites history to no benefit.
 - Fix a document's wrapping in its own commit, separate from any change to what the document says, so the prose diff stays readable.
 
 ## Quality gates

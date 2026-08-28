@@ -22,10 +22,11 @@ Do not create `CLAUDE.md`, `AGENTS.md`, `.claude/`, `.codex/`, `.opencode/`, or 
 - `.agents/CONTEXT.md` defines agent behavior, ownership, and repository boundaries.
 - `.agents/README.md` maps the agent backbone and ownership surfaces.
 - `.agents/COURSE_MAINTENANCE.md` defines the chapter and lesson states and who may change them.
-- `lessons/SPEC.md` defines the course sequence and chapter guarantees.
-- `lessons/LEARNING_GUIDE.md` defines how the learner and assistants work during the course.
+- `lessons/SYLLABUS.md` is the student-facing course map: chapter goals, weights, and how a chapter runs.
+- `.agents/reference/LEARNING_GUIDE.md` defines how the learner and assistants work during the course.
 - `lessons/JOURNAL.md` records stuck/unstuck notes and capstone gap counts.
-- `lessons/COURSE_STANDARDS.md` and `lessons/TESTING_STANDARDS.md` define learner-facing conventions.
+- `.agents/reference/COURSE_STANDARDS.md` defines repository conventions; `lessons/TESTING_STANDARDS.md` is the student-facing test rubric.
+- `.agents/reference/course-rationale.md` records why the course is shaped this way, plus the glyph, deferral, and review-map tables.
 - `.agents/archive/project-init-session/` preserves the source handoff history, excluding local-only environment files.
 - Once the learner creates it, `pom.xml` owns the installed build configuration and dependencies.
 
@@ -42,7 +43,7 @@ The learner owns `src/` in full.
 - Name the tools a test needs, never the test itself. Pointing at `assertThrows`, `@Nested`, or a `ProcessBuilder` timeout is the help being asked for; a written assertion is not.
 - When the learner asks for a fix to learner code, refuse and restate the concept. Diagnose the failure, point to relevant evidence, and let the learner implement the correction.
 - Preserve learner progress edits and unrelated work. Inspect Git status and relevant authority before changing repository-owned documentation or tooling.
-- Never hard-wrap Markdown. Write one physical line per logical line and never break mid-sentence, in any `.md` file this repository owns, unless the learner asks for a wrapped file. `lessons/COURSE_STANDARDS.md` owns the rule; `.editorconfig` sets `max_line_length = off` for `*.md`.
+- Never hard-wrap Markdown. Write one physical line per logical line and never break mid-sentence, in any `.md` file this repository owns, unless the learner asks for a wrapped file. `.agents/reference/COURSE_STANDARDS.md` owns the rule; `.editorconfig` sets `max_line_length = off` for `*.md`.
 
 ## Chapter 2 bootstrap boundary
 

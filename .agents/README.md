@@ -9,8 +9,9 @@ Canonical project authority and agent-only material live under `.agents/`. Learn
 | `CONTEXT.md`                    | Agent behavior, ownership boundaries, and verification rules   |
 | `PROJECT.md`                    | Product scope, architecture, definition of done, and non-goals |
 | `COURSE_MAINTENANCE.md`         | Chapter-state transitions and course-change ownership          |
-| `archive/project-init-session/` | Handoff provenance, excluding local-only environment files     |
-| `README.md`                     | This map and the ownership manifests                           |
+| `reference/`                    | Conventions and rationale the agent enforces but the learner rarely opens |
+| `archive/`                      | Closed material: handoff provenance, Chapter 1, approved plans |
+| `README.md`                     | This map, the rules index, and the ownership manifests         |
 
 Do not duplicate a normative rule across authorities. Keep the rule in its owner and refer to that owner elsewhere.
 
@@ -25,8 +26,8 @@ Change a rule by editing its owner. Nothing here is duplicated, so there is exac
 | Whether an agent may author a lesson | `CONTEXT.md` | Agent constraints |
 | What must be verified before a change lands | `CONTEXT.md` | Verification |
 | What agents may not create before a lesson asks | `CONTEXT.md` | Chapter 2 bootstrap boundary |
-| Markdown wrapping and document shape | `lessons/COURSE_STANDARDS.md` | Markdown and documents |
-| Java conventions and the engine boundary | `lessons/COURSE_STANDARDS.md` | Dependency direction |
+| Markdown wrapping and document shape | `reference/COURSE_STANDARDS.md` | Markdown and documents |
+| Java conventions and the engine boundary | `reference/COURSE_STANDARDS.md` | Dependency direction |
 | Chapter and lesson states, and who moves them | `COURSE_MAINTENANCE.md` | Chapter states |
 | The test tiers and what closes a lesson | `lessons/TESTING_STANDARDS.md` | Test tiers |
 | What the project is, and is not | `PROJECT.md` | Product scope, Explicit non-goals |
@@ -40,11 +41,13 @@ Future `src/**`, `pom.xml`, `config/**`, `puzzles/**`, `web/**`, `.editorconfig`
 
 ### Learning
 
-`lessons/**`, including the learner's journal and lesson-owned decisions.
+`lessons/**` - the syllabus, the test rubric, the journal, and the open chapter's directory. Student-facing only: if the learner would not open it during a lesson, it does not live here.
 
 ### Agent backbone
 
-`.agents/README.md`, `.agents/CONTEXT.md`, `.agents/PROJECT.md`, `.agents/COURSE_MAINTENANCE.md`, and `.agents/archive/**`.
+`.agents/README.md`, `.agents/CONTEXT.md`, `.agents/PROJECT.md`, `.agents/COURSE_MAINTENANCE.md`, `.agents/reference/**`, and `.agents/archive/**`.
+
+`reference/` holds live material the agent enforces: `COURSE_STANDARDS.md`, `LEARNING_GUIDE.md`, and `course-rationale.md`. `archive/` holds closed material: `project-init-session/` for the handoff, `chapter-01/` for the completed chapter's review and glossary, and `plans/` for approved plans once their work has landed.
 
 Every tracked path belongs to one manifest. The root `README.md` may link to every surface but owns no agent rule or lesson contract.
 

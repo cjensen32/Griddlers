@@ -2,9 +2,9 @@
 
 **Version:** 0.6
 **Course:** Java Foundations to Deployment *(working title)*
-**Companion to:** [Course Spec](SPEC.md)
+**Companion to:** the course syllabus at `lessons/SYLLABUS.md`
 **Purpose:** how to work on this project so that you end up knowing how to build it.
-**Assumes:** Chapter 1 (Java Foundations) is complete. See [Chapter 1 Review](CHAPTER-1-REVIEW.md).
+**Assumes:** Chapter 1 (Java Foundations) is complete. See [Chapter 1 Review](../archive/chapter-01/CHAPTER-1-REVIEW.md).
 
 ---
 
@@ -54,8 +54,7 @@ This is the actual skill, and it is mostly a small number of habits.
 
 **Enumerate the edges the same way every time.** Chapter 1's standards already list them: empty, null, whitespace, boundary numbers, invalid syntax, unknown identifiers, retries, duplicate actions, quit, and EOF. This project adds: zero-size, one-size, non-square, the transposed case, all-empty and all-full, and the clue that fills a line exactly. Keep the list somewhere and run down it mechanically. Inspiration is not a testing strategy.
 
-**Ask which tier would have caught it.** When something breaks, before fixing it, decide where the test belongs. A wrong glyph is tier 1. Something that renders correctly but wires up wrong is tier
-2. Something right in tests and mangled in your terminal is tier 3 — a charset problem no in-process test can see. Getting this classification right is most of what "comprehensive" means.
+**Ask which tier would have caught it.** When something breaks, before fixing it, decide where the test belongs. A wrong glyph is tier 1. Something that renders correctly but wires up wrong is tier 2. Something right in tests and mangled in your terminal is tier 3 — a charset problem no in-process test can see. Getting this classification right is most of what "comprehensive" means.
 
 **Test the boring class anyway.** "Too simple to break" is a prediction, not an observation.
 
@@ -170,7 +169,7 @@ At the end of each chapter, close the editor and answer out loud. If you cannot,
 
 It is `JOURNAL.md` rather than `NOTES.md` because the tracker already uses `NOTES.md` for Java version history, and one name meaning two things across one course is a trip hazard you can avoid for free.
 
-**Draft your own chapter breakdown.** When you reach a chapter, you write its lessons before you write its code. An assistant may review that draft; it may not produce it. Planning the chapter is where you find out whether you understand the problem.
+**Write one lesson ahead, never five.** When you reach a chapter you open it and stub every lesson, then write out only the one you are on and the one queued behind it. An assistant may review a lesson you drafted; it may not produce it. Planning one step ahead is where you find out whether you understand the problem, without committing you to a plan the next lesson will contradict.
 
 **Play the game.** Regularly, on your actual phone, not the simulator. You are the only playtester you have, and things that are obviously wrong in your hand are invisible in a desktop browser.
 
