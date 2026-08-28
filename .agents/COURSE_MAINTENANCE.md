@@ -41,7 +41,7 @@ One turn of this loop per lesson. The agent writes the assignment; the learner w
 
 1. The agent writes the lesson file: what it builds, what must exist when it is done, what closes it, and which tools to reach for.
 2. The learner works on it.
-3. The learner asks questions against the lesson, which the agent answers with concepts and examples on unrelated code.
+3. The learner asks questions against the lesson, which the agent answers with concepts and examples on unrelated code. When an answer amounts to "this broke, and this fixed it", offer the one-line `lessons/JOURNAL.md` entry for it before moving on. The learner should not have to remember the journal exists; prompting is the agent's job.
 4. The learner submits the lesson.
 5. The agent approves it, or returns it with what is missing and which concept to revisit - never with the correction written out.
 6. The learner commits. Ask roughly how many hours the lesson took and record it against the chapter in the syllabus's course map - a guess is fine, an unrecorded chapter is not.
