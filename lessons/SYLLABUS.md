@@ -12,22 +12,22 @@ Chapters 2 through 14 build a Nonogram engine, a terminal game, and an installab
 
 Weight is the share of total course time each chapter is expected to take, estimated from the shape of the work rather than from a lesson plan. Hours are what you actually spent, recorded at the end of each chapter. Lessons fill in when a chapter opens.
 
-| Ch | Chapter               | Hours | Weight | Lessons | Done |
-|----|-----------------------|-------|--------|---------|------|
-|  2 | The Workshop, Rebuilt |     — |     5% |       6 | ☐    |
-|  3 | Seeing the Board      |     — |     7% |       — | ☐    |
-|  4 | Clues                 |     — |     7% |       — | ☐    |
-|  5 | Brute-force solver    |     — |     7% |       — | ☐    |
-|  6 | Propagation           |     — |     7% |       — | ☐    |
-|  7 | Generation            |     — |     7% |       — | ☐    |
-|  8 | Terminal game         |     — |     8% |       — | ☐    |
-|  9 | JSON on disk          |     — |     5% |       — | ☐    |
-| 10 | Web grid              |     — |    13% |       — | ☐    |
-| 11 | Touch input           |     — |    13% |       — | ☐    |
-| 12 | Persistence           |     — |     7% |       — | ☐    |
-| 13 | PWA deploy            |     — |     4% |       — | ☐    |
-| 14 | DP solver             |     — |    10% |       — | ☐    |
-|    | **Total**             |       | **100%** |       |      |
+| Ch | Chapter               | Hours | Weight   | Lessons | Done |
+|----|-----------------------|-------|----------|---------|------|
+| 2  | The Workshop, Rebuilt | —     | 5%       | 6       | ☐   |
+| 3  | Seeing the Board      | —     | 7%       | —       | ☐   |
+| 4  | Clues                 | —     | 7%       | —       | ☐   |
+| 5  | Brute-force solver    | —     | 7%       | —       | ☐   |
+| 6  | Propagation           | —     | 7%       | —       | ☐   |
+| 7  | Generation            | —     | 7%       | —       | ☐   |
+| 8  | Terminal game         | —     | 8%       | —       | ☐   |
+| 9  | JSON on disk          | —     | 5%       | —       | ☐   |
+| 10 | Web grid              | —     | 13%      | —       | ☐   |
+| 11 | Touch input           | —     | 13%      | —       | ☐   |
+| 12 | Persistence           | —     | 7%       | —       | ☐   |
+| 13 | PWA deploy            | —     | 4%       | —       | ☐   |
+| 14 | DP solver             | —     | 10%      | —       | ☐   |
+|    | **Total**             |       | **100%** |         |      |
 
 ---
 

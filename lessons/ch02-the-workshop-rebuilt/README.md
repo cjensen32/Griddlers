@@ -10,13 +10,13 @@ Two are written at a time. When the current lesson goes green, the queued one is
 
 | #   | Lesson                                                         | State   | Done |
 |-----|----------------------------------------------------------------|---------|------|
-| 2.1 | [The POM, from memory](01-the-pom.md)                          | current | ☐    |
-| 2.2 | [The quality gates, from memory](02-the-quality-gates.md)      | queued  | ☐    |
-| 2.3 | [Git and the commit grammar](03-git-and-the-commit-grammar.md) | stub    | ☐    |
-| 2.4 | [The two packages](04-the-two-packages.md)                     | stub    | ☐    |
-| 2.5 | [The end-to-end harness](05-the-end-to-end-harness.md)         | stub    | ☐    |
-| 2.6 | [The failure catalogue](06-the-failure-catalogue.md)           | stub    | ☐    |
-| ★   | [Must be true](CAPSTONE.md)                                    | stub    | ☐    |
+| 2.1 | [The POM, from memory](01-the-pom.md)                          | current | ☐   |
+| 2.2 | [The quality gates, from memory](02-the-quality-gates.md)      | queued  | ☐   |
+| 2.3 | [Git and the commit grammar](03-git-and-the-commit-grammar.md) | stub    | ☐   |
+| 2.4 | [The two packages](04-the-two-packages.md)                     | stub    | ☐   |
+| 2.5 | [The end-to-end harness](05-the-end-to-end-harness.md)         | stub    | ☐   |
+| 2.6 | [The failure catalogue](06-the-failure-catalogue.md)           | stub    | ☐   |
+| ★  | [Must be true](CAPSTONE.md)                                    | stub    | ☐   |
 
 A lesson closes when its test is green, its pop quiz is answered from memory, and the commit has landed.
 
