@@ -1,0 +1,1 @@
+to keep the nonogram spec shorter, lets keep it so the only wholly implementation complete chapters are 0 & 1. keep the rest as incomplete steps with the endgoal concept established bur nothing else (1-2 bullet points or sentences)
