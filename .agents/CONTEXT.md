@@ -8,8 +8,9 @@ domain to a Nonogram engine, terminal tools, and browser client.
 
 The repository has three ownership surfaces:
 
-- Code and build: future `src/`, `pom.xml`, `config/`, `puzzles/`, `web/`, and portable root tooling.
-- Learning: learner-facing material under `lessons/` plus `JOURNAL.md`.
+- Code and build: future `src/`, `pom.xml`, `config/`, `puzzles/`, `web/`, and portable root
+  tooling.
+- Learning: learner-facing material and progress records under `lessons/`.
 - Agent backbone: project authority, course-state policy, and provenance under `.agents/`.
 
 Documentation dependency direction is `.agents -> lessons -> code`. Lessons may reference code
@@ -30,11 +31,13 @@ state. This file is the canonical repository context.
 - `.agents/CONTEXT.md` defines agent behavior, ownership, and repository boundaries.
 - `.agents/README.md` maps the agent backbone and ownership surfaces.
 - `.agents/COURSE_MAINTENANCE.md` defines the four chapter states and who may change them.
-- `project.env` records names, paths, links, locked choices, and lesson-owned decisions.
 - `lessons/SPEC.md` defines the course sequence and chapter guarantees.
 - `lessons/LEARNING_GUIDE.md` defines how the learner and assistants work during the course.
-- `lessons/COURSE_STANDARDS.md` and `lessons/TESTING_STANDARDS.md` define learner-facing conventions.
-- `.agents/archive/project-init-session/` preserves the source handoff and its complete history.
+- `lessons/JOURNAL.md` records stuck/unstuck notes and capstone gap counts.
+- `lessons/COURSE_STANDARDS.md` and `lessons/TESTING_STANDARDS.md` define learner-facing
+  conventions.
+- `.agents/archive/project-init-session/` preserves the source handoff history, excluding local-only
+  environment files.
 - Once the learner creates it, `pom.xml` owns the installed build configuration and dependencies.
 
 When authorities disagree, preserve learner ownership, verify the current checkout, and resolve the
@@ -67,10 +70,11 @@ approves that Git action.
 
 ## Commit messages
 
-The tracked hook prepends `C###`. The allowed subject groups remain learner review items in
-`project.env`; do not silently finalize them. Commit bodies, when requested, use `DESCRIPTION:`,
-`FILES:`, optional `NOTES(subject):`, and `VERIFY(command):` in that order. Derive every message from
-the current staged diff and wait for approval before committing.
+The tracked hook prepends `C###`. Use `COURSE(scope)` for course and repository documentation,
+`GAME(scope)` for learner implementation, `PROGRESS(scope)` for learner progress, and `FIX(scope)`
+for corrections to earlier implementation. Commit bodies, when requested, use `DESCRIPTION:`,
+`FILES:`, optional `NOTES(subject):`, and `VERIFY(command):` in that order. Derive every message
+from the current staged diff and wait for approval before committing.
 
 ## Verification
 

@@ -1,3 +1,4 @@
+# MISC
 .DS_Store
-
 commit_msg.txt
+*.env*
