@@ -115,10 +115,10 @@ on a blank file before looking. The diff is the lesson.
 
 Copy verbatim, do not rebuild — these are frozen reference, not exercises:
 
-- [ ] `ch01-GLOSSARY.md`
-- [ ] `COURSE_STANDARDS.md` (retitled for this project; the dependency-direction section changes)
-- [ ] `TESTING_STANDARDS.md`
-- [ ] `config/checkstyle/checkstyle.xml` (rebuilding a Checkstyle ruleset teaches nothing)
+- [x] `ch01-GLOSSARY.md`
+- [x] `COURSE_STANDARDS.md` (retitled for this project; the dependency-direction section changes)
+- [x] `TESTING_STANDARDS.md`
+- [x] `config/checkstyle/checkstyle.xml` (rebuilding a Checkstyle ruleset teaches nothing)
 
 ---
 
