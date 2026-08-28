@@ -10,6 +10,7 @@ Canonical project authority and agent-only material live under `.agents/`. Learn
 | `PROJECT.md`                    | Product scope, architecture, definition of done, and non-goals |
 | `COURSE_MAINTENANCE.md`         | Chapter-state transitions and course-change ownership          |
 | `reference/`                    | Conventions and rationale the agent enforces but the learner rarely opens |
+| `tools/`                        | Scripts that check or repair repository documentation          |
 | `archive/`                      | Closed material: handoff provenance, Chapter 1, approved plans |
 | `README.md`                     | This map, the rules index, and the ownership manifests         |
 
@@ -45,7 +46,9 @@ Future `src/**`, `pom.xml`, `config/**`, `puzzles/**`, `web/**`, `.editorconfig`
 
 ### Agent backbone
 
-`.agents/README.md`, `.agents/CONTEXT.md`, `.agents/PROJECT.md`, `.agents/COURSE_MAINTENANCE.md`, `.agents/reference/**`, and `.agents/archive/**`.
+`.agents/README.md`, `.agents/CONTEXT.md`, `.agents/PROJECT.md`, `.agents/COURSE_MAINTENANCE.md`, `.agents/reference/**`, `.agents/tools/**`, and `.agents/archive/**`.
+
+`tools/` holds the documentation checks: `unwrap_markdown.py` repairs or reports hard wrapping, and `check_midsentence.py` flags the tell that a file was wrapped. Both take file paths and neither touches anything under `src/`.
 
 `reference/` holds live material the agent enforces: `COURSE_STANDARDS.md`, `LEARNING_GUIDE.md`, and `course-rationale.md`. `archive/` holds closed material: `project-init-session/` for the handoff, `chapter-01/` for the completed chapter's review and glossary, and `plans/` for approved plans once their work has landed.
 

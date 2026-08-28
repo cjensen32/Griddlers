@@ -64,7 +64,7 @@ Derive every message from the current staged diff, and commit only with the lear
 
 ## Verification
 
-Before Chapter 2 creates the build, verify documentation work with `git diff --check`, relative-link and unresolved-variable audits, exact source comparisons for frozen files, an inventory proving that no prohibited learner file was created, and a check that no Markdown line ends mid-sentence.
+Before Chapter 2 creates the build, verify documentation work with `git diff --check`, relative-link and unresolved-variable audits, exact source comparisons for frozen files, an inventory proving that no prohibited learner file was created, and `.agents/tools/unwrap_markdown.py --check` over every Markdown file outside `.agents/archive/`.
 
 After the learner installs the build, `mvn verify` must run JUnit 5 tests, Checkstyle, Spotless, and JaCoCo. A deliberately failing test must fail the build. Lesson 2.4 adds the separate proof that a forbidden engine import fails while the same import is permitted in `tools`.
 
