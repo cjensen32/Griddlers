@@ -1,28 +1,22 @@
 # Course State and Maintenance
 
-This file governs changes to the course structure. Learner-facing instructions remain under
-`lessons/` and must not require this file to be understood.
+This file governs changes to the course structure. Learner-facing instructions remain under `lessons/` and must not require this file to be understood.
 
 ## Ownership
 
-- The learner owns chapter expansion, every implementation file, every test, lesson progress, and
-  decisions recorded by the lesson that makes them.
-- Agents may mechanically maintain repository authority, frozen references, provenance, and course
-  prose when the learner requests it.
+- The learner owns chapter expansion, every implementation file, every test, lesson progress, and decisions recorded by the lesson that makes them.
+- Agents may mechanically maintain repository authority, frozen references, provenance, and course prose when the learner requests it.
 - Agents may review a learner-drafted chapter plan but may not produce the plan.
-- Agents may name missing behavior during a capstone gap analysis but may not write the missing
-  test.
+- Agents may name missing behavior during a capstone gap analysis but may not write the missing test.
 
 ## The four chapter states
 
 1. **Syllabus line:** one sentence stating the chapter's destination.
-2. **Manifest:** a goal plus only the guarantees later chapters depend on and which chapter depends
-   on each guarantee.
+2. **Manifest:** a goal plus only the guarantees later chapters depend on and which chapter depends on each guarantee.
 3. **Expanded:** a learner-drafted lesson breakdown with named verification, written on arrival.
 4. **Capstone:** a retrospective gap analysis written after every lesson in the chapter is complete.
 
-Only one chapter may be in state 3. A future `CAPSTONE.md` is a stub containing only the chapter's
-"Must be true" list until the chapter has been completed.
+Only one chapter may be in state 3. A future `CAPSTONE.md` is a stub containing only the chapter's "Must be true" list until the chapter has been completed.
 
 ## Moving a chapter forward
 
@@ -52,5 +46,4 @@ Only one chapter may be in state 3. A future `CAPSTONE.md` is a stub containing 
 - Treat prior chats and the archived handoff as dated evidence, not live authority.
 - Make the smallest correction that resolves a demonstrated conflict or stale reference.
 - Keep test maintenance explicit: tests may be revised, restructured, or deleted as behavior grows.
-- Verify course edits with `git diff --check`, a relative-link audit, an unresolved-variable audit,
-  and a scan for implementation or test leakage.
+- Verify course edits with `git diff --check`, a relative-link audit, an unresolved-variable audit, and a scan for implementation or test leakage.

@@ -37,31 +37,21 @@ This learner-facing reference collects the testing conventions used by the conso
 
 ## Test tiers
 
-- Write a tier 1 file test for every production class: one class in isolation, collaborators
-  controlled, named `<ClassName>Test` and mirroring the production package.
-- Write a tier 2 flow test for every user-visible flow: real collaborators wired the way `main`
-  wires them, one complete path, named for the behavior — `SolveFlowTest`, not `SolverAndGridTest`.
-- Write a tier 3 end-to-end test for every runnable `main`: a real JVM through `ProcessBuilder`,
-  asserting the exit code and exact stdout.
-- Keep the proportion honest: dozens of tier 1, a handful of tier 2 per chapter, one or two tier 3
-  and no more.
-- Choose a tier by the bug it would catch, not by convenience. A wrong rendered character is tier 1;
-  correct parts wired together wrongly is tier 2; correct in tests but wrong in a terminal is tier 3.
+- Write a tier 1 file test for every production class: one class in isolation, collaborators controlled, named `<ClassName>Test` and mirroring the production package.
+- Write a tier 2 flow test for every user-visible flow: real collaborators wired the way `main` wires them, one complete path, named for the behavior — `SolveFlowTest`, not `SolverAndGridTest`.
+- Write a tier 3 end-to-end test for every runnable `main`: a real JVM through `ProcessBuilder`, asserting the exit code and exact stdout.
+- Keep the proportion honest: dozens of tier 1, a handful of tier 2 per chapter, one or two tier 3 and no more.
+- Choose a tier by the bug it would catch, not by convenience. A wrong rendered character is tier 1; correct parts wired together wrongly is tier 2; correct in tests but wrong in a terminal is tier 3.
 - Keep shared test infrastructure in its own file and do not let it assert anything itself.
-- Treat a tier 1 file past roughly 200 lines as evidence the production class has two
-  responsibilities, not as a reason to split the test file.
+- Treat a tier 1 file past roughly 200 lines as evidence the production class has two responsibilities, not as a reason to split the test file.
 
 ## Maintenance
 
-- Expect to revisit earlier test files to rewrite, extend, restructure, or delete as behavior grows.
-  Test files are not append-only.
+- Expect to revisit earlier test files to rewrite, extend, restructure, or delete as behavior grows. Test files are not append-only.
 - Let a test against boilerplate stay boring. Rigour arrives with behavior, not in advance of it.
 - Do not write speculative tests for behavior that does not exist yet.
-- Delete a test when it asserts something no longer true, when a later test covers it better, when
-  it is pinned to an implementation detail you have replaced, or when it exists only to move a
-  coverage number.
-- Treat one production-line change turning six tests red — five of them testing the same thing — as
-  maintenance already overdue.
+- Delete a test when it asserts something no longer true, when a later test covers it better, when it is pinned to an implementation detail you have replaced, or when it exists only to move a coverage number.
+- Treat one production-line change turning six tests red — five of them testing the same thing — as maintenance already overdue.
 
 ## Quality
 
@@ -71,15 +61,10 @@ This learner-facing reference collects the testing conventions used by the conso
 
 ## Reference examples
 
-Read these in `~/repos/JAVA/job-application-tracker`, under
-`src/test/java/com/connorjensen/jobtracker/`. They are examples of shape, on code unrelated to this
-project.
+Read these in `~/repos/JAVA/job-application-tracker`, under `src/test/java/com/connorjensen/jobtracker/`. They are examples of shape, on code unrelated to this project.
 
 - `ApplicationTest.java` — tier 1. One class, no collaborators, values in and values out.
-- `cli/ConsoleSessionTest.java` — tier 2. Real objects wired together, streams injected, one
-  complete path asserted.
-- `MainProcessTest.java` — tier 3. `ProcessBuilder`, stdin closed, a timeout, explicit UTF-8, exit
-  code and exact stdout.
+- `cli/ConsoleSessionTest.java` — tier 2. Real objects wired together, streams injected, one complete path asserted.
+- `MainProcessTest.java` — tier 3. `ProcessBuilder`, stdin closed, a timeout, explicit UTF-8, exit code and exact stdout.
 
-No agent-authored grader exists in this project and none will. Every test here is learner-written;
-the capstone grades the suite rather than supplying one.
+No agent-authored grader exists in this project and none will. Every test here is learner-written; the capstone grades the suite rather than supplying one.

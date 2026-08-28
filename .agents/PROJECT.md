@@ -4,10 +4,7 @@ Status: course handoff prepared; learner implementation has not started.
 
 ## Purpose
 
-This repository continues the learner's Java course after the completed Chapter 1 Job Application
-Tracker. It changes domains to Nonograms so the learner can own the design, implementation, and
-complete test suite while moving from plain Java through algorithms, serialization, browser work,
-and deployment.
+This repository continues the learner's Java course after the completed Chapter 1 Job Application Tracker. It changes domains to Nonograms so the learner can own the design, implementation, and complete test suite while moving from plain Java through algorithms, serialization, browser work, and deployment.
 
 ## Product scope
 
@@ -16,10 +13,8 @@ The finished project will provide:
 - A deterministic Java Nonogram engine with grid state, clue derivation, solving, and generation.
 - Terminal tools that compose the engine with file and standard-stream I/O.
 - A readable JSON puzzle format shared with a browser client.
-- A no-build-step browser game with mouse and touch input, persistence, offline support, and static
-  deployment.
-- A learner-written test ladder covering individual files, complete flows, and runnable entry
-  points.
+- A no-build-step browser game with mouse and touch input, persistence, offline support, and static deployment.
+- A learner-written test ladder covering individual files, complete flows, and runnable entry points.
 
 ## Technical architecture
 
@@ -31,8 +26,7 @@ web/                                browser client introduced in Chapter 10
 puzzles/                            generated JSON introduced in Chapter 9
 ```
 
-Dependency direction is `tools -> engine`, never the reverse. Browser play logic and DOM code will
-also remain separate so the non-DOM behavior can be tested without a browser.
+Dependency direction is `tools -> engine`, never the reverse. Browser play logic and DOM code will also remain separate so the non-DOM behavior can be tested without a browser.
 
 ## Course state
 
@@ -53,7 +47,4 @@ also remain separate so the non-DOM behavior can be tested without a browser.
 
 ## Explicit non-goals
 
-Before a measured need exists, this project does not include React, Vite, Canvas rendering,
-Playwright, IndexedDB, App Store packaging, grids larger than 10x10, colored Nonograms, or
-performance optimizations. Chapter 14's dynamic-programming solver is a learning finale rather than
-a browser feature.
+Before a measured need exists, this project does not include React, Vite, Canvas rendering, Playwright, IndexedDB, App Store packaging, grids larger than 10x10, colored Nonograms, or performance optimizations. Chapter 14's dynamic-programming solver is a learning finale rather than a browser feature.
