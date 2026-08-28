@@ -6,14 +6,19 @@ Status meanings in this working checklist:
 
 - `[x]` — complete and committed on `main`.
 - `[ ]` — not complete.
-- **STAGED** — prepared in the Git index for the next reviewed commit, but not complete until that
-  commit lands on `main`.
+**Current checkpoint:** every **Agent** section is complete and pushed. `main` carries five
+commits under one scope, `COURSE(unpack)`, and matches `origin/main`:
 
-**Current checkpoint:** C004 landed on `main` as `dcaac0d` with `.gitignore`, `lessons/SPEC.md`,
-`lessons/LEARNING_GUIDE.md`, and `lessons/CHAPTER-1-REVIEW.md`. The three course documents have
-concrete names and paths, live cross-links, and no dependency on a tracked environment file.
-Section 1 and Section 3 are staged for the next reviewed commit: the frozen Chapter 1 references
-are copied and adapted, and this directory now lives at `${SPEC_HISTORY_DIR}`.
+| Commit                                                     | Files | Sections         |
+|------------------------------------------------------------|-------|------------------|
+| `192a496` C001 open the repository on its design record    | 50    | 3 — this archive |
+| `21439cb` C002 establish learner-owned course authority    | 2     | 4                |
+| `5e0d9fe` C003 add the project shell and course governance | 7     | 4                |
+| `fde2586` C004 render the core course documents            | 4     | 3 — promotion    |
+| `cf6eaf8` C005 import the frozen Chapter 1 references      | 6     | 1                |
+
+The commits above were reworded and reordered by an interactive rebase after the work landed, so
+any commit hash quoted in the turn directories below predates it and no longer resolves.
 
 **Next transfer step:** Section 5 — the two **Learner** edits in the Chapter 1 repository. After
 that, no transfer work remains and Chapter 2 begins at Lesson 2.1.
@@ -239,7 +244,7 @@ Read it until you can explain those three behaviors, then move on. Lesson 2.3 as
 
 Copying any of these skips the chapter, which is the entire point of the chapter.
 
-Current status: `.gitignore` exists and its latest learner edit landed with C004. Lesson 2.3
+Current status: `.gitignore` exists and its latest learner edit landed with C004 `fde2586`. Lesson 2.3
 remains open until the learner can explain every entry and adds only build-generated state when it
 actually appears. `pom.xml` and both source trees remain absent.
 
@@ -266,11 +271,11 @@ are the live documents.
 
 Then promote the three live documents out of history:
 
-| From                               | To                                   | Status              |
-|------------------------------------|--------------------------------------|---------------------|
-| `nonogram-spec-FINAL.md`           | `${LESSONS_DIR}/SPEC.md`             | done — C004 `dcaac0d` |
-| `nonogram-learning-guide-FINAL.md` | `${LESSONS_DIR}/LEARNING_GUIDE.md`   | done — C004 `dcaac0d` |
-| `CHAPTER-1-REVIEW-FINAL.md`        | `${LESSONS_DIR}/CHAPTER-1-REVIEW.md` | done — C004 `dcaac0d` |
+| From                               | To                                   | Status                |
+|------------------------------------|--------------------------------------|-----------------------|
+| `nonogram-spec-FINAL.md`           | `${LESSONS_DIR}/SPEC.md`             | done — C004 `fde2586` |
+| `nonogram-learning-guide-FINAL.md` | `${LESSONS_DIR}/LEARNING_GUIDE.md`   | done — C004 `fde2586` |
+| `CHAPTER-1-REVIEW-FINAL.md`        | `${LESSONS_DIR}/CHAPTER-1-REVIEW.md` | done — C004 `fde2586` |
 
 The promoted copies were removed from the archive root once rendered into `${LESSONS_DIR}`; turns
 `09` and `10` still carry the unrendered originals, so nothing is lost.
@@ -394,7 +399,7 @@ Stale — `origin/main` and `main` are both at `2043a77`, so publication already
 
 ---
 
-**Current position:** the governance shell and the three core lesson documents are committed
-through C004. The frozen Chapter 1 references and this provenance archive are staged for the next
-reviewed commit. What remains is Section 5 — two **Learner** edits in the Chapter 1 repository —
-and Section 6's last box, which Chapter 2's own build gates close.
+**Current position:** the transfer is done on this side. Sections 1, 3, 4, and the two runnable
+boxes of Section 6 are complete and pushed. What remains is **Learner** work only: Section 5's two
+edits in the Chapter 1 repository, and Section 6's last box, which Chapter 2's own build gates
+close. Chapter 2 begins at Lesson 2.1 — write `pom.xml` from memory before opening Chapter 1's.
