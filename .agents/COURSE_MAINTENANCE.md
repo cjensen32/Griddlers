@@ -4,35 +4,53 @@ This file governs changes to the course structure. Learner-facing instructions r
 
 ## Ownership
 
-- The learner owns chapter expansion, every implementation file, every test, lesson progress, and decisions recorded by the lesson that makes them.
-- Agents may mechanically maintain repository authority, frozen references, provenance, and course prose when the learner requests it.
-- Agents may review a learner-drafted chapter plan but may not produce the plan.
+- The learner owns everything under `src/`, every test, lesson progress, and the decisions recorded by the lesson that makes them.
+- Agents write the open chapter's lesson files and keep them fitted to what the learner has actually built.
+- The learner may rewrite any lesson file. An assignment is a proposal about how to spend the next session, not a contract.
 - Agents may name missing behavior during a capstone gap analysis but may not write the missing test.
 
-## The four chapter states
+## Chapter states
 
-1. **Syllabus line:** one sentence stating the chapter's destination.
-2. **Manifest:** a goal plus only the guarantees later chapters depend on and which chapter depends on each guarantee.
-3. **Expanded:** a learner-drafted lesson breakdown with named verification, written on arrival.
-4. **Capstone:** a retrospective gap analysis written after every lesson in the chapter is complete.
+1. **Goal:** one sentence stating the chapter's destination, and nothing else. Every chapter carries this from day one and keeps it until it opens.
+2. **Open:** the chapter owns a directory under `lessons/` holding its README, its lesson files, and a stub `CAPSTONE.md`.
+3. **Closed:** every lesson is green and the capstone has been written from the code and tests that exist.
 
-Only one chapter may be in state 3. A future `CAPSTONE.md` is a stub containing only the chapter's "Must be true" list until the chapter has been completed.
+Only one chapter is open at a time. A chapter that is not open has no lessons, no guarantees, and no test plan anywhere in the repository. Do not draft them, and do not restore them from the archive or from Git history into a live document.
+
+## Lesson states inside the open chapter
+
+1. **Stub:** a title and an empty verification line. Every lesson starts here when the chapter opens.
+2. **Written:** the lesson's task and its named verification with test tier.
+3. **Green:** the named test passes and the commit has landed.
+
+Exactly two lessons are written at a time — the current one and the one queued behind it. When the current lesson goes green, the next stub is written out and a new stub joins the queue. Writing further ahead is the failure this model exists to prevent: a lesson drafted five ahead assumes the earlier ones were solved its way, and when they were not, either the earlier lesson gets padded to fit or the later one stops making sense.
+
+Keep lesson files short. A lesson states what to build and what to verify; the explanation belongs in the conversation, and the proof belongs in the test.
 
 ## Moving a chapter forward
 
-### Syllabus line to manifest
+### Goal to open
 
-- Work no more than two or three chapters ahead.
-- Add only guarantees that a named later chapter would fail without.
-- Do not introduce class names, method signatures, parameter order, or implementation choices.
+- The learner opens the chapter on arrival, never earlier.
+- Create the directory, the stub per lesson, and the stub `CAPSTONE.md`.
+- The chapter's "Must be true" list is authored at this point and lives only in that stub.
 
-### Manifest to expanded
+### The lesson cycle
 
-- The learner drafts the lesson breakdown when reaching the chapter.
-- Every lesson names observable verification and its test tier.
-- The agent may review for missing prerequisites, ordering problems, or answer leakage.
+One turn of this loop per lesson. The agent writes the assignment; the learner writes every line of code and every test in it.
 
-### Expanded to capstone
+1. The agent writes the lesson file: what it builds, what must exist when it is done, what closes it, and which tools to reach for.
+2. The learner works on it.
+3. The learner asks questions against the lesson, which the agent answers with concepts and examples on unrelated code.
+4. The learner submits the lesson.
+5. The agent approves it, or returns it with what is missing and which concept to revisit - never with the correction written out.
+6. The learner commits.
+7. **The agent refits the queued lesson to what was actually built.** This is the step that keeps the chapter coherent: the queued lesson was written before the learner's choices existed, so its file names, its assumptions, and its verification are corrected against the approved result before the learner ever opens it.
+8. Only once the queued lesson is refitted does the agent write out the stub behind it, so a written lesson is always waiting.
+
+Every lesson names observable verification and its test tier. The learner writes the test; naming a gap is help, filling it is not.
+
+### Open to closed
 
 - Wait until every lesson and its learner-written tests are complete.
 - Grade the code and suite that actually exist instead of prescribing a target in advance.

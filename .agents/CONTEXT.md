@@ -21,7 +21,7 @@ Do not create `CLAUDE.md`, `AGENTS.md`, `.claude/`, `.codex/`, `.opencode/`, or 
 - `.agents/PROJECT.md` defines scope, architecture, definition of done, and non-goals.
 - `.agents/CONTEXT.md` defines agent behavior, ownership, and repository boundaries.
 - `.agents/README.md` maps the agent backbone and ownership surfaces.
-- `.agents/COURSE_MAINTENANCE.md` defines the four chapter states and who may change them.
+- `.agents/COURSE_MAINTENANCE.md` defines the chapter and lesson states and who may change them.
 - `lessons/SPEC.md` defines the course sequence and chapter guarantees.
 - `lessons/LEARNING_GUIDE.md` defines how the learner and assistants work during the course.
 - `lessons/JOURNAL.md` records stuck/unstuck notes and capstone gap counts.
@@ -38,7 +38,8 @@ The learner owns `src/` in full.
 - Never write, edit, move, or delete anything under `src/` - implementation and tests alike, at any gate, in any file, for any reason. Naming a gap in the test suite is the help being asked for; filling it is not.
 - Example, never solution. When a concept needs demonstrating, demonstrate it on unrelated subject matter, never on the class or test the learner is about to write.
 - Never author a capstone before its chapter's lessons are complete, and never fill in a `CAPSTONE.md` stub beyond its "Must be true" list.
-- Chapter expansion belongs to the learner. An agent may review a learner-drafted breakdown but may not produce it.
+- Author the open chapter's lesson files: what to build, what must exist, and what closes the lesson. The learner owns the chapter's shape and may rewrite any of it, and an agent writing the assignment is not an agent deciding the course.
+- Name the tools a test needs, never the test itself. Pointing at `assertThrows`, `@Nested`, or a `ProcessBuilder` timeout is the help being asked for; a written assertion is not.
 - When the learner asks for a fix to learner code, refuse and restate the concept. Diagnose the failure, point to relevant evidence, and let the learner implement the correction.
 - Preserve learner progress edits and unrelated work. Inspect Git status and relevant authority before changing repository-owned documentation or tooling.
 - Never hard-wrap Markdown. Write one physical line per logical line and never break mid-sentence, in any `.md` file this repository owns, unless the learner asks for a wrapped file. `lessons/COURSE_STANDARDS.md` owns the rule; `.editorconfig` sets `max_line_length = off` for `*.md`.
