@@ -124,28 +124,28 @@ Being honest about the gaps is more useful than an inventory of strengths. None 
 
 Under `/Users/connor/repos/JAVA/job-application-tracker/lessons/ch01-java-foundations/`:
 
-| Topic | File |
-|---|---|
-| Build system, POM, classpath, bytecode | `00-build-system.md` |
-| Classes, objects, records, equality | `01-classes-and-records.md` |
-| Packages, enums, collections, `Optional`, streams | `02-types-enums-collections.md` |
-| Interfaces, constructor injection, composition roots | `03-interfaces-and-di.md` |
-| Loops, dispatch, guards, retries, EOF | `04-control-flow-and-exception-boundaries.md` |
-| `Scanner`, `PrintStream`, UTF-8, validation | `05-console-io-and-validation.md` |
-| Cohesion, visibility, request records | `06-refactoring-and-package-design.md` |
-| Injected streams, subprocesses, exact output, coverage | `07-testing-console-applications.md` |
-| Maven layout, names, imports, Checkstyle, warnings | `08-java-quality-standards.md` |
-| Fast recall for all of the above | `GLOSSARY.md` |
-| Conventions | `COURSE_STANDARDS.md` |
-| Test design | `TESTING_STANDARDS.md` |
-| Why the chapter grew the way it did | `RECALIBRATION.md` |
+| Topic                                                  | File                                          |
+|--------------------------------------------------------|-----------------------------------------------|
+| Build system, POM, classpath, bytecode                 | `00-build-system.md`                          |
+| Classes, objects, records, equality                    | `01-classes-and-records.md`                   |
+| Packages, enums, collections, `Optional`, streams      | `02-types-enums-collections.md`               |
+| Interfaces, constructor injection, composition roots   | `03-interfaces-and-di.md`                     |
+| Loops, dispatch, guards, retries, EOF                  | `04-control-flow-and-exception-boundaries.md` |
+| `Scanner`, `PrintStream`, UTF-8, validation            | `05-console-io-and-validation.md`             |
+| Cohesion, visibility, request records                  | `06-refactoring-and-package-design.md`        |
+| Injected streams, subprocesses, exact output, coverage | `07-testing-console-applications.md`          |
+| Maven layout, names, imports, Checkstyle, warnings     | `08-java-quality-standards.md`                |
+| Fast recall for all of the above                       | `GLOSSARY.md`                                 |
+| Conventions                                            | `COURSE_STANDARDS.md`                         |
+| Test design                                            | `TESTING_STANDARDS.md`                        |
+| Why the chapter grew the way it did                    | `RECALIBRATION.md`                            |
 
 Working reference implementations worth reading *after* you have written your own version. All paths are relative to `/Users/connor/repos/JAVA/job-application-tracker`.
 
-| What | Where |
-|---|---|
-| Pure renderer returning a `String` | `src/main/java/com/connorjensen/jobtracker/cli/TextTable.java` |
-| Tier 1 file test | `src/test/java/com/connorjensen/jobtracker/ApplicationTest.java` |
-| Tier 2 flow test | `src/test/java/com/connorjensen/jobtracker/cli/ConsoleSessionTest.java` |
-| Tier 3 subprocess test | `src/test/java/com/connorjensen/jobtracker/MainProcessTest.java` |
-| A published behavioural contract | `lessons/ch01-java-foundations/CAPSTONE.md` |
+| What                               | Where                                                                   |
+|------------------------------------|-------------------------------------------------------------------------|
+| Pure renderer returning a `String` | `src/main/java/com/connorjensen/jobtracker/cli/TextTable.java`          |
+| Tier 1 file test                   | `src/test/java/com/connorjensen/jobtracker/ApplicationTest.java`        |
+| Tier 2 flow test                   | `src/test/java/com/connorjensen/jobtracker/cli/ConsoleSessionTest.java` |
+| Tier 3 subprocess test             | `src/test/java/com/connorjensen/jobtracker/MainProcessTest.java`        |
+| A published behavioural contract   | `lessons/ch01-java-foundations/CAPSTONE.md`                             |

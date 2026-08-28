@@ -4,13 +4,13 @@ Canonical project authority and agent-only material live under `.agents/`. Learn
 
 ## Authority map
 
-| File | Sole responsibility |
-|---|---|
-| `CONTEXT.md` | Agent behavior, ownership boundaries, and verification rules |
-| `PROJECT.md` | Product scope, architecture, definition of done, and non-goals |
-| `COURSE_MAINTENANCE.md` | Chapter-state transitions and course-change ownership |
-| `archive/project-init-session/` | Handoff provenance, excluding local-only environment files |
-| `README.md` | This map and the ownership manifests |
+| File                            | Sole responsibility                                            |
+|---------------------------------|----------------------------------------------------------------|
+| `CONTEXT.md`                    | Agent behavior, ownership boundaries, and verification rules   |
+| `PROJECT.md`                    | Product scope, architecture, definition of done, and non-goals |
+| `COURSE_MAINTENANCE.md`         | Chapter-state transitions and course-change ownership          |
+| `archive/project-init-session/` | Handoff provenance, excluding local-only environment files     |
+| `README.md`                     | This map and the ownership manifests                           |
 
 Do not duplicate a normative rule across authorities. Keep the rule in its owner and refer to that owner elsewhere.
 
