@@ -34,6 +34,14 @@ These are conventions for this completed tracker, not universal rules imposed by
 - Assert exact output for stable contracts and ordered fragments for longer sessions.
 - Cover null, empty, whitespace, ragged rows, invalid input, retries, missing values, quit, and EOF where relevant.
 
+## Markdown and documents
+
+- Write one physical line per logical line in every `.md` file and rely on the editor's soft wrap. There is no line-length limit for Markdown, and `max_line_length` is `off` for `*.md` in `.editorconfig`.
+- Never break a line mid-sentence, mid-clause, or mid-list-item. A newline inside a paragraph is a claim that the thought ended there, and hard-wrapped prose makes every later edit produce a reflowed diff that hides what actually changed.
+- Keep a line break only where it carries meaning: between paragraphs, between the stacked bold-label lines of a document header, between list items, between table rows, and inside fenced code blocks, which are never reflowed.
+- Apply the same rule to Markdown embedded in code fences and blockquotes; a blockquote's blank `>` line separates its paragraphs and stays.
+- Fix a document's wrapping in its own commit, separate from any change to what the document says, so the prose diff stays readable.
+
 ## Quality gates
 
 - Run `mvn verify` for Checkstyle, Spotless, tests, and JaCoCo.

@@ -46,4 +46,5 @@ Only one chapter may be in state 3. A future `CAPSTONE.md` is a stub containing 
 - Treat prior chats and the archived handoff as dated evidence, not live authority.
 - Make the smallest correction that resolves a demonstrated conflict or stale reference.
 - Keep test maintenance explicit: tests may be revised, restructured, or deleted as behavior grows.
-- Verify course edits with `git diff --check`, a relative-link audit, an unresolved-variable audit, and a scan for implementation or test leakage.
+- Verify course edits with `git diff --check`, a relative-link audit, an unresolved-variable audit, a scan for implementation or test leakage, and a check that no Markdown line ends mid-sentence.
+- Follow the Markdown rule in `lessons/COURSE_STANDARDS.md`: one line per logical line, no hard wrapping, and reflows committed separately from content changes.

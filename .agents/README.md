@@ -14,6 +14,24 @@ Canonical project authority and agent-only material live under `.agents/`. Learn
 
 Do not duplicate a normative rule across authorities. Keep the rule in its owner and refer to that owner elsewhere.
 
+## Where each rule lives
+
+Change a rule by editing its owner. Nothing here is duplicated, so there is exactly one place to edit for each row.
+
+| To change | Edit | Section |
+|---|---|---|
+| How commit messages are written | `CONTEXT.md` | Commit messages |
+| What an agent may never touch | `CONTEXT.md` | Agent constraints |
+| Whether an agent may author a lesson | `CONTEXT.md` | Agent constraints |
+| What must be verified before a change lands | `CONTEXT.md` | Verification |
+| What agents may not create before a lesson asks | `CONTEXT.md` | Chapter 2 bootstrap boundary |
+| Markdown wrapping and document shape | `lessons/COURSE_STANDARDS.md` | Markdown and documents |
+| Java conventions and the engine boundary | `lessons/COURSE_STANDARDS.md` | Dependency direction |
+| Chapter and lesson states, and who moves them | `COURSE_MAINTENANCE.md` | Chapter states |
+| The test tiers and what closes a lesson | `lessons/TESTING_STANDARDS.md` | Test tiers |
+| What the project is, and is not | `PROJECT.md` | Product scope, Explicit non-goals |
+| Which surface owns a path | `README.md` | Ownership manifests |
+
 ## Ownership manifests
 
 ### Code and build

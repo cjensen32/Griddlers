@@ -33,14 +33,15 @@ When authorities disagree, preserve learner ownership, verify the current checko
 
 ## Agent constraints
 
-The learner owns `src/main` and `src/test` in full.
+The learner owns `src/` in full.
 
-- Never write implementation code, and never write test code - at any gate, in any file, for any reason. Naming a gap in the test suite is the help being asked for; filling it is not.
+- Never write, edit, move, or delete anything under `src/` - implementation and tests alike, at any gate, in any file, for any reason. Naming a gap in the test suite is the help being asked for; filling it is not.
 - Example, never solution. When a concept needs demonstrating, demonstrate it on unrelated subject matter, never on the class or test the learner is about to write.
 - Never author a capstone before its chapter's lessons are complete, and never fill in a `CAPSTONE.md` stub beyond its "Must be true" list.
 - Chapter expansion belongs to the learner. An agent may review a learner-drafted breakdown but may not produce it.
 - When the learner asks for a fix to learner code, refuse and restate the concept. Diagnose the failure, point to relevant evidence, and let the learner implement the correction.
 - Preserve learner progress edits and unrelated work. Inspect Git status and relevant authority before changing repository-owned documentation or tooling.
+- Never hard-wrap Markdown. Write one physical line per logical line and never break mid-sentence, in any `.md` file this repository owns, unless the learner asks for a wrapped file. `lessons/COURSE_STANDARDS.md` owns the rule; `.editorconfig` sets `max_line_length = off` for `*.md`.
 
 ## Chapter 2 bootstrap boundary
 
@@ -48,11 +49,20 @@ Until the learner reaches the named lesson, agents must not create or scaffold `
 
 ## Commit messages
 
-The tracked hook prepends `C###`. Use `COURSE(scope)` for course and repository documentation, `GAME(scope)` for learner implementation, `PROGRESS(scope)` for learner progress, and `FIX(scope)` for corrections to earlier implementation. Commit bodies, when requested, use `DESCRIPTION:`, `FILES:`, optional `NOTES(subject):`, and `VERIFY(command):` in that order. Derive every message from the current staged diff and wait for approval before committing.
+The tracked hook prepends `C###`. Write the subject as `SCOPE(area): summary`, where scope is `COURSE` for course and repository documentation, `GAME` for learner implementation, `PROGRESS` for learner progress, and `FIX` for corrections to earlier implementation, and area is the lesson or surface being worked on.
+
+A subject that already says what changed and why is a finished commit message. Prefer it. Add a body only when the subject leaves something genuinely unclear, and keep it to what the diff cannot say for itself.
+
+- One clarifying line, when the subject alone is not enough: `path/file.md - what exactly changed and for whom`. Truncate long Java paths to `src/test/.../Name.java`.
+- `WHY:` when the reason is not evident from the change itself.
+- `CHANGES:` as bullets when one commit touches several surfaces. Prefix a file-specific bullet with its truncated path. Do not enumerate files the diff already lists.
+- `VERIFY:` only when the output is worth keeping: a problem this commit could not fix and is recording as evidence, or a checkpoint worth pinning, such as a passing suite at the end of a lesson. Paste the interesting lines, not the whole run.
+
+Derive every message from the current staged diff, and commit only with the learner's approval or a standing approval they have given for the sequence in progress.
 
 ## Verification
 
-Before Chapter 2 creates the build, verify documentation work with `git diff --check`, relative-link and unresolved-variable audits, exact source comparisons for frozen files, and an inventory proving that no prohibited learner file was created.
+Before Chapter 2 creates the build, verify documentation work with `git diff --check`, relative-link and unresolved-variable audits, exact source comparisons for frozen files, an inventory proving that no prohibited learner file was created, and a check that no Markdown line ends mid-sentence.
 
 After the learner installs the build, `mvn verify` must run JUnit 5 tests, Checkstyle, Spotless, and JaCoCo. A deliberately failing test must fail the build. Lesson 2.4 adds the separate proof that a forbidden engine import fails while the same import is permitted in `tools`.
 
