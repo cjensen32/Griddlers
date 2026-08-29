@@ -8,16 +8,16 @@
 
 Two are written at a time. When the current lesson goes green, the queued one is refitted to what you actually built and the next stub is written out. Hours are yours to fill in as each lesson closes; `.agents/tools/roll_up_hours.py` sums the column and carries the total to the course map when the chapter closes.
 
-| #   | Lesson                                                         | Hours    | State   | Done |
-|-----|----------------------------------------------------------------|----------|---------|------|
-| 2.1 | [The POM, from memory](01-the-pom.md)                          | 4.55     | green   | ☑    |
-| 2.2 | [The quality gates, from memory](02-the-quality-gates.md)      |          | current | ☐    |
-| 2.3 | [Git and the commit grammar](03-git-and-the-commit-grammar.md) |          | queued  | ☐    |
-| 2.4 | [The two packages](04-the-two-packages.md)                     |          | stub    | ☐    |
-| 2.5 | [The end-to-end harness](05-the-end-to-end-harness.md)         |          | stub    | ☐    |
-| 2.6 | [The failure catalogue](06-the-failure-catalogue.md)           |          | stub    | ☐    |
-| ★   | [Must be true](CAPSTONE.md)                                    |          | stub    | ☐    |
-|     | **Total**                                                      | **4.55** |         |      |
+| #   | Lesson                                                   | Hours    | State   | Done |
+|-----|----------------------------------------------------------|----------|---------|------|
+| 2.1 | [The POM, from memory](01-the-pom.md)                    | 4.55     | green   | ☑   |
+| 2.2 | [Quality gates, from memory](02-the-quality-gates.md)    |          | current | ☐   |
+| 2.3 | [Git + commit grammar](03-git-and-the-commit-grammar.md) |          | queued  | ☐   |
+| 2.4 | [The two packages](04-the-two-packages.md)               |          | stub    | ☐   |
+| 2.5 | [The end-to-end harness](05-the-end-to-end-harness.md)   |          | stub    | ☐   |
+| 2.6 | [The failure catalogue](06-the-failure-catalogue.md)     |          | stub    | ☐   |
+| ★  | [Must be true](CAPSTONE.md)                              |          | stub    | ☐   |
+|     | **Total**                                                | **4.55** |         |      |
 
 A lesson closes when its test is green, its pop quiz is answered from memory, and the commit has landed.
 

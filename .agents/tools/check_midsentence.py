@@ -8,13 +8,16 @@ List items and table rows are their own logical lines and are not flagged.
 """
 import re, sys
 sys.path.insert(0, __file__.rsplit("/", 1)[0])
-from unwrap_markdown import FENCE, HEADING, HRULE, TABLE, LIST, QUOTE_BLANK, INDENT_CODE
+from unwrap_markdown import FENCE, HEADING, HRULE, TABLE, LIST, QUOTE_BLANK, INDENT_CODE, frontmatter
 
 OK_END = re.compile(r"""[.!?:;)\]}|*`"'”’—-]\s*$""")
 found = 0
 for path in sys.argv[1:]:
     in_fence, fence_char = False, None
-    for n, line in enumerate(open(path, encoding="utf-8").read().split("\n"), 1):
+    lines = open(path, encoding="utf-8").read().split("\n")
+    front = frontmatter(lines)
+    for n, line in enumerate(lines, 1):
+        if n <= front: continue  # frontmatter is data, not prose
         m = FENCE.match(line)
         if m:
             if not in_fence: in_fence, fence_char = True, m.group(1)[0]

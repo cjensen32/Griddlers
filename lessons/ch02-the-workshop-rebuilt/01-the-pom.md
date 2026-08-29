@@ -35,7 +35,7 @@ Answer these from memory, editor closed. They are the reason this lesson is not 
 4. Why does Surefire need a pinned version at all? What is the symptom when it is not pinned, and why is that symptom worse than a build failure?
   - Surefire needs a pinned version to ensure a reproducible build (no guessing which version) and compatibility issues (plugin conflicts that may be silently ignored)  (85% confident) 
 5. Where do compiled classes and test reports land, and why is none of it committed?
-  - they land in the designated `target/` directory. None of it is commited as they are artifacts, or snapshots of the repo status AT point of compiling. (94% confident)  
+  - they land in the designated `target/` directory. None of it is commited as they are artifacts, or snapshots, of the code status AT point of compiling. (94% confident)  
 
 ## Reinforce
 

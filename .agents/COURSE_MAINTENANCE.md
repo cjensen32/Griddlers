@@ -7,7 +7,7 @@ This file governs changes to the course structure. Learner-facing instructions r
 - The learner owns everything under `src/`, every test, lesson progress, and the decisions recorded by the lesson that makes them.
 - Agents write the open chapter's lesson files and keep them fitted to what the learner has actually built.
 - The learner may rewrite any lesson file. An assignment is a proposal about how to spend the next session, not a contract.
-- Agents may name missing behavior during a capstone gap analysis but may not write the missing test.
+- Agents may name missing behavior during a capstone gap analysis but ma not write the missing test.
 
 ## Chapter states
 
@@ -41,13 +41,14 @@ One turn of this loop per lesson. The agent writes the assignment; the learner w
 
 1. The agent writes the lesson file: what it builds, what must exist when it is done, what closes it, and which tools to reach for.
 2. The learner works on it.
-3. The learner asks questions against the lesson, which the agent answers with concepts and examples on unrelated code. When an answer amounts to "this broke, and this fixed it", offer the one-line `lessons/JOURNAL.md` entry for it before moving on. The learner should not have to remember the journal exists; prompting is the agent's job. When the learner submits pop-quiz answers for review, read the filled rows in the journal's `Definitions` table as well and flag a wrong scope or definition; the table is checked without being asked about.
+3. The learner asks questions against the lesson, which the agent answers with concepts and examples on unrelated code.
 4. The learner submits the lesson.
-5. The agent approves it, or returns it with what is missing and which concept to revisit - never with the correction written out.
-   - On a first submission only, close the review by offering one optional extra step, written into the lesson file as a checkbox tagged `(mastery)`, `(reinforce)`, or `(clarify)`. Offer `(mastery)` when the lesson passed and the quiz held up: one task combining two things the lesson covered, harder than either alone. Offer `(reinforce)` when it passed but an answer was weak: re-derive the weakest one. Offer `(clarify)` when it did not pass: name the observation and the concept to revisit, never the file and never the fix. Judge "weak" from the review rather than from the stated confidence percentage, because a confidently wrong answer is the case this exists for. The learner accepts or declines, and a declined step does not block green.
-6. The learner commits. Ask roughly how many hours the lesson took and record it in the chapter README's per-lesson Hours column - a guess is fine, an unrecorded lesson is not.
+5. The agent reviews the submission and approves it, or returns it with what is missing and which concept to revisit - never with the correction written out.
+6. The learner commits, and the lesson's hours are recorded in the chapter README's per-lesson Hours column. A guess is fine; an unrecorded lesson is not.
 7. **The agent refits the queued lesson to what was actually built.** This is the step that keeps the chapter coherent: the queued lesson was written before the learner's choices existed, so its file names, its assumptions, and its verification are corrected against the approved result before the learner ever opens it.
 8. Only once the queued lesson is refitted does the agent write out the stub behind it, so a written lesson is always waiting.
+
+Steps 3 and 5 through 8 are a procedure rather than a state rule, and `.agents/skills/review-submission/SKILL.md` owns it: what to collect before reviewing anything, the journal audit that runs without being asked for, how a lesson is returned, the optional follow-up step and its three tags, and what closes the cycle afterward. Read that skill before processing a submission.
 
 Every lesson names observable verification and its test tier. The learner writes the test; naming a gap is help, filling it is not.
 
@@ -55,9 +56,7 @@ Every lesson names observable verification and its test tier. The learner writes
 
 - Wait until every lesson and its learner-written tests are complete.
 - Grade the code and suite that actually exist instead of prescribing a target in advance.
-- Run the demo, verify the suite, perform a code-free gap analysis, and finish with a viva.
-- Record the number of Gate 3 gaps in `lessons/JOURNAL.md`.
-- Run `.agents/tools/roll_up_hours.py` over the chapter README so the per-lesson hours sum into its Total row and the syllabus course map in one step.
+- Run the capstone lane of `.agents/skills/review-submission/SKILL.md`: the four gates in order, the Gate 3 count recorded in `lessons/JOURNAL.md`, and the hours rolled up into the chapter README and the syllabus course map.
 
 ## Maintenance rules
 

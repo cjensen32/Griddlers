@@ -22,6 +22,7 @@ Do not create `CLAUDE.md`, `AGENTS.md`, `.claude/`, `.codex/`, `.opencode/`, or 
 - `.agents/CONTEXT.md` defines agent behavior, ownership, and repository boundaries.
 - `.agents/README.md` maps the agent backbone and ownership surfaces.
 - `.agents/COURSE_MAINTENANCE.md` defines the chapter and lesson states and who may change them.
+- `.agents/skills/review-submission/SKILL.md` defines how a submitted lesson is reviewed and how a chapter capstone is graded.
 - `lessons/SYLLABUS.md` is the student-facing course map: chapter goals, weights, and how a chapter runs.
 - `.agents/reference/LEARNING_GUIDE.md` defines how the learner and assistants work during the course.
 - `lessons/JOURNAL.md` records stuck/unstuck notes, the learner-written definitions table, and capstone gap counts.
@@ -42,6 +43,7 @@ The learner owns `src/` in full.
 - Author the open chapter's lesson files: what to build, what must exist, and what closes the lesson. The learner owns the chapter's shape and may rewrite any of it, and an agent writing the assignment is not an agent deciding the course.
 - Name the tools a test needs, never the test itself. Pointing at `assertThrows`, `@Nested`, or a `ProcessBuilder` timeout is the help being asked for; a written assertion is not.
 - When the learner asks for a fix to learner code, refuse and restate the concept. Diagnose the failure, point to relevant evidence, and let the learner implement the correction.
+- Apply these constraints to a submitted lesson or capstone through `.agents/skills/review-submission/SKILL.md`, which owns that procedure and collects the evidence a review runs on.
 - Preserve learner progress edits and unrelated work. Inspect Git status and relevant authority before changing repository-owned documentation or tooling.
 - Never hard-wrap Markdown. Write one physical line per logical line and never break mid-sentence, in any `.md` file this repository owns, unless the learner asks for a wrapped file. `.agents/reference/COURSE_STANDARDS.md` owns the rule; `.editorconfig` sets `max_line_length = off` for `*.md`.
 
