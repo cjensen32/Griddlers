@@ -55,7 +55,9 @@ A returned lesson names what is missing and which concept to revisit. It never c
 
 ### The follow-up step
 
-Close the review by offering one optional extra step, written into the lesson file as a checkbox under its own heading, tagged `(mastery)`, `(reinforce)`, or `(clarify)`.
+Close the review by offering one optional extra step, written into the lesson file as a checkbox tagged `(mastery)`, `(reinforce)`, or `(clarify)`.
+
+Put it where the thing it targets already lives - a `Done when` box when the build can settle it, a sub-bullet under the pop-quiz question it re-opens - never under a heading of its own. It matches the register of what surrounds it: one observable action, one line, about as long as the boxes above it. A step needing a paragraph to explain itself has not been reduced to its observation yet, and a checkbox phrased as a question is a quiz item wearing a checkbox.
 
 - `(mastery)` - the lesson passed and the quiz held up. One task combining two things the lesson covered, harder than either alone.
 - `(reinforce)` - it passed, but an answer was weak. Re-derive the weakest one from an observation the learner can make themselves.
@@ -66,6 +68,8 @@ Judge "weak" from the review rather than from the stated confidence percentage. 
 The learner accepts or declines. A declined step does not block green: `.agents/COURSE_MAINTENANCE.md` defines green as the named test passing and the commit landing, and nothing here overrides that.
 
 The rule as written fires on a first submission only. Lesson 2.1 resubmitted with revised answers and the `(reinforce)` branch fired on the second pass instead - see `.agents/archive/plans/chapter02-lesson01-2026-08-28-journal-definitions.md`. That edge is open and has not been decided. Say which pass you are treating as first rather than deciding it silently.
+
+A step is offered once. On the pass after it was offered, judge what it produced and retire the heading either way - reissuing an unfinished step keeps a green lesson open over work a later lesson already covers. Lesson 2.1 closed on its third pass with one of the two landed, the other carried into 2.2 and 2.4 where the same mechanism is load-bearing.
 
 ## Lane 2 - a chapter capstone
 
