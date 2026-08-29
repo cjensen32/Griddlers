@@ -2,7 +2,7 @@
 
 *Stub.* Written out once Lesson 2.4 is green, and fitted to what you actually built there.
 
-## Must exist when you're done
+## Must be true when you're done
 
 ## Done when
 

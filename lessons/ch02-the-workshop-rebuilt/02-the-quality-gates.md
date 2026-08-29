@@ -6,7 +6,7 @@ Three plugins that disagree about what they are allowed to touch. Checkstyle rea
 
 Lesson 2.1 left you a POM where nothing is bound to a phase by hand. That was never asked for, so it is not there. All three of these plugins need it.
 
-## Must exist when you're done
+## Must be true when you're done
 
 - [ ] `mvn validate` alone fails on a style violation, before anything is compiled
 - [ ] `mvn spotless:check` fails on a misformatted file, and `mvn spotless:apply` fixes it

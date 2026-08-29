@@ -25,6 +25,7 @@ LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 CONFIDENCE = re.compile(r"\((\d{1,3})%\s*confident\)")
 SUREFIRE = re.compile(r"Tests run: (\d+), Failures: (\d+), Errors: (\d+), Skipped: (\d+)")
 MARK = re.compile(r"\?\d+")
+MUST = ("Must be true", "Must exist", "Must happen")  # the section has been renamed before
 
 
 def root():
@@ -266,7 +267,11 @@ else:
         sys.exit("No lesson file for %r. Pass a number from the table above." % number)
     lines = read(row["file"])
     head("Lesson %s - %s" % (number, os.path.relpath(row["file"], REPO)))
-    report_boxes(lines, "Must exist")
+    found = next((m for m in MUST if section(lines, m)), None)
+    if found:
+        report_boxes(lines, found)
+    else:
+        print("  ! no %s section - renamed? its boxes are not being reviewed" % " / ".join(MUST))
     report_boxes(lines, "Done when")
     for title in ("Mastery", "Reinforce", "Clarify"):
         if section(lines, title):
