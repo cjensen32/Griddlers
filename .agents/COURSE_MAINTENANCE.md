@@ -27,6 +27,8 @@ Exactly two lessons are written at a time — the current one and the one queued
 
 Keep lesson files short. A lesson states what to build and what to verify; the explanation belongs in the conversation, and the proof belongs in the test.
 
+A checkbox specifies what must exist, never how to build it. The learner solves a lesson the shortest way its boxes allow, which is the correct way to solve it - so anything a later lesson or the capstone depends on that no box names will not be there when that lesson opens. Write the box as the outcome and let the mechanism that satisfies it be what the learner has to find. "`mvn validate` fails the build on a style violation" is a specification; "add an `<execution>` binding Checkstyle to `validate`" is a step-by-step guide wearing a checkbox, and teaches nothing the learner did not already read. Be thorough in the requirements, never in the instructions.
+
 ## Moving a chapter forward
 
 ### Goal to open
@@ -48,7 +50,7 @@ One turn of this loop per lesson. The agent writes the assignment; the learner w
 7. **The agent refits the queued lesson to what was actually built.** This is the step that keeps the chapter coherent: the queued lesson was written before the learner's choices existed, so its file names, its assumptions, and its verification are corrected against the approved result before the learner ever opens it.
 8. Only once the queued lesson is refitted does the agent write out the stub behind it, so a written lesson is always waiting.
 
-Steps 3 and 5 through 8 are a procedure rather than a state rule, and `.agents/skills/review-submission/SKILL.md` owns it: what to collect before reviewing anything, the journal audit that runs without being asked for, how a lesson is returned, the optional follow-up step and its three tags, and what closes the cycle afterward. Read that skill before processing a submission.
+Steps 3 and 5 through 8 are a procedure rather than a state rule, and `.agents/skills/review-submission/SKILL.md` owns it: what to collect before reviewing anything, the journal audit that runs without being asked for, how a lesson is returned, the optional follow-up step and its three tags, the feedback the learner raises at submission and the consensus it must reach before anything is edited, and what closes the cycle afterward. Read that skill before processing a submission.
 
 Every lesson names observable verification and its test tier. The learner writes the test; naming a gap is help, filling it is not.
 

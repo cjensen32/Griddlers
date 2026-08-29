@@ -24,6 +24,7 @@ HEADING = re.compile(r"^(#{1,6})\s+(.*)$")
 LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 CONFIDENCE = re.compile(r"\((\d{1,3})%\s*confident\)")
 SUREFIRE = re.compile(r"Tests run: (\d+), Failures: (\d+), Errors: (\d+), Skipped: (\d+)")
+MARK = re.compile(r"\?\d+")
 
 
 def root():
@@ -155,6 +156,24 @@ def definitions(lesson_number):
     return mine, blank
 
 
+def open_gaps():
+    """Journal `Open gaps` rows, grouped by the lesson that left them open."""
+    lines = read(os.path.join(REPO, "lessons", "JOURNAL.md"))
+    out, columns = {}, None
+    for line in section(lines, "Open gaps"):
+        if not ROW.match(line):
+            continue
+        c = cells(line)
+        if columns is None:
+            columns = c
+            continue
+        if set("".join(c)) <= set("-: "):
+            continue
+        row = dict(zip(columns, c))
+        out.setdefault(row.get("Lesson", ""), []).append(row)
+    return out
+
+
 def ladder():
     """Test files by tier, and production classes with no tier 1 file of their own."""
     tiers, production = {1: [], 2: [], 3: []}, []
@@ -269,6 +288,30 @@ else:
         print("    %-28s %-8s %s" % (entry.get("Term", ""), entry.get("Scope", ""), entry.get("Definition", "")))
     if blank:
         print("  %d row(s) anywhere in the table still have an empty Scope or Definition" % len(blank))
+    flagged = [e for e in mine if MARK.search(e.get("Definition", ""))]
+    if flagged:
+        print("  %d row(s) carry a ?n mark and are still open:" % len(flagged))
+        for entry in flagged:
+            print("    %-28s %s" % (entry.get("Term", ""), MARK.search(entry["Definition"]).group(0)))
+        print("  A ?n row is settled by the learner rewriting it, then deleting the marker.")
+
+    head("Journal - open gaps")
+    gaps = open_gaps()
+    if not gaps:
+        print("  no Open gaps table in the journal")
+    else:
+        for entry in gaps.get(number, []):
+            print("    %-6s %s -> settles in %s" % (entry.get("Kind", ""), entry.get("Open item", ""), entry.get("Settles in", "")))
+        stated = (row.get("Open") or "").strip()
+        counted = len(gaps.get(number, []))
+        if stated and stated not in ("-", "\u2014"):
+            if not stated.isdigit() or int(stated) != counted:
+                print("  ! README Open says %s for %s, the table holds %d row(s)" % (stated, number, counted))
+        elif counted:
+            print("  ! %d gap row(s) for %s, but the README Open cell is empty" % (counted, number))
+        for lesson, entries in sorted(gaps.items()):
+            if lesson != number:
+                print("  %s still carries %d open gap(s)" % (lesson, len(entries)))
 
 head("Git")
 print(run("git status --short") or "  clean")
