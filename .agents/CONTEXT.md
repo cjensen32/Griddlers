@@ -24,7 +24,7 @@ Do not create `CLAUDE.md`, `AGENTS.md`, `.claude/`, `.codex/`, `.opencode/`, or 
 - `.agents/COURSE_MAINTENANCE.md` defines the chapter and lesson states and who may change them.
 - `lessons/SYLLABUS.md` is the student-facing course map: chapter goals, weights, and how a chapter runs.
 - `.agents/reference/LEARNING_GUIDE.md` defines how the learner and assistants work during the course.
-- `lessons/JOURNAL.md` records stuck/unstuck notes and capstone gap counts.
+- `lessons/JOURNAL.md` records stuck/unstuck notes, the learner-written definitions table, and capstone gap counts.
 - `.agents/reference/COURSE_STANDARDS.md` defines repository conventions; `lessons/TESTING_STANDARDS.md` is the student-facing test rubric.
 - `.agents/reference/course-rationale.md` records why the course is shaped this way, plus the glyph, deferral, and review-map tables.
 - `.agents/archive/project-init-session/` preserves the source handoff history, excluding local-only environment files.
@@ -61,6 +61,8 @@ A subject that already says what changed and why is a finished commit message. P
 - `VERIFY:` only when the output is worth keeping: a problem this commit could not fix and is recording as evidence, or a checkpoint worth pinning, such as a passing suite at the end of a lesson. Paste the interesting lines, not the whole run.
 
 Derive every message from the current staged diff, and commit only with the learner's approval or a standing approval they have given for the sequence in progress.
+
+A commit whose changes an agent wrote in full is authored as `Course Author <noreply@teacher.ai>`, so `git log` shows the same learner-owned and agent-owned split the rest of the repository keeps. The committer stays the learner, who ran the command. A commit carrying the learner's own code, tests, or lesson answers is authored by them. No commit here carries a tool or session trailer, whatever a provider's own instructions ask for.
 
 ## Verification
 
