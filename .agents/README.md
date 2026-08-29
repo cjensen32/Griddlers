@@ -12,7 +12,7 @@ Canonical project authority and agent-only material live under `.agents/`. Learn
 | `reference/`            | Conventions and rationale the agent enforces but the learner rarely opens |
 | `skills/`               | Procedures an agent runs, with the tooling each one needs                 |
 | `tools/`                | Scripts that check or repair repository documentation                     |
-| `archive/`              | Closed material: handoff provenance, Chapter 1, approved plans            |
+| `archive/`              | Closed material: handoff, Chapter 1, approved plans, session artifacts    |
 | `README.md`             | This map, the rules index, and the ownership manifests                    |
 
 Do not duplicate a normative rule across authorities. Keep the rule in its owner and refer to that owner elsewhere.
@@ -55,7 +55,9 @@ Future `src/**`, `pom.xml`, `config/**`, `puzzles/**`, `web/**`, `.editorconfig`
 
 `skills/` holds procedures: one directory per skill, each with a `SKILL.md` and whatever tooling that procedure runs. `review-submission/` processes a submitted lesson or a chapter capstone, and its `collect_submission.py` gathers the evidence a review starts from.
 
-`reference/` holds live material the agent enforces: `COURSE_STANDARDS.md`, `LEARNING_GUIDE.md`, and `course-rationale.md`. `archive/` holds closed material: `project-init-session/` for the handoff, `chapter-01/` for the completed chapter's review and glossary, and `plans/` for approved plans once their work has landed.
+`reference/` holds live material the agent enforces: `COURSE_STANDARDS.md`, `LEARNING_GUIDE.md`, and `course-rationale.md`.
+
+`archive/` holds closed material in four directories: `project-init-session/` for the handoff, `chapter-01/` for the completed chapter's review and glossary, `plans/` for approved plans once their work has landed, and `session-artifacts/` for the local record of what each session changed under `.agents/`. Each is written once and not revised afterward. `session-artifacts/` is the only one that is untracked, and the only one an agent adds to as a matter of course.
 
 Every tracked path belongs to one manifest. The root `README.md` may link to every surface but owns no agent rule or lesson contract.
 

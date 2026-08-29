@@ -44,6 +44,7 @@ The learner owns `src/` in full.
 - Name the tools a test needs, never the test itself. Pointing at `assertThrows`, `@Nested`, or a `ProcessBuilder` timeout is the help being asked for; a written assertion is not.
 - When the learner asks for a fix to learner code, refuse and restate the concept. Diagnose the failure, point to relevant evidence, and let the learner implement the correction.
 - Apply these constraints to a submitted lesson or capstone through `.agents/skills/review-submission/SKILL.md`, which owns that procedure and collects the evidence a review runs on.
+- After changing `.agents/`, record what changed and why in a new dated Markdown file under `.agents/archive/session-artifacts/`. Untracked local reference, never authority, and never an edit to an artifact already there.
 - Preserve learner progress edits and unrelated work. Inspect Git status and relevant authority before changing repository-owned documentation or tooling.
 - Never hard-wrap Markdown. Write one physical line per logical line and never break mid-sentence, in any `.md` file this repository owns, unless the learner asks for a wrapped file. `.agents/reference/COURSE_STANDARDS.md` owns the rule; `.editorconfig` sets `max_line_length = off` for `*.md`.
 

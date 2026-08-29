@@ -2,6 +2,7 @@
 .DS_Store
 commit_msg.txt
 *.env*
+.agents/archive/session-artifacts
 
 # Muting intellij content for now
 .idea
