@@ -31,8 +31,15 @@ Answer these from memory, editor closed. They are the reason this lesson is not 
 2. What does `mvn clean install` do that `mvn install` does not, and when does the difference bite?
   - `mvn clean` is a lifecycle that removes old artifacts and builds, which adds extra compile time to the complete maven lifecycles (`mvn clean` + `mvn install`); it bites if your build DID require rebuilding and you chose just to install over it without removing old content. (85% confident) 
 3. What does `test` scope actually change about a dependency, and what breaks if JUnit were left at the default scope?
-  - It helps with the transivity of dependencies as well as default scope packaging conflicts. The default packaging phase would go through all files in the src/main/java packages and package them as a whole group. Which can be problematic for code analysis and execution as all tests would be included in the main area of the target/ output classes instead of with the tests classes (50% confident) 
+  - the `test` scope applies to dependencies only used for tests. The dependencies marked with this scope aren't transitive and only exist in the `src/test/java/ directory
 4. Why does Surefire need a pinned version at all? What is the symptom when it is not pinned, and why is that symptom worse than a build failure?
   - Surefire needs a pinned version to ensure a reproducible build (no guessing which version) and compatibility issues (plugin conflicts that may be silently ignored)  (85% confident) 
 5. Where do compiled classes and test reports land, and why is none of it committed?
   - they land in the designated `target/` directory. None of it is commited as they are artifacts, or snapshots of the repo status AT point of compiling. (94% confident)  
+
+## Reinforce
+
+Offered after the second submission. Neither blocks the lesson; both target an answer whose mechanism did not move between v1 and v2.
+
+- [ ] Q3 — the claim to test is "`test` scope is what keeps my test classes out of `target/classes`". Delete the `<scope>` element from the JUnit dependency entirely, which is what "default scope" means - `default` is not itself a scope Maven recognises. Rebuild, and compare the contents of `target/classes` and `target/test-classes` against what they held before. Then run `mvn dependency:tree` both ways. Exactly one of those two commands changes its output; the one that changes is what scope actually controls. Fix the `dependency scope` row in the journal from what you observe.
+- [ ] Q1B and the `packaging` row — run `mvn help:effective-pom` and find two things: the `<packaging>` value you never typed, and the Surefire execution bound to the `test` phase that nothing in your `<plugins>` block binds. Rewrite the `packaging` row from what that file shows, then re-answer 1B naming both of the sources a binding can come from.

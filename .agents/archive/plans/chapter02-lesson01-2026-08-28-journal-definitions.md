@@ -76,3 +76,18 @@ Then read both files and confirm:
 
 - `JOURNAL.md`: table renders, every `Scope` and `Definition` cell empty, `Lesson` reads `2.1` throughout, rows alphabetical, no topic subheadings.
 - `COURSE_MAINTENANCE.md`: steps 3 and 5 each grew, the four-state model and step numbering are unchanged, and the new paragraph contradicts nothing in "Lesson states inside the open chapter".
+
+---
+
+## Outcome, recorded 2026-08-29
+
+The plan executed as written. `C016` landed the definitions table and the two `COURSE_MAINTENANCE.md` additions under the `Course Author` identity; `C017` and `C018` followed with the authorship rule, this archive entry, and the learner's own Lesson 2.1 work.
+
+What the plan did not anticipate, kept here because it is the useful part:
+
+- The authorship convention came out of the first commit rather than out of the plan. `.agents/CONTEXT.md` § Commit messages now carries it, and the memory file the plan had already argued against was written and then deleted once the repository recorded the rule.
+- The `(reinforce)` branch fired on a second submission rather than a first, because the learner resubmitted with revised answers. The rule as written says first submission only. That is a real edge the rule does not cover yet, and it is worth deciding deliberately rather than by precedent.
+- The definitions table earned its place faster than expected. Two wrong rows, `packaging` and `dependency scope`, turned out to be the same gaps as two weak pop-quiz answers, which is the correlation the passive audit in step 3 exists to catch.
+- Lesson 2.1 closed at roughly 3.8 hours, of which about ten minutes was typing code. The rest was the understanding, which is the ratio the chapter was designed around.
+
+Steps 7 and 8 of the cycle - refitting Lesson 2.2 to what was actually built, then writing out the 2.3 stub - were not reached and remain open.
