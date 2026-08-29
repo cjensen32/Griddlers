@@ -45,7 +45,7 @@ One turn of this loop per lesson. The agent writes the assignment; the learner w
 4. The learner submits the lesson.
 5. The agent approves it, or returns it with what is missing and which concept to revisit - never with the correction written out.
    - On a first submission only, close the review by offering one optional extra step, written into the lesson file as a checkbox tagged `(mastery)`, `(reinforce)`, or `(clarify)`. Offer `(mastery)` when the lesson passed and the quiz held up: one task combining two things the lesson covered, harder than either alone. Offer `(reinforce)` when it passed but an answer was weak: re-derive the weakest one. Offer `(clarify)` when it did not pass: name the observation and the concept to revisit, never the file and never the fix. Judge "weak" from the review rather than from the stated confidence percentage, because a confidently wrong answer is the case this exists for. The learner accepts or declines, and a declined step does not block green.
-6. The learner commits. Ask roughly how many hours the lesson took and record it against the chapter in the syllabus's course map - a guess is fine, an unrecorded chapter is not.
+6. The learner commits. Ask roughly how many hours the lesson took and record it in the chapter README's per-lesson Hours column - a guess is fine, an unrecorded lesson is not.
 7. **The agent refits the queued lesson to what was actually built.** This is the step that keeps the chapter coherent: the queued lesson was written before the learner's choices existed, so its file names, its assumptions, and its verification are corrected against the approved result before the learner ever opens it.
 8. Only once the queued lesson is refitted does the agent write out the stub behind it, so a written lesson is always waiting.
 
@@ -57,6 +57,7 @@ Every lesson names observable verification and its test tier. The learner writes
 - Grade the code and suite that actually exist instead of prescribing a target in advance.
 - Run the demo, verify the suite, perform a code-free gap analysis, and finish with a viva.
 - Record the number of Gate 3 gaps in `lessons/JOURNAL.md`.
+- Run `.agents/tools/roll_up_hours.py` over the chapter README so the per-lesson hours sum into its Total row and the syllabus course map in one step.
 
 ## Maintenance rules
 
