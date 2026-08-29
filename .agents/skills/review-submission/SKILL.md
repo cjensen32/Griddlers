@@ -55,7 +55,9 @@ A returned lesson names what is missing and which concept to revisit. It never c
 
 ### The follow-up step
 
-Close the review by offering one optional extra step, written into the lesson file as a checkbox under its own heading, tagged `(mastery)`, `(reinforce)`, or `(clarify)`.
+Close the review by offering one optional extra step, written into the lesson file as a checkbox tagged `(mastery)`, `(reinforce)`, or `(clarify)`.
+
+Put it where the thing it targets already lives - a `Done when` box when the build can settle it, a sub-bullet under the pop-quiz question it re-opens - never under a heading of its own. It matches the register of what surrounds it: one observable action, one line, about as long as the boxes above it. A step needing a paragraph to explain itself has not been reduced to its observation yet, and a checkbox phrased as a question is a quiz item wearing a checkbox.
 
 - `(mastery)` - the lesson passed and the quiz held up. One task combining two things the lesson covered, harder than either alone.
 - `(reinforce)` - it passed, but an answer was weak. Re-derive the weakest one from an observation the learner can make themselves.
@@ -66,6 +68,8 @@ Judge "weak" from the review rather than from the stated confidence percentage. 
 The learner accepts or declines. A declined step does not block green: `.agents/COURSE_MAINTENANCE.md` defines green as the named test passing and the commit landing, and nothing here overrides that.
 
 The rule as written fires on a first submission only. Lesson 2.1 resubmitted with revised answers and the `(reinforce)` branch fired on the second pass instead - see `.agents/archive/plans/chapter02-lesson01-2026-08-28-journal-definitions.md`. That edge is open and has not been decided. Say which pass you are treating as first rather than deciding it silently.
+
+A step is offered once. On the pass after it was offered, judge what it produced and retire the heading either way - reissuing an unfinished step keeps a green lesson open over work a later lesson already covers. Lesson 2.1 closed on its third pass with one of the two landed, the other carried into 2.2 and 2.4 where the same mechanism is load-bearing.
 
 ## Lane 2 - a chapter capstone
 
@@ -107,14 +111,17 @@ python3 .agents/tools/roll_up_hours.py --check lessons/ch02-the-workshop-rebuilt
 
 Drop `--check` to write the README's `Total` row and the syllabus course map in one step. Blank and em-dash cells count as zero, so a missing lesson's hours silently lower the total - the collector flags any green lesson with an empty Hours cell for exactly this reason.
 
-## After approval
+## After approval - the maintenance cycle
 
-The lesson is not closed when the review ends.
+The lesson is not closed when the review ends. Seven steps, in order. Narrate each one in chat for the first few cycles of a chapter; the learner is calibrating against the process itself, not only against the lesson.
 
-1. **The learner commits.** Not you, and never without their approval. `.agents/CONTEXT.md` owns the message grammar and the authorship split.
-2. **Ask roughly how many hours the lesson took, and record it in the chapter README's Hours column.** A guess is fine. An unrecorded lesson is not.
-3. **Refit the queued lesson to what was actually built.** This is the step that keeps the chapter coherent. The queued lesson was written before the learner's choices existed, so its file names, its assumptions, and its verification get corrected against the approved result before the learner ever opens it.
-4. **Write out the stub behind it,** so a written lesson is always waiting. Exactly two lessons are written at a time; the collector flags it when a third appears.
+1. **Process the learner's feedback first, and change nothing while doing it.** This step is consensus, not edits. Feedback arriving with a submission is the highest-value moment in the cycle - it is when the course can still be reshaped cheaply. Push back where the feedback would cost more than it earns, say so plainly, and put genuine forks to the learner as multiple choice rather than guessing. Nothing is written until the shape is agreed. Every policy edit the consensus produces lands at step 6, not here.
+2. **The learner commits their own work.** Not you, and never without their approval. `.agents/CONTEXT.md` owns the message grammar and the authorship split. Ask roughly how many hours the lesson took and record it in the chapter README's Hours column - a guess is fine, an unrecorded lesson is not.
+3. **Refit the queued lesson to what was actually built.** This is the step that keeps the chapter coherent. The queued lesson was written before the learner's choices existed, so its assumptions and its verification get corrected against the approved result before the learner ever opens it. Refit against what the submitted code actually contains rather than what its lesson asked for - the gap between those two is the whole reason this step exists.
+4. **Review the journal, and record what the lesson left open.** Mark rows still wrong with a `?n` footnote; add the next lesson's terms with definitions left blank; write every carried gap into the `Open gaps` table with where it settles. The chapter README's `Open` count is that table's row count for the lesson, so a number that does not match its rows is a bug in one of the two.
+5. **Write out the stub behind the refitted lesson,** but only after the learner confirms the refitted lesson is available and they have opened it. Exactly two lessons are written at a time; the collector flags it when a third appears.
+6. **Propagate upstream.** Hours roll into the README total and the syllabus course map together via `.agents/tools/roll_up_hours.py`. Policy agreed at step 1 lands here, in `.agents/`, in one place rather than scattered across the cycle.
+7. **Write `commit_msg.txt` and stop at every commit.** One message per commit, naming the exact files that commit carries, because the learner's working tree may hold unrelated work. The learner has final say on every message before it lands. Commits group by surface, with a lesson refit standalone so its diff can be read on its own. Once they have all landed, write the session artifact under `.agents/archive/session-artifacts/` as a log of the cycle: each step, and what changed at it.
 
 ## Verifying your own edits
 

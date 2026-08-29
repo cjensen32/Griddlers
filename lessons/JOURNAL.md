@@ -13,9 +13,9 @@ A row is added when a lesson first requires the term. Scope and definition are f
 | 2.1    | junit | JUnit Framework             | Open-Source architecture composed of: Platform, Jupiter, and Vintage           |
 | 2.1    | junit | JUnit Platform              | Structural foundation of starting the test framework on jvm                    |
 | 2.1    | junit | JUnit Jupiter               | Core of the JUnit Framework, contains annotations, models, and extensions      |
-| 2.1    | junit | aggregator artifact (junit) | artifact group import Ex.`import static org...Api.Assertions.*` !4             |
+| 2.1    | junit | aggregator artifact (junit) | artifact group import Ex.`import static org...Api.Assertions.*` !4 ?1          |
 | 2.1    | mvn   | Surefire                    | Standard plugin for executing tests during `mvn test` lifecycle phase          |
-| 2.1    | mvn   | Surefire default includes   | Surefire includes all files from any subdirectory that contain `Test.java` !2  |
+| 2.1    | mvn   | Surefire default includes   | Surefire includes all from a subdir that contain `Test.java` !2 ?2             |
 | 2.1    | mvn   | `target/`                   | Maven default output for build-generated artifacts/files                       |
 | 2.1    | mvn   | POM                         | Project Object Model; an XML config file; utilized by Maven                    |
 | 2.1    | mvn   | test vs main classpaths     | test classpath inherits from main; main classpath does not inherit from test   |
@@ -25,7 +25,7 @@ A row is added when a lesson first requires the term. Scope and definition are f
 | 2.1    | mvn   | plugin                      | Build tools that can usually be bound to the Lifecycle                         |
 | 2.1    | mvn   | `<plugins>`                 | Inside the `<build>` section; contains `<plugin>` blocks with coords + configs |
 | 2.1    | mvn   | `<pluginManagement>`        | Inside `<build>`; defines 'default' config for child `<plugin>` blocks         |
-| 2.1    | mvn   | dependency scope            | Controls transivity across different phases of the mvn lifecycle               |
+| 2.1    | mvn   | dependency scope            | Controls transivity across different phases of the mvn lifecycle ?3            |
 | 2.1    | mvn   | super-POM                   | The file that a pom.xml file inherits from. lives in mvn install location      |
 | 2.1    | mvn   | effective POM               | Result of merging the pom.xml with the super-POM file                          |
 | 2.1    | mvn   | goal                        | A single, specific, granular task; building blocks of phases                   |
@@ -49,11 +49,44 @@ A row is added when a lesson first requires the term. Scope and definition are f
 | 2.1    | java  | reproducible build          | Given the same source code, compilation produces the same output bit-for-bit   |
 | 2.1    | java  | utility class               | Class to hold a collection of static, reusable, methods/constants;             |
 | 2.1    | java  | `-Xlint`                    | `javac` flag to control warnings categories; `-Xlint` = all reccomended        |
+| 2.2    | mvn   | `<executions>`              |                                                                                |
+| 2.2    | mvn   | execution `<id>`            |                                                                                |
+| 2.2    | mvn   | default lifecycle binding   |                                                                                |
+| 2.2    | mvn   | `prepare-agent`             |                                                                                |
+| 2.2    | qa    | Checkstyle                  |                                                                                |
+| 2.2    | qa    | Spotless                    |                                                                                |
+| 2.2    | qa    | JaCoCo                      |                                                                                |
+| 2.2    | qa    | `google-java-format`        |                                                                                |
+| 2.2    | qa    | check goal vs apply goal    |                                                                                |
+| 2.2    | qa    | line vs branch coverage     |                                                                                |
+| 2.2    | java  | Java agent (`-javaagent`)   |                                                                                |
+| 2.2    | java  | bytecode instrumentation    |                                                                                |
+
+### Your notes
 
 !1 this is the recorded order of the essential default lifecycle phases [source](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
 !2 I know this isn't completely true, Surefire includes by default any files from any subdirectory that start or end with `Test` end with `TestCase` or end with `Tests`. 
 !3 This is not a very useful source, but used it to help correctly define packaging in the scope of Maven [source](https://www.baeldung.com/maven-packaging-types) 
 !4 I don't exactly understand the scope here. Since talking about the Aggregator Artifact could be talking about how you import a specific one in your `pom.xml`, it could also be talking about how to utilize them in test classes. Went with the latter as it makes more sense with lesson and the imports we used. 
+
+### Agent marks
+
+?1 the definition describes a static import. An aggregator artifact is a dependency that ships no code of its own - `junit-jupiter` exists to pull `junit-jupiter-api`, `-params`, and `-engine` in transitively. Your !4 already suspected this. Settle it against `mvn dependency:tree`.
+?2 the row still states the version your own !2 corrects. Fold the footnote into the row so the row is the reference.
+?3 `transivity` is right; `phases of the mvn lifecycle` is the wrong axis. Lesson 2.4 puts a hard boundary between two classpaths and will settle which one scope indexes on.
+
+## Open gaps
+
+What a lesson left for a later one, because no checkbox named it. Agent-maintained; the chapter README's `Open` column is this table's row count for that lesson.
+
+| Lesson | Kind  | Open item                                | Settles in |
+|--------|-------|------------------------------------------|------------|
+| 2.1    | build | explicit `<packaging>` never typed       | 2.2        |
+| 2.1    | build | two version-pinning idioms, not one      | 2.2        |
+| 2.1    | build | no `<execution>` block written           | 2.2        |
+| 2.1    | term  | `aggregator artifact (junit)`, see `?1`  | 2.2        |
+| 2.1    | term  | `Surefire default includes`, see `?2`    | 2.2        |
+| 2.1    | term  | `dependency scope`, see `?3`             | 2.4        |
 
 ## Capstone gap counts
 
