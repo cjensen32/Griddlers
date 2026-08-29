@@ -86,43 +86,15 @@ The browser has no JUnit, and the ladder has to be rebuilt rather than ported. P
 
 ## The capstone protocol
 
-The capstone is written after the chapter's lessons are finished, and it grades what exists rather than prescribing what should. It is a conversation, not a file — though it may produce files.
+The capstone is written after the chapter's lessons are finished, and it grades what exists rather than prescribing what should. It is a conversation, not a file — though it may produce files. The ask is *"Grade my work for Chapter N."*
 
-**The ask:** *"Grade my work for Chapter N."*
+Four gates run in order and stop at the first failure: a demo you can see, your own suite checked against the chapter's "Must be true" list, a code-free gap analysis, and a viva answered from memory with the editor closed.
 
-**Gate 1 — Demo.** Run it, paste the output. It does the thing the chapter set out to do, and you can see it.
-
-**Gate 2 — Your suite runs.** `mvn verify` green. Every "Must be true" entry for the chapter has at least one test that would fail if it stopped being true. You point at which test covers which entry. If you cannot, that entry is untested regardless of what the coverage report says.
-
-**Gate 3 — Gap analysis.** This is the gate that replaces Chapter 1's hidden grader, and the reason the whole structure changed.
-
-The agent reads your production code and your tests and reports, without writing any code:
-
-- **Uncovered behaviour** — cases your suite does not exercise, named specifically enough that you can go write them. It names the gap; you write the test. Both halves matter.
-- **Miscategorised tests** — things tested at tier 1 that need tier 2, or tier 3 tests doing work an in-process test would do faster.
-- **Tests to delete** — trivial, duplicated, outdated, or coverage-chasing.
-- **Brittleness** — tests coupled to implementation detail that will break on your next refactor.
-- **Shape observations on the production code**, offered as questions rather than corrections.
-
-Then you go write the missing tests, and some of them fail, and you fix the bugs they found.
+Gate 3 is the one that replaces Chapter 1's hidden grader, and it is the reason the whole structure changed. The agent names what your suite does not cover, specifically enough that you can go write the tests; you write them. Both halves are load-bearing, and some of those tests fail and find real bugs.
 
 **Record the gap count in `JOURNAL.md` every chapter.** It is a direct measurement of what your own test design missed, and it is the single best signal of whether this course is working. If Chapter 8's count matches Chapter 3's, stop and ask why.
 
-**Gate 4 — Viva.** Questions, answered from memory, editor closed. The agent drafts them from the chapter you actually built, not from a list written in advance.
-
-### The prompt to paste
-
-> Grade my work for Chapter N of my Nonogram course. Four gates, in order, stop at the first failure.
->
-> **Gate 1:** My terminal output — [paste]. Here's what the chapter set out to do — [paste goal].
->
-> **Gate 2:** My `mvn verify` output and my full test file list — [paste]. Here is the chapter's "Must be true" list — [paste]. For each entry, I claim this test covers it: [list]. Tell me where I'm wrong.
->
-> **Gate 3:** Read my production code and my tests and give me a gap analysis: behaviour I haven't covered, tests at the wrong tier, tests I should delete, and tests that are coupled to my implementation. Name the gaps specifically. **Do not write any test code.** Tell me how many gaps you found so I can record it.
->
-> **Gate 4:** Draft viva questions from what I actually built, ask them one at a time, and judge my answers.
->
-> **Rules for you:** Do not write, rewrite, or show me any implementation or test code at any point. If you need to show me what a concept looks like, use an example on unrelated code — never on mine. If I fail a gate, tell me *what* is wrong and *which concept* to revisit, not how to fix it. If I ask for the fix, refuse and restate the concept.
+The procedure — what each gate checks, what the agent may and may not say at each one, and the prompt you paste to start it — lives in `.agents/skills/review-submission/SKILL.md`.
 
 ---
 

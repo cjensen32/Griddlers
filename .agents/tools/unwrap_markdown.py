@@ -10,6 +10,8 @@ or when it is a deliberate stack of short bold-led lines:
     **Tier 1 — every file.** ...         ends a sentence, next line also bold-led
     **Tier 2 — every flow.** ...
 
+A leading YAML frontmatter block is data, not prose, and is copied through untouched.
+
 Every kept prose break is reported so it can be eyeballed; nothing else is silent.
 
     python3 .agents/tools/unwrap_markdown.py lessons/*.md            rewrite in place
@@ -32,6 +34,16 @@ QUOTE_BLANK = re.compile(r"^\s*>\s*$")
 BOLD_LED = re.compile(r"^\s*(>\s?)?\*\*")
 BOLD_LABEL = re.compile(r"^\s*(>\s?)?\*\*[^*]+:\*\*")
 SENTENCE_END = re.compile(r"[.!?]['\"”’)]?\s*$")
+
+
+def frontmatter(lines):
+    """How many leading lines are a YAML frontmatter block. Skill files open with one."""
+    if not lines or lines[0].strip() != "---":
+        return 0
+    for n in range(1, len(lines)):
+        if lines[n].strip() in ("---", "..."):
+            return n + 1
+    return 0
 
 
 def structural(line):
@@ -58,7 +70,8 @@ def keep_break(cur, nxt):
 def unwrap(lines):
     out, kept = [], []
     in_fence, fence_char = False, None
-    i, n = 0, len(lines)
+    i, n = frontmatter(lines), len(lines)
+    out.extend(lines[:i])
     while i < n:
         line = lines[i]
         m = FENCE.match(line)
