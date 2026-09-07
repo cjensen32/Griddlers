@@ -9,9 +9,11 @@ Lesson 2.1 left you a POM where nothing is bound to a phase by hand. That was ne
 ## Must be true when you're done
 
 - [x] `mvn validate` alone fails on a style violation, before anything is compiled
-- [x] `mvn spotless:check` fails on a misformatted file, and `mvn spotless:apply` fixes it
+- [ ] `mvn spotless:check` fails on a misformatted file, and `mvn spotless:apply` fixes it — a plugin with nothing to format reports `BUILD SUCCESS` on a file it never opened, so the proof is a run you watched go red and then green, not a version number in the POM
+- [ ] Spotless runs inside `mvn -B verify` and can fail it, in the mode that reports rather than the mode that rewrites — a declared plugin that no phase invokes is not a gate
 - [x] a coverage report on disk that names `Main` and the percentage its tests reached
 - [x] every plugin version is set in one place, so changing one means editing one line **[!?] – Aside from the maven compiler plugin, which isn't as ephemeral as the others **
+- [ ] the compiler's exception above is a decision you can state in one sentence, recorded in the journal, rather than an aside — it is Lesson 2.1's `two version-pinning idioms, not one`, and this box is where it settles
 - [x] `pom.xml` still does everything Lesson 2.1 made it do
 
 ## Done when
@@ -19,7 +21,9 @@ Lesson 2.1 left you a POM where nothing is bound to a phase by hand. That was ne
 - [x] `mvn -B verify` is green and prints no `[WARNING]` you cannot explain
 - [x] `mvn test` still reports `Tests run: 1` with failures, errors, and skips at 0
 - [?] `mvn help:effective-pom` read once, and the `<packaging>` value you never typed recorded in the journal
+- [ ] every `Must be true` box above was closed by a command you ran and read, not by a block you can see in the POM
 - [x] `git status` is clean and the commit has landed
+- [ ] the twelve `2.2` rows in the journal's `Definitions` table have definitions in them
 
 ## Reach for
 
@@ -29,9 +33,12 @@ Surefire ran in Lesson 2.1 without you binding it to anything. None of these thr
 
 Your POM already contains both `<properties>` and `<pluginManagement>`, doing this job for exactly one plugin. The compiler is pinned the other way.
 
+Spotless is the one of the three that will not tell you it is idle. Checkstyle names the file it read and JaCoCo writes a report you can open; Spotless with nothing configured prints one line about an index and exits zero. Decide what set of files it owns before you decide what it does to them, and check the journal row you already opened for `google-java-format`.
+
 A green build is not a correct POM — Lesson 2.1 ended with one that passed while carrying a scope Maven does not recognise. Read the warnings.
 
 ## Pop quiz
+
 
 1. Why does the whole build fail when Checkstyle finds a violation during `mvn test`, when Checkstyle never looks at a test result?
    - Because the phase it runs at is in `validate`, which comes before the `test` phase; thereby failing before a test is run (86%)
@@ -45,3 +52,4 @@ A green build is not a correct POM — Lesson 2.1 ended with one that passed whi
   - `validate` is an internal check to ensure that all other phases can run (maven internal check), while `verify` is a step done after all others to verify and produce reports about the process that was completed. (90%)
 6. Surefire ran in Lesson 2.1 without you binding it to a phase; Checkstyle will not. Name both places a goal-to-phase binding can come from.
   - A) defaults, some goals are bound to phases automatically by the source settings, B) dependencies that rely on a specific plugin doing a goal at a specific phase. (80%)
+  - [ ] (clarify) from `mvn help:effective-pom` alone, list every goal that will run during `mvn verify` in order, and say for each whether its phase came from the packaging's own lifecycle or from a line you typed — then name the plugin that is in the file but not in that list
