@@ -25,7 +25,7 @@ A lesson closes when its test is green, its pop quiz is answered from memory, an
 
 ## What already exists
 
-`config/checkstyle/checkstyle.xml`, `.editorconfig`, and `.githooks/prepare-commit-msg` were copied from Chapter 1 as frozen reference, not exercises. `.gitignore` exists and Lesson 2.3 extends it further. `pom.xml`, `src/main`, and `src/test` were created by Lesson 2.1; Lessons 2.2 and 2.4 build on them.
+`checkstyle.xml`, `.editorconfig`, and `.githooks/prepare-commit-msg` were copied from Chapter 1 as frozen reference, not exercises. `.gitignore` exists and Lesson 2.3 extends it further. `pom.xml`, `src/main`, and `src/test` were created by Lesson 2.1; Lessons 2.2 and 2.4 build on them.
 
 ## The real content
 

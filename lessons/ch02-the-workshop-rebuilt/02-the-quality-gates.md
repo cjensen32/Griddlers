@@ -23,7 +23,7 @@ Lesson 2.1 left you a POM where nothing is bound to a phase by hand. That was ne
 
 ## Reach for
 
-`config/checkstyle/checkstyle.xml` is already in the repository, copied from Chapter 1 — 31 modules you extend rather than rebuild. For JaCoCo, the `prepare-agent` goal has to run before the tests do; work out why from what the agent has to attach to.
+`checkstyle.xml` is already in the repository root, copied from Chapter 1 — 31 modules you extend rather than rebuild. For JaCoCo, the `prepare-agent` goal has to run before the tests do; work out why from what the agent has to attach to.
 
 Surefire ran in Lesson 2.1 without you binding it to anything. None of these three will, and `mvn help:effective-pom` shows you the difference.
 

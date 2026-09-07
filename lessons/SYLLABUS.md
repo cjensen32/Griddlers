@@ -88,7 +88,7 @@ Test tiers and what makes a test worth keeping are in [`TESTING_STANDARDS.md`](T
 Griddlers/
 ├─ pom.xml                          you write it in Lesson 2.1
 ├─ .githooks/prepare-commit-msg
-├─ config/checkstyle/checkstyle.xml
+├─ checkstyle.xml
 ├─ lessons/                         this course, student-facing
 │  ├─ SYLLABUS.md                   this document
 │  ├─ TESTING_STANDARDS.md          the three tiers, and what closes a lesson
