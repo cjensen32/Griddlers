@@ -73,7 +73,7 @@ A row is added when a lesson first requires the term. Scope and definition are f
 
 ?1 the definition describes a static import. An aggregator artifact is a dependency that ships no code of its own - `junit-jupiter` exists to pull `junit-jupiter-api`, `-params`, and `-engine` in transitively. Your !4 already suspected this. Settle it against `mvn dependency:tree`.
 ?2 the row still states the version your own !2 corrects. Fold the footnote into the row so the row is the reference.
-?3 `transivity` is right; `phases of the mvn lifecycle` is the wrong axis. Lesson 2.4 puts a hard boundary between two classpaths and will settle which one scope indexes on.
+?3 `transivity` is right; `phases of the mvn lifecycle` is the wrong axis. Lesson 2.3 puts a hard boundary between two classpaths and will settle which one scope indexes on.
 
 ## Open gaps
 
@@ -86,7 +86,10 @@ What a lesson left for a later one, because no checkbox named it. Agent-maintain
 | 2.1    | build | no `<execution>` block written           | 2.2        |
 | 2.1    | term  | `aggregator artifact (junit)`, see `?1`  | 2.2        |
 | 2.1    | term  | `Surefire default includes`, see `?2`    | 2.2        |
-| 2.1    | term  | `dependency scope`, see `?3`             | 2.4        |
+| 2.1    | term  | `dependency scope`, see `?3`             | 2.3        |
+| 2.2    | build | Checkstyle never reads `src/test/java`   | 2.3        |
+| 2.2    | build | JaCoCo's 0.8 line rule excludes `Main`   | 2.3        |
+| 2.2    | git   | `core.hooksPath` documented only in-hook | 2.6        |
 
 ## Capstone gap counts
 
