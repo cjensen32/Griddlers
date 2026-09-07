@@ -18,7 +18,7 @@ import subprocess
 import sys
 
 ROW = re.compile(r"^\s*\|(.+)\|\s*$")
-BOX = re.compile(r"^\s*-\s*\[( |x|X)\]\s*(.*)$")
+BOX = re.compile(r"^\s*-\s*\[( |x|X|\?|!)\]\s*(.*)$")
 NUMBERED = re.compile(r"^(\d+)\.\s+(.*)$")
 HEADING = re.compile(r"^(#{1,6})\s+(.*)$")
 LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
@@ -103,8 +103,8 @@ def lesson_rows(chapter):
 
 
 def boxes(lines):
-    """(checked, text) for every checkbox in these lines."""
-    return [(m.group(1).lower() == "x", m.group(2)) for m in (BOX.match(l) for l in lines) if m]
+    """(mark, text) for every checkbox in these lines. Mark is ' ', 'x', '?' or '!' as written."""
+    return [(m.group(1).lower(), m.group(2)) for m in (BOX.match(l) for l in lines) if m]
 
 
 def report_boxes(lines, title):
@@ -112,11 +112,15 @@ def report_boxes(lines, title):
     if not marks:
         print("  %-28s no checkboxes found" % (title + ":"))
         return
-    done = sum(1 for checked, _ in marks if checked)
-    print("  %-28s %d/%d checked" % (title + ":", done, len(marks)))
-    for checked, text in marks:
-        if not checked:
-            print("      unchecked: " + text)
+    done = sum(1 for mark, _ in marks if mark == "x")
+    flagged = sum(1 for mark, _ in marks if mark in ("?", "!"))
+    tail = ", %d flagged by the learner" % flagged if flagged else ""
+    print("  %-28s %d/%d checked%s" % (title + ":", done, len(marks), tail))
+    for mark, text in marks:
+        if mark == "x":
+            continue
+        label = {"?": "flagged ?", "!": "flagged !"}.get(mark, "unchecked")
+        print("      %s: %s" % (label, text))
 
 
 def quiz(lines):
@@ -231,12 +235,15 @@ print("Chapter:    " + os.path.relpath(chapter, REPO))
 
 head("Chapter state")
 written = [r for r in rows if r.get("State") in ("current", "queued")]
+ahead = [r for r in rows if r.get("State") == "ahead"]
 for r in rows:
     if r.get("#") in ("", None):
         continue
     print("  %-4s %-10s hours %-6s %s" % (r.get("#"), r.get("State", "?"), r.get("Hours") or "-", r.get("Lesson", "")))
 if len(written) > 2:
     print("  ! more than two lessons are written at once")
+for r in ahead:
+    print("  ~ lesson %s is written ahead of the queue, by learner request - refit it before it is opened" % r.get("#"))
 for r in rows:
     if r.get("State") == "green" and not (r.get("Hours") or "").strip():
         print("  ! lesson %s is green with no hours recorded" % r.get("#"))
@@ -249,10 +256,10 @@ if "--capstone" in flags:
         print("  %d. %s" % (n, g))
     print("\n  Gate 2 asks the learner to name the test covering each of the %d rows above." % len(guarantees))
     print("  Every lesson must be green before this file is written past its list.")
-    unfinished = [r.get("#") for r in rows if r.get("State") not in ("green", None, "") and r.get("#") != "★"]
+    unfinished = [r.get("#") for r in rows if r.get("State") not in ("green", "optional", None, "") and r.get("#") != "★"]
     if unfinished:
         print("  ! lessons not green: " + ", ".join(str(u) for u in unfinished))
-    blank_hours = [r.get("#") for r in rows if r.get("#") not in ("", None, "★") and not (r.get("Hours") or "").strip()]
+    blank_hours = [r.get("#") for r in rows if r.get("#") not in ("", None, "★") and r.get("State") != "optional" and not (r.get("Hours") or "").strip()]
     if blank_hours:
         print("  ! hours not recorded for: " + ", ".join(str(b) for b in blank_hours))
     head("Journal - capstone gap counts")

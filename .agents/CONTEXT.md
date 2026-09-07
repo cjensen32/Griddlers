@@ -71,6 +71,6 @@ A commit whose changes an agent wrote in full is authored as `Course Author <nor
 
 Before Chapter 2 creates the build, verify documentation work with `git diff --check`, relative-link and unresolved-variable audits, exact source comparisons for frozen files, an inventory proving that no prohibited learner file was created, and `.agents/tools/unwrap_markdown.py --check` over every Markdown file outside `.agents/archive/`.
 
-After the learner installs the build, `mvn verify` must run JUnit 5 tests, Checkstyle, Spotless, and JaCoCo. A deliberately failing test must fail the build. Lesson 2.4 adds the separate proof that a forbidden engine import fails while the same import is permitted in `tools`.
+After the learner installs the build, `mvn verify` must run JUnit 5 tests, Checkstyle, Spotless, and JaCoCo. A deliberately failing test must fail the build. Lesson 2.3 adds the separate proof that a forbidden engine import fails while the same import is permitted in `tools`.
 
 When `.codegraph/` exists, use CodeGraph before broad code searches. Do not create, regenerate, delete, or commit its index unless the learner asks.

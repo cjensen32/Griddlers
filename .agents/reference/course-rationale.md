@@ -141,10 +141,10 @@ Rows are added when a chapter opens and its lessons get written, not before.
 |----------------------------------------|------------------------------|-------------------------------------------|
 | 2.1 POM, coordinates, scopes, Surefire | L0 Build system              | review                                    |
 | 2.2 Checkstyle, Spotless, JaCoCo       | L8 Java quality standards    | review                                    |
-| 2.3 Git and commit grammar             | `CONTEXT.md` commit messages | review; hook copied, `.gitignore` rebuilt |
-| 2.4 Package boundary                   | L3, L6 dependency direction  | review; enforced by build, which is new   |
-| 2.5 Subprocess harness                 | L7 `MainProcessTest`         | pattern known; reusable harness is new    |
-| 2.6 Reading failures                   | L7, L8                       | review, catalogued                        |
+| 2.3 Package boundary                   | L3, L6 dependency direction  | review; enforced by build, which is new   |
+| 2.4 Subprocess harness                 | L7 `MainProcessTest`         | pattern known; reusable harness is new    |
+| 2.5 Reading failures                   | L7, L8                       | review, catalogued                        |
+| 2.6 Git and commit grammar *(opt.)*    | `CONTEXT.md` commit messages | review only; the machinery already runs   |
 
 # Appendix E — The three tiers, in code you already wrote
 
@@ -158,6 +158,6 @@ All paths are relative to `/Users/connor/repos/JAVA/job-application-tracker`, un
 | 2    | `cli/ConsoleSessionTest.java` | Real objects wired together, streams injected, one complete path asserted.                     |
 | 3    | `MainProcessTest.java`        | `ProcessBuilder`, stdin closed, a timeout of `5`s, explicit UTF-8, exit code and exact stdout. |
 
-Read the tier 3 one properly before Lesson 2.5. It is the thing you are about to generalise, and every non-obvious line in it is there because of a bug.
+Read the tier 3 one properly before Lesson 2.4. It is the thing you are about to generalise, and every non-obvious line in it is there because of a bug.
 
 For anything these three do not cover — parameterized tests, `@Nested` grouping, custom assertions — ask for an example on unrelated subject matter. Never on the class you are about to write.
