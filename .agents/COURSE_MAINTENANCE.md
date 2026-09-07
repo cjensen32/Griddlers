@@ -27,6 +27,13 @@ Exactly two lessons are written at a time — the current one and the one queued
 
 Keep lesson files short. A lesson states what to build and what to verify; the explanation belongs in the conversation, and the proof belongs in the test.
 
+Two states sit outside the three above, and both exist because the learner asked for them rather than because the model needed them.
+
+- **Optional:** a lesson the chapter does not depend on. It is written, it is skippable, and it does not block the capstone. Chapter 2's Git lesson became one on 2026-09-07: the learner was already fluent in the material and the machinery it described was already installed and working, so the assignment became a read-through of the conventions and moved to the end of the chapter. Give an optional lesson an em-dash in the Hours column, mark it `optional` in the chapter README, and say in the lesson's own first paragraph that it builds nothing and blocks nothing.
+- **Ahead:** a lesson written past the two-at-a-time limit at the learner's explicit request. It is a declared exception, not a mistake, and the collector notes it rather than warning about it. The risk the limit exists to prevent still applies in full: a lesson written before the one under it is green assumes choices that have not been made yet, so an `ahead` lesson is refitted against what was actually built before it is opened, exactly like a `queued` one. Do not write a second lesson `ahead`.
+
+Neither state exempts a lesson from the refit. An `optional` lesson still gets corrected when the code it describes changes, and an `ahead` lesson is refitted twice: once when the lesson under it goes green, and again if what was built diverged from what its own file assumed.
+
 A checkbox specifies what must exist, never how to build it. The learner solves a lesson the shortest way its boxes allow, which is the correct way to solve it - so anything a later lesson or the capstone depends on that no box names will not be there when that lesson opens. Write the box as the outcome and let the mechanism that satisfies it be what the learner has to find. "`mvn validate` fails the build on a style violation" is a specification; "add an `<execution>` binding Checkstyle to `validate`" is a step-by-step guide wearing a checkbox, and teaches nothing the learner did not already read. Be thorough in the requirements, never in the instructions.
 
 ## Moving a chapter forward
