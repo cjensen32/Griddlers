@@ -66,3 +66,115 @@ Box three says a declared plugin that no phase invokes is not a gate. There is a
 6. Surefire ran in Lesson 2.1 without you binding it to a phase; Checkstyle will not. Name both places a goal-to-phase binding can come from.
   - A) defaults, some goals are bound to phases automatically by the source settings, B) dependencies that rely on a specific plugin doing a goal at a specific phase. (80%)
   - [ ] (clarify) from `mvn help:effective-pom` alone, list every goal that will run during `mvn verify` in order, and say for each whether its phase came from the packaging's own lifecycle or from a line you typed — then name the plugin that is in the file but not in that list
+
+## Homework — what each tool detects, and what only one of them fixes
+
+`75` violations before `mvn spotless:apply` and `16` after is a headline, not a result. It does not say which modules the formatter satisfied, which ones it could never satisfy, whether any of the 16 are new, or whether the 59 that vanished were the ones you cared about. This section turns that one number into the two piles the lesson body asked for, and then into a POM decision you can defend.
+
+Everything below runs on `StyleViolations.java`. It lives under `src/main/java`, which is the only reason every tool in the build already reads it, and is also the reason it must not reach a commit — a deliberately broken file in `main` is a gate that fails for everyone forever. Decide before you start how you are keeping it out: a scratch copy outside the repository, an ignore entry, or a deletion at the end of every session. Pick one and hold to it.
+
+Two habits make the rest of this possible. Work from a fresh copy every time, because `spotless:apply` is destructive and you cannot re-run a comparison against a file you already rewrote. And redirect both audits to files — `mvn checkstyle:checkstyle > before.txt`, apply, `> after.txt` — because several tasks below are a `diff` and you cannot diff what scrolled past.
+
+### 1. Sort the modules — there are three piles, not two
+
+The lesson body asked for two piles: what a formatter can rewrite, and what names something no formatter will invent. Run the probe honestly and you will need a third, for anything Spotless left in a state Checkstyle likes *less* than what it started with.
+
+One row per module in `checkstyle.xml`. In `Pile`, write `F` if `spotless:apply` fixed it, `N` if nothing a formatter does could, and `W` if the violation exists only after formatting. In `Step`, name the specific Spotless step that did the work — `googleJavaFormat`, `removeUnusedImports`, `expandWildcardImports`, `importOrder` — or, for `N`, one clause on what the tool would have to understand to fix it.
+
+| Module | Pile | Step, or why none can | Line before → after |
+| --- | --- | --- | --- |
+| `LineLength` | | | |
+| `PackageName` | | | |
+| `TypeName` | | | |
+| `MethodName` | | | |
+| `MemberName` | | | |
+| `ParameterName` | | | |
+| `LocalVariableName` | | | |
+| `ConstantName` | | | |
+| `AvoidStarImport` | | | |
+| `RedundantImport` | | | |
+| `UnusedImports` | | | |
+| `CustomImportOrder` | | | |
+| `Indentation` | | | |
+| `NeedBraces` | | | |
+| `LeftCurly` | | | |
+| `RightCurly` | | | |
+| `EmptyBlock` | | | |
+| `WhitespaceAfter` | | | |
+| `WhitespaceAround` | | | |
+| `GenericWhitespace` | | | |
+| `MethodParamPad` | | | |
+| `NoWhitespaceAfter` | | | |
+| `NoWhitespaceBefore` | | | |
+| `OneStatementPerLine` | | | |
+| `MultipleVariableDeclarations` | | | |
+| `EmptyCatchBlock` | | | |
+| `FallThrough` | | | |
+| `EqualsHashCode` | | | |
+| `HideUtilityClassConstructor` | | | |
+
+Two rows will tempt you to write `F` and are not: one where Spotless changed the line and Checkstyle still rejects it, and one where Spotless changed the line and Checkstyle rejects it for a reason that was not there before. Both are worth more than the twenty rows that behaved.
+
+### 2. The count is not the score
+
+`diff before.txt after.txt` and answer in the journal:
+
+- Of the 16 that remain, how many appear in the list of 75? Do the subtraction and say what the missing ones have in common.
+- Which violations appear only in `after.txt`? Name the module, the line, and the exact rewrite that produced them.
+- One construct is responsible for all of them. Write out what it looked like before formatting and after, in two lines.
+
+Then the judgement call, which is the actual exercise: that same line is *already* illegal under a different module, and would be whether or not Spotless ever touched it. So decide whether what you found is a defect in the pairing of these two tools, or an artefact of a probe file that is broken in more ways than real code ever is. The answer decides whether you change the POM, change `checkstyle.xml`, or change neither and write down why. `google_checks.xml` has an opinion about this exact construct in its `WhitespaceAround` message text — read it before you decide.
+
+### 3. The module that will not agree
+
+The lesson body said one module in pile 1 will not agree with google-java-format, and that imports are where to look. `StyleViolations.java` is too easy a case to show it: it imports nothing but `java.*`, so both tools happen to agree by accident. Build a probe that removes the accident.
+
+Write one file that imports, in some order, a static member, something from `java.*`, something from `javax.*`, a third-party class, and a class from this repository's own package. Group and sort it by hand until `mvn validate` passes. Run `mvn spotless:apply`. Run `mvn validate` again.
+
+- Record every message that comes back, verbatim. There is more than one, and they are not all the same complaint.
+- Count the groups Spotless emitted, separated by blank lines. Count the groups `customImportOrderRules` in `checkstyle.xml` demands. Write both numbers down before you read further.
+- `<importOrder/>` with nothing inside it is not "no opinion" — it is a specific default. Find it in the plugin README and write out the order string it stands for.
+- Now `unzip -p` `google_checks.xml` out of the Checkstyle JAR in `~/.m2` and read its `CustomImportOrder` block. Its rule string is shorter than yours. Say why it is shorter, and what that tells you about which of your two tools was designed to agree with the other.
+- Resolve it in one direction, deliberately, per the lesson body: either give `<importOrder>` an explicit order that reproduces what `CustomImportOrder` wants, or move `CustomImportOrder` to the rule Google ships for this formatter. Record the choice and one sentence of why in the journal. Both are defensible; an unrecorded choice is not.
+
+While you are there, finish the `specialImportsRegExp` reading the lesson body sent you to do. Predict first, then measure: if you correct that regexp and change nothing else, does the number of import failures on your probe go up or down? Say why before you run it.
+
+### 4. What Spotless is still leaving on the table
+
+`mvn help:describe -Dplugin=com.diffplug.spotless:spotless-maven-plugin -Ddetail` and the plugin README both list more than you configured.
+
+- The `googleJavaFormat` step takes three sub-options you have not set. Name all three and say what each one is for.
+- One of them retires a violation of a pile-1 module that currently survives formatting. Find it by construction: write a file with one string literal longer than 100 characters and one arithmetic expression longer than 100 characters, and run the gate with the option and without it. Which of the two does the formatter already wrap unasked? Which needs the option? Then answer the interesting part — why the formatter is willing to break one of them by default and not the other.
+- Two steps in the `<java>` block do the same job from opposite directions: one rewrites the problem away, one refuses to build. Your POM already carries a comment about swapping them. Say what changes about the *gate* when you do, not just about the file — who finds out, and when.
+- One value in the Spotless block is a pinned version that is not a plugin version and is not in `<properties>`. `Must be true` box 6 says versions live in one place. Decide whether that box covers this one, and record the decision either way.
+
+### 5. Which gate fires first
+
+`Reach for` warns that a plugin bound to a phase where something else fails first is not a gate. Measure it rather than reasoning about it. Three runs of `mvn compile`, each on a different file, recording the order of the `--- plugin:goal (execution-id) ---` lines:
+
+| Run | File under test | Goals that ran, in order | Did `spotless:check` run? |
+| --- | --- | --- | --- |
+| a | misformatted, zero Checkstyle violations | | |
+| b | misformatted **and** has a Checkstyle violation | | |
+| c | does not compile | | |
+
+Then: what phase does your Spotless execution name, what else is already bound to that phase, and which of the two does Maven run first? Note that the answer to that last one is not in `checkstyle.xml` or in any phase name — it comes from somewhere else in the POM, and `mvn help:effective-pom` shows you where. Say what you would have to change, and in what order, for `spotless:check` to be the first thing a developer hears about. Then say whether it should be, given that only one of these three tools can fix what it finds.
+
+### 6. The files each tool declines to read
+
+Look back at the `git diff` from the very first `spotless:apply` you ran. It reformatted a file that no `mvn checkstyle:checkstyle` run has ever mentioned.
+
+- Name the file, and say how you can tell from the diff alone that Checkstyle never read it.
+- Find the Checkstyle parameter that decides this, and its default, with `mvn help:describe -Dplugin=org.apache.maven.plugins:maven-checkstyle-plugin -Dgoal=check -Ddetail`.
+- Find the Spotless equivalent — the default `<includes>` of the `<java>` format — in the README.
+- The two defaults disagree. Decide whether they should, and record it. A test that Spotless formats and Checkstyle never inspects is a file with one gate on it instead of two, and Chapter 2 has already asked you to hold tests to a standard.
+
+## Homework — must be true when you're done
+
+- [ ] the module table has a pile letter in every row and no blank cells
+- [ ] you can name, without looking it up, the one construct where Spotless left Checkstyle angrier than it found it, and say whether you decided to act on it
+- [ ] the import disagreement is resolved in exactly one direction, on purpose, and the journal names which tool moved and why it was that one — this is `Must be true` box 4, and this task is what closes it
+- [ ] `mvn spotless:apply` followed by `mvn validate` comes back green on a file that imports from every group your `customImportOrderRules` names, not just on a file that imports from one
+- [ ] the phase table has all three runs in it, and you can state the ordering rule that decides run `a` from memory
+- [ ] `StyleViolations.java` is out of the working tree and appears in no commit
+- [ ] what remains is a written list, and every line on it names something a formatter could not invent — a name, a missing method, a branch that falls through
