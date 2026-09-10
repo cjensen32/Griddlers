@@ -14,6 +14,7 @@ anything but file names and class names.
 """
 import os
 import re
+import shlex
 import subprocess
 import sys
 
@@ -367,7 +368,7 @@ head("Documentation checks")
 touched = ["lessons/JOURNAL.md", os.path.relpath(os.path.join(chapter, "README.md"), REPO)]
 if "--capstone" not in flags:
     touched.insert(0, os.path.relpath(row["file"], REPO))
-print(run("python3 .agents/tools/unwrap_markdown.py --check " + " ".join(touched)).rstrip())
-print(run("python3 .agents/tools/check_midsentence.py " + " ".join(touched)).rstrip())
+print(run(shlex.quote(sys.executable) + " .agents/tools/unwrap_markdown.py --check " + " ".join(touched)).rstrip())
+print(run(shlex.quote(sys.executable) + " .agents/tools/check_midsentence.py " + " ".join(touched)).rstrip())
 print("\n  --check only. Never rewrite JOURNAL.md with the unwrapper; its !1-style footnotes are prose lines it will join.")
 print("\nProcedure: .agents/skills/review-submission/SKILL.md")
