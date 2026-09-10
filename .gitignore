@@ -1,10 +1,17 @@
 # MISC
+*.txt
 .DS_Store
-commit_msg.txt
 *.env*
-.agents/archive/session-artifacts
+target
 
 # Muting intellij content for now
 .idea
 /griddlers.iml
-target
+
+# Muting all test/scratch files for lessons
+/src/main/java/com/connorjensen/griddlers/StyleViolations.java
+/src/main/java/com/connorjensen/griddlers/testpackage/TestEnum.java
+/src/main/java/com/connorjensen/griddlers/ImportOrderTest.java
+
+# Agent specific files
+.agents/archive/session-artifacts
