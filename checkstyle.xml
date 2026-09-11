@@ -13,10 +13,18 @@
   </module>
 
   <module name="TreeWalker">
+    <!-- Implement Import Controls via file config -->
     <module name="ImportControl">
       <property name="file" value="import-control.xml"/>
     </module>
 
+    <!-- Disable FQCN instantiation, only imports at top allowed -->
+    <module name="MatchXpath">
+      <property name="query" value="//LITERAL_NEW/DOT"/>
+      <message key="matchxpath.match"
+               value="FQCN instantiations are forbidden."/>
+    </module>
+    <!-- ETC rules for TreeWalker -->
     <module name="PackageName"/>
     <module name="TypeName"/>
     <module name="MethodName"/>

@@ -7,8 +7,8 @@
   <disallow pkg="java\.io" regex="true"/>
   <disallow pkg="java\.nio" regex="true"/>
   <disallow pkg="java\.net" regex="true"/>
-  <disallow pkg="com\.connorjensen\.griddlers\.tools" regex="true"/>
   <disallow pkg="org\.junit\.jupiter" regex="true"/>
+  <disallow pkg="com\.connorjensen\.griddlers\.tools" regex="true"/>
   <allow pkg="com\.connorjensen\.griddlers\.model" regex="true"/>
   <allow pkg="java\.util" regex="true"/>
 
@@ -17,14 +17,14 @@
     <allow pkg="org\.junit\.jupiter" regex="true"/>
   </file>
 
-  <!-- subpackages -->
+  <!-- Model should be able to inherit from engine, and itself, no others. -->
   <subpackage name="model">
+    <disallow pkg="java\.io" regex="true"/>
     <disallow pkg="com\.connorjensen\.griddlers" regex="true"/>
     <disallow pkg="com\.connorjensen\.griddlers\.model" regex="true"/>
-    <disallow pkg="java\.io" regex="true"/>
-    <allow pkg=".*" regex="true"/>
   </subpackage>
 
+  <!-- ./tools should be able to use most/all resources, keeping unblocked right now  -->
   <subpackage name="tools">
     <allow pkg=".*" regex="true"/>
   </subpackage>
