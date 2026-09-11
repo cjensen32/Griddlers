@@ -1,6 +1,15 @@
 package com.connorjensen.griddlers.tools;
 
-public class TerminalGriddler {
+import java.nio.file.Path;
 
-  public TerminalGriddler() {}
+import com.connorjensen.griddlers.GriddlerEngine;
+
+public class TerminalGriddler {
+  private Path outputFile;
+  private GriddlerEngine griddlerEngine;
+
+  public TerminalGriddler() {
+    this.outputFile = Path.of(System.getProperty("user.home"), "Downloads");
+    this.griddlerEngine = new GriddlerEngine();
+  }
 }

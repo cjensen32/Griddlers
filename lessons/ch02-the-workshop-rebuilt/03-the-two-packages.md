@@ -12,10 +12,10 @@ Lesson 2.2 handed over three things it could not settle, and adding classes to t
 
 ## Must be true when you're done
 
-- [x] two packages exist under `src/main/java`: the engine at `com.connorjensen.griddlers`, and `com.connorjensen.griddlers.tools` beneath it, each holding at least one class you wrote for this lesson
-- [x] the `tools` class calls into an engine class, so the dependency direction is a fact about compiled code rather than a claim in a document
-- [x] no engine class reads a file, opens a socket, or touches `System.in`, `System.out`, or `System.err` — and no engine class behaves differently depending on which machine it is running on
-- [x] an import of a `tools` type written inside an engine class fails `mvn validate`, and the output names the import it rejected
+- [ ] two packages exist under `src/main/java`: the engine at `com.connorjensen.griddlers`, and `com.connorjensen.griddlers.tools` beneath it, each holding at least one class you wrote for this lesson
+- [ ] the `tools` class calls into an engine class, so the dependency direction is a fact about compiled code rather than a claim in a document
+- [ ] no engine class reads a file, opens a socket, or touches `System.in`, `System.out`, or `System.err` — and no engine class behaves differently depending on which machine it is running on
+- [ ] an import of a `tools` type written inside an engine class fails `mvn validate`, and the output names the import it rejected
 - [ ] that same import, written inside a `tools` class, passes
 - [ ] the rule rejects the wrong direction and nothing else — a rule that refuses every import in the tree closes the box above by accident, and one that names a single package closes it only for the imports you thought of: it has to hold for packages you have not written yet, and for every API that reaches a file rather than the one package named after it
 - [ ] whether the rule governs `src/test/java` is a line in `pom.xml` you wrote on purpose rather than a default you inherited, and you have read what the audit says about a test in the engine package that imports `java.io`
@@ -79,18 +79,18 @@ Predict every row before you run any of it. A prediction written after the obser
 
 | #  | The import                                                                       | Written in                  | Predicted | Observed | Which rule decided |
 |----|----------------------------------------------------------------------------------|-----------------------------|-----------|----------|--------------------|
-| 1  | `com.connorjensen.griddlers.tools.TerminalGriddler`                              | engine, `GriddlersEngine`   |           |          |                    |
-| 2  | `com.connorjensen.griddlers.GriddlersEngine`                                     | `tools`, `TerminalGriddler` |           |          |                    |
-| 3  | `java.io.File`                                                                   | engine, `GriddlersEngine`   |           |          |                    |
-| 4  | `java.nio.file.Files`                                                            | engine, `GriddlersEngine`   |           |          |                    |
-| 5  | `java.net.Socket`                                                                | engine, `GriddlersEngine`   |           |          |                    |
-| 6  | `java.util.List`                                                                 | engine, `GriddlersEngine`   |           |          |                    |
-| 7  | `com.connorjensen.griddlers.model.Griddler`                                      | engine, `GriddlersEngine`   |           |          |                    |
-| 8  | `com.connorjensen.griddlers.tools.TerminalGriddler`                              | `model`, `Griddler`         |           |          |                    |
-| 9  | `java.io.File`                                                                   | `model`, `Griddler`         |           |          |                    |
-| 10 | `org.junit.jupiter.api.Test`                                                     | engine, `GriddlersEngine`   |           |          |                    |
-| 11 | `java.io.InputStream`                                                            | test tree, engine package   |           |          |                    |
-| 12 | none — `new com.connorjensen.griddlers.tools.TerminalGriddler()` written in full | engine, `GriddlersEngine`   |           |          |                    |
+| 1  | `com.connorjensen.griddlers.tools.TerminalGriddler`                              | engine, `GriddlerEngine`    | ERROR     |          |                    |
+| 2  | `com.connorjensen.griddlers.GriddlerEngine`                                      | `tools`, `TerminalGriddler` | PASSED    |          |                    |
+| 3  | `java.io.File`                                                                   | engine, `GriddlerEngine`    | ERROR     |          |                    |
+| 4  | `java.nio.file.Files`                                                            | engine, `GriddlerEngine`    | ERROR     |          |                    |
+| 5  | `java.net.Socket`                                                                | engine, `GriddlerEngine`    | ERROR     |          |                    |
+| 6  | `java.util.List`                                                                 | engine, `GriddlerEngine`    | PASSED    |          |                    |
+| 7  | `com.connorjensen.griddlers.model.Griddler`                                      | engine, `GriddlerEngine`    | PASSED    |          |                    |
+| 8  | `com.connorjensen.griddlers.tools.TerminalGriddler`                              | `model`, `Griddler`         | ERROR     |          |                    |
+| 9  | `java.io.File`                                                                   | `model`, `Griddler`         | ERROR     |          |                    |
+| 10 | `org.junit.jupiter.api.Test`                                                     | engine, `GriddlerEngine`    | ERROR     |          |                    |
+| 11 | `java.io.InputStream`                                                            | test tree, engine package   | ERROR     |          |                    |
+| 12 | none — `new com.connorjensen.griddlers.tools.TerminalGriddler()` written in full | engine, `GriddlerEngine`    | ERROR     |          |                    |
 
 Rows 4 and 5 are the same constraint as row 3 in a different package. Rows 8 and 9 are the same two constraints again, in a package that is neither the engine root nor `tools`. Row 11's answer is decided by a box you closed in the `Must be true` list, and it is the row 2.4 depends on. Row 12 has no import line in it anywhere.
 

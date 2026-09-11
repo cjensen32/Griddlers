@@ -3,15 +3,29 @@
     "-//Checkstyle//DTD ImportControl Configuration 1.4//EN"
     "https://checkstyle.org/dtds/import_control_1_4.dtd">
 <import-control pkg="com.connorjensen.griddlers">
+  <!-- Global rules -->
   <disallow pkg="java\.io" regex="true"/>
+  <disallow pkg="java\.nio" regex="true"/>
+  <disallow pkg="java\.net" regex="true"/>
   <disallow pkg="com\.connorjensen\.griddlers\.tools" regex="true"/>
-  <allow pkg=".*" regex="true"/>
+  <disallow pkg="org\.junit\.jupiter" regex="true"/>
+  <allow pkg="com\.connorjensen\.griddlers\.model" regex="true"/>
+  <allow pkg="java\.util" regex="true"/>
 
-  <subpackage name="tools">
+  <!-- Test files, allow them to use junit -->
+  <file name=".*Test" regex="true">
+    <allow pkg="org\.junit\.jupiter" regex="true"/>
+  </file>
+
+  <!-- subpackages -->
+  <subpackage name="model">
+    <disallow pkg="com\.connorjensen\.griddlers" regex="true"/>
+    <disallow pkg="com\.connorjensen\.griddlers\.model" regex="true"/>
+    <disallow pkg="java\.io" regex="true"/>
     <allow pkg=".*" regex="true"/>
   </subpackage>
 
-  <subpackage name="model">
+  <subpackage name="tools">
     <allow pkg=".*" regex="true"/>
   </subpackage>
 </import-control>
