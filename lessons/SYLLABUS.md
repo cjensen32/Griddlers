@@ -14,7 +14,7 @@ Weight is the share of total course time each chapter is expected to take, estim
 
 | Ch | Chapter               | Hours | Weight   | Lessons | Done |
 |----|-----------------------|-------|----------|---------|------|
-| 2  | The Workshop, Rebuilt | 4.8   | 5%       | 6       | ☐   |
+| 2  | The Workshop, Rebuilt | 9.3   | 5%       | 6       | ☐   |
 | 3  | Seeing the Board      | —     | 7%       | —       | ☐   |
 | 4  | Clues                 | —     | 7%       | —       | ☐   |
 | 5  | Brute-force solver    | —     | 7%       | —       | ☐   |

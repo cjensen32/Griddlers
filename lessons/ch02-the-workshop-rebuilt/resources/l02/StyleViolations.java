@@ -3,7 +3,6 @@ package Com.connorjensen.griddlers.BadPackage;
 
 import java.util.Set;
 import java.util.List;
-import java.util.List;
 import java.lang.String;
 import java.util.*;
 import static java.lang.Math.abs;
