@@ -11,13 +11,13 @@ Two are written at a time. When the current lesson goes green, the queued one is
 | #   | Lesson                                                   | Hours    | State    | Done | Open |
 |-----|----------------------------------------------------------|----------|----------|------|------|
 | 2.1 | [The POM, from memory](01-the-pom.md)                    | 4.80     | green    | ☑   | 6    |
-| 2.2 | [Quality gates, from memory](02-the-quality-gates.md)    |          | current  | ☐   | 3    |
-| 2.3 | [The two packages](03-the-two-packages.md)               |          | queued   | ☐   | —    |
-| 2.4 | [The end-to-end harness](04-the-end-to-end-harness.md)   |          | ahead    | ☐   | —    |
+| 2.2 | [Quality gates, from memory](02-the-quality-gates.md)    | 4.50     | green    | ☑   | 4    |
+| 2.3 | [The two packages](03-the-two-packages.md)               |          | current  | ☐   | —    |
+| 2.4 | [The end-to-end harness](04-the-end-to-end-harness.md)   |          | queued   | ☐   | —    |
 | 2.5 | [The failure catalogue](05-the-failure-catalogue.md)     |          | stub     | ☐   | —    |
 | 2.6 | [Git + commit grammar](06-git-and-the-commit-grammar.md) | —        | optional | ☐   | —    |
 | ★  | [Must be true](CAPSTONE.md)                              |          | stub     | ☐   | —    |
-|     | **Total**                                                | **4.8**  |          |      |      |
+|     | **Total**                                                | **9.3**  |          |      |      |
 
 A lesson closes when its test is green, its pop quiz is answered from memory, and the commit has landed.
 
@@ -28,6 +28,12 @@ A lesson closes when its test is green, its pop quiz is answered from memory, an
 The chapter was reordered at your request. Git and the commit grammar was 2.3; it is now 2.6 and it is optional, because the machinery it describes is already installed and working, and you would rather spend the chapter writing Java. Everything after it moved up one. No content was dropped — the old 2.3 became a read-through of the conventions instead of an assignment to build them.
 
 2.4 is written ahead of the two-at-a-time rule, also at your request. That is a deliberate exception and the collector flags it by design; it is not a bug to fix. The risk the rule exists to prevent is real here — 2.4 was written before 2.3's classes exist, so its file names and its assumptions get refitted against what you actually build before you open it.
+
+## What changed on 2026-09-10
+
+2.2 went green, so 2.3 is current and 2.4 is the queued lesson behind it. The `ahead` exception 2.4 was written under has therefore dissolved on its own — two lessons are written, which is the limit, and no further lesson gets drafted until 2.3 closes. Both were refitted against the POM, the `checkstyle.xml`, and the two classes that now actually exist, and both grew the homework shape 2.2 ended up with: a probe, a matrix predicted before it is run, and a judgement call with two legitimate answers.
+
+2.2 closed at roughly 4.50 hours. `Open` counts what it left for a later lesson because no checkbox named it; three of its four route to 2.3.
 
 ## What already exists
 

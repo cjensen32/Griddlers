@@ -11,7 +11,7 @@ Lesson 2.1 left you a POM where nothing is bound to a phase by hand. That was ne
 - [x] `mvn validate` alone fails on a style violation before anything is compiled
 - [x] `mvn spotless:check` fails on a misformatted file, and `mvn spotless:apply` fixes it — a plugin with nothing to format reports `BUILD SUCCESS` on a file it never opened, so the proof is a run you watched go red and then green, not a version number in the POM
 - [x] Spotless runs inside `mvn -B verify` and can fail it, in the mode that reports rather than the mode that rewrites — a declared plugin that no phase invokes is not a gate
-- [x] `mvn spotless:apply` followed by `mvn validate` comes back green — the formatter and the linter agree about imports, and you can say in one sentence which of the two you moved and why it was that one **[!] - Spotless does resolve all import issues as defined by `checkstyle.xml`. it doesn't however come back completely "green" when trying to run `mvn checkstyle:check` on [StyleViolations.java](resources/StyleViolations.java)**
+- [x] `mvn spotless:apply` followed by `mvn validate` comes back green — the formatter and the linter agree about imports, and you can say in one sentence which of the two you moved and why it was that one **[!] - Spotless does resolve all import issues as defined by `checkstyle.xml`. it doesn't however come back completely "green" when trying to run `mvn checkstyle:check` on [StyleViolations.java](resources/l02/StyleViolations.java)**
 - [x] a coverage report on disk that names `Main` and the percentage its tests reached
 - [x] every plugin version is set in one place, so changing one means editing one line
 - [x] the compiler's exception above is a decision you can state in one sentence, recorded in the journal, rather than an aside — it is Lesson 2.1's `two version-pinning idioms, not one`, and this box is where it settles **[!!] - Decided to define the maven compiler version in the properties block as `3.13.0` for a commonly used version (`3.16.0` is the newest, but most downloaded is `3.13.0` for current-ish versions)**
@@ -78,7 +78,7 @@ Box three says a declared plugin that no phase invokes is not a gate. There is a
 
 ## Homework — what each tool detects, and what only one of them fixes
 
-- Copy [`StyleViolations.java`](../../lessons/ch02-the-workshop-rebuilt/resources/StyleViolations.java) to `src/main/.../griddlers/` (alongside `Main.java`) after every iteration
+- Copy [`StyleViolations.java`](resources/l02/StyleViolations.java) to `src/main/.../griddlers/` (alongside `Main.java`) after every iteration
 - Ensure clean copies of `before.txt` and `after.txt` exist before each iteration (in repo root dir)
 - each iteration is `mvn checkstyle:check > before.txt`, then `mvn spotless:apply` -> `mvn checkstyle:check > after.txt`
 
