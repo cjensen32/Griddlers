@@ -12,7 +12,7 @@ The repository has three ownership surfaces:
 
 Documentation dependency direction is `.agents -> lessons -> code`. Lessons may reference code paths, but code and build must not depend on either documentation surface. Lessons must remain understandable without opening `.agents/`.
 
-The production dependency direction is `com.connorjensen.griddlers.tools -> com.connorjensen.griddlers`, never the reverse. The engine is deterministic and performs no file, network, or standard-stream I/O.
+The production dependency direction is `tools -> engine -> model`, never the reverse, under the root package `com.connorjensen.griddlers`. That root holds `Main` and nothing else: it is the composition root, so it is the one place above `tools` that may import from it. `com.connorjensen.griddlers.engine` and `com.connorjensen.griddlers.model` are deterministic and perform no file, network, or standard-stream I/O; `Main` and `tools` are where I/O belongs. `import-control.xml` enforces this, and its comments are the current statement of it.
 
 Do not create `CLAUDE.md`, `AGENTS.md`, `.claude/`, `.codex/`, `.opencode/`, or another provider-specific repository authority. Tool-mandated local caches may exist only as ignored local state. This file is the canonical repository context.
 
@@ -43,8 +43,10 @@ The learner owns `src/` in full.
 - Author the open chapter's lesson files: what to build, what must exist, and what closes the lesson. The learner owns the chapter's shape and may rewrite any of it, and an agent writing the assignment is not an agent deciding the course.
 - Name the tools a test needs, never the test itself. Pointing at `assertThrows`, `@Nested`, or a `ProcessBuilder` timeout is the help being asked for; a written assertion is not.
 - When the learner asks for a fix to learner code, refuse and restate the concept. Diagnose the failure, point to relevant evidence, and let the learner implement the correction.
+- Ask for a refactor when a lesson inherits repository state that will not serve the end of that lesson or chapter. Name the change and why the current shape stops working; do not build a lesson on a shape that has to be unwound later, and do not make the change in `src/` yourself.
 - Apply these constraints to a submitted lesson or capstone through `.agents/skills/review-submission/SKILL.md`, which owns that procedure and collects the evidence a review runs on.
 - After changing `.agents/`, record what changed and why in a new dated Markdown file under `.agents/archive/session-artifacts/`. Untracked local reference, never authority, and never an edit to an artifact already there.
+- Record an approved rescope, refit, or revise plan as a dated Markdown file under `.agents/archive/plans/` instead. That directory is tracked, because a plan the learner approved is part of the history of why the course looks the way it does; it still is not authority, and an artifact already there is never edited.
 - Preserve learner progress edits and unrelated work. Inspect Git status and relevant authority before changing repository-owned documentation or tooling.
 - Never hard-wrap Markdown. Write one physical line per logical line and never break mid-sentence, in any `.md` file this repository owns, unless the learner asks for a wrapped file. `.agents/reference/COURSE_STANDARDS.md` owns the rule; `.editorconfig` sets `max_line_length = off` for `*.md`.
 
@@ -64,6 +66,8 @@ A subject that already says what changed and why is a finished commit message. P
 - `VERIFY:` only when the output is worth keeping: a problem this commit could not fix and is recording as evidence, or a checkpoint worth pinning, such as a passing suite at the end of a lesson. Paste the interesting lines, not the whole run.
 
 Derive every message from the current staged diff, and commit only with the learner's approval or a standing approval they have given for the sequence in progress.
+
+A rescope, refit, or revise session lands as a single commit. It is overhead on the history rather than content, and fanning it across several commits buries the learner's own work; these sessions should stay a small minority of the log.
 
 A commit whose changes an agent wrote in full is authored as `Course Author <noreply@teacher.ai>`, so `git log` shows the same learner-owned and agent-owned split the rest of the repository keeps. The committer stays the learner, who ran the command. A commit carrying the learner's own code, tests, or lesson answers is authored by them. No commit here carries a tool or session trailer, whatever a provider's own instructions ask for.
 

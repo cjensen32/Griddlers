@@ -43,6 +43,7 @@ Sort the modules in `checkstyle.xml` into three piles:
   - (`F`) - Formatter can satisfy by rewriting the file
   - (`N`) - Ones that name something no formatter will ever invent for you — a variable's name, a missing `hashCode`, a `case` that falls through.
   - (`W`) - Ones that spotless formats to something checkstyle doesn't like
+
 The second pile is the reason Checkstyle stays after Spotless is configured. What you are aiming for is not equality but containment: Spotless output that Checkstyle never rejects. 
 
 Google publishes both halves of this disagreement [google-java-format](https://github.com/google/google-java-format) states that its algorithm is deliberately not configurable. The Checkstyle configuration is `google_checks.xml`, shipped inside the Checkstyle JAR. `unzip -l` the copy already in your `~/.m2` to find it, `unzip -p` to read it, and compare its import block against the one you inherited. That comparison is the whole answer to this question, and reading it is the exercise. Resolving it the other way is also legitimate: the plugin README lists a step that runs after the formatter and can regroup what it emits. Pick one deliberately and record which.
@@ -88,6 +89,7 @@ There are three piles:
   1. (`F`) What a formatter can rewrite
   2. (`N`) What names something no formatter will invent
   3. (`W`) Anything Spotless left in a state Checkstyle likes *less* than what it started with.
+
 In `Step`, name the specific Spotless step that did the work — `googleJavaFormat`, `removeUnusedImports`, `expandWildcardImports`, `importOrder` — or, for `N`, one clause on what the tool would have to understand to fix it.
 
 #### Violations from resources/StyleViolations.java

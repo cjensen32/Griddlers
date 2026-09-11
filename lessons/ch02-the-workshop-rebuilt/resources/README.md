@@ -1,10 +1,14 @@
 # Chapter 2 fixtures
 
-Files here exist to be copied into `src/`, run against the build, read, and deleted. None of them is production code, none is a model for code you are about to write, and none should ever appear in a commit alongside `src/`.
+Fixtures here exist to be copied into `src/`, run against the build, read, and deleted. None of them is production code, none is a model for code you are about to write, and none should ever appear in a commit alongside `src/`.
 
-**The standing rule:** a fixture in the working tree makes `git status` dirty on purpose. Every lesson that uses one carries a `Homework — must be true` box saying the probe is out of the tree and in no commit. That box is the cleanup.
+Not everything under `resources/` is a fixture. `l03/` also holds dated reference notes, which are tracked, are copied nowhere, and follow none of the rules below. The rest of this file is about fixtures; the notes have their own section.
 
-**A probe is for one goal, not for the build.** Several of these import types they never use, or types that are not on the compile classpath at all, because the thing being observed is what Checkstyle says about an import rather than whether it links. Run `mvn -B checkstyle:check` with a probe in the tree; do not run `mvn verify`.
+**The standing rule:** a fixture in the working tree makes `git status` dirty on purpose. Every lesson that uses one carries a `Must be true` box saying the fixture is out of the tree and in no commit. That box is the cleanup.
+
+**A fixture is for one goal, not for the build.** Several of these import types they never use, or types that are not on the compile classpath at all, because the thing being observed is what a tool says about the file rather than whether it links. Run `mvn -B checkstyle:check` with a fixture in the tree; do not run `mvn verify`.
+
+**What a fixture is not for.** A fixture is worth writing when the observation cannot come from real code — a rejected import cannot live in the tree, because a file carrying one fails the build by definition. Everything a passing build already demonstrates needs no fixture at all. Lesson 2.3 originally shipped five of them to probe its own `import-control.xml`; they were deleted when the lesson was rebuilt around production code that exercises the same rules on its way to doing something useful.
 
 ## Lesson 2.2 — the formatter and the linter
 
@@ -14,22 +18,21 @@ Files here exist to be copied into `src/`, run against the build, read, and dele
 | `l02/ImportOrderTest.java`      | the import-group check, with every group populated at once |
 | `l02/testpackage/TestEnum.java` | the symbol `ImportOrderTest.java` has to resolve           |
 
-## Lesson 2.3 — the package boundary
+## Lesson 2.3 — reference notes
 
-`l03/main/` and `l03/test/` mirror `src/main/java` and `src/test/java`, so copying a probe in is a copy rather than a decision about where it goes. `l02/` has no such split — 2.2's fixtures all went to one place.
+Not fixtures. These are dated notes written during the lesson and kept afterwards, so a later sitting does not re-derive what an earlier one already worked out. They are learner references rather than authority: `../../TESTING_STANDARDS.md` owns the test rubric and `.agents/PROJECT.md` owns the architecture, and a note that disagrees with either is the note that is out of date.
 
-| File                      | Matrix rows      | Observation it exists for                                        |
-|---------------------------|------------------|------------------------------------------------------------------|
-| `EngineProbe.java`        | 1, 3, 4, 5, 6, 7, 10 | which filesystem and network APIs the rule actually names    |
-| `ToolsProbe.java`         | 2                | the legal direction, which is the box a broken rule fails first  |
-| `ModelProbe.java`         | 8, 9             | a package that is neither the engine root nor `tools`            |
-| `FullyQualifiedProbe.java`| 12               | a reference with no import line — the rule's blind spot          |
-| `StreamImportProbe.java`  | 11               | the test tree, and the row Lesson 2.4 depends on                 |
+| File                                        | Covers                                                                            |
+|---------------------------------------------|-----------------------------------------------------------------------------------|
+| `l03/2026-09-12-single-type-test-shapes.md` | a complete test file for an enum, a record, a class, and an interface             |
+| `l03/2026-09-13-model-to-runnable.md`       | the four decisions between a finished `model` and a program that prints and saves |
+
+Both use invented domains for every code example. A note that worked through the lesson's own classes would be the solution with a date on it.
 
 ## Lesson 2.4 — the subprocess harness
 
-| File                | Feeds                                                                           |
-|---------------------|---------------------------------------------------------------------------------|
-| `HarnessProbe.java` | all nine matrix rows: one argument, one behaviour, and no imports at all        |
+| File                    | Feeds                                              |
+|-------------------------|----------------------------------------------------|
+| `l04/HarnessProbe.java` | one argument, one behaviour, and no imports at all |
 
 `HarnessProbe.java` is deliberately dumber than the harness that drives it. It has no imports, so it takes no position on where your harness is allowed to live, and it decides nothing about timeouts, charsets, or stream order — those are the lesson.
