@@ -4,9 +4,7 @@
     "https://checkstyle.org/dtds/import_control_1_4.dtd">
 <import-control pkg="com.connorjensen.griddlers">
   <!-- Global rules -->
-  <disallow pkg="java\.io" regex="true"/>
-  <disallow pkg="java\.nio" regex="true"/>
-  <disallow pkg="java\.net" regex="true"/>
+  <disallow pkg="java" regex="true"/>
   <disallow pkg="org\.junit\.jupiter" regex="true"/>
   <disallow pkg="com\.connorjensen\.griddlers\.tools" regex="true"/>
   <allow pkg="com\.connorjensen\.griddlers\.model" regex="true"/>
@@ -19,13 +17,18 @@
 
   <!-- Model should be able to inherit from engine, and itself, no others. -->
   <subpackage name="model">
-    <disallow pkg="java\.io" regex="true"/>
     <disallow pkg="com\.connorjensen\.griddlers" regex="true"/>
-    <disallow pkg="com\.connorjensen\.griddlers\.model" regex="true"/>
+    <allow pkg="com\.connorjensen\.griddlers\.model" regex="true"/>
+    <allow pkg="java\.util" regex="true"/>
+  </subpackage>
+
+  <subpackage name="engine">
+    <allow pkg="com\.connorjensen\.griddlers\.model" regex="true"/>
   </subpackage>
 
   <!-- ./tools should be able to use most/all resources, keeping unblocked right now  -->
   <subpackage name="tools">
-    <allow pkg=".*" regex="true"/>
+    <allow pkg="com\.connorjensen\.griddlers" regex="true"/>
+    <allow pkg="java" regex="true"/>
   </subpackage>
 </import-control>

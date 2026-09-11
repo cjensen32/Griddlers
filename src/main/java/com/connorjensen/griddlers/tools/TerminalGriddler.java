@@ -2,7 +2,7 @@ package com.connorjensen.griddlers.tools;
 
 import java.nio.file.Path;
 
-import com.connorjensen.griddlers.GriddlerEngine;
+import com.connorjensen.griddlers.engine.GriddlerEngine;
 
 public class TerminalGriddler {
   private Path outputFile;

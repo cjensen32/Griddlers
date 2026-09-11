@@ -77,20 +77,21 @@ Answer these from memory, editor closed.
 
 Predict every row before you run any of it. A prediction written after the observation teaches nothing, and the rows where the two disagree are the only rows that matter.
 
-| #  | The import                                                                       | Written in                  | Predicted | Observed | Which rule decided |
-|----|----------------------------------------------------------------------------------|-----------------------------|-----------|----------|--------------------|
-| 1  | `com.connorjensen.griddlers.tools.TerminalGriddler`                              | engine, `GriddlerEngine`    | ERROR     |          |                    |
-| 2  | `com.connorjensen.griddlers.GriddlerEngine`                                      | `tools`, `TerminalGriddler` | PASSED    |          |                    |
-| 3  | `java.io.File`                                                                   | engine, `GriddlerEngine`    | ERROR     |          |                    |
-| 4  | `java.nio.file.Files`                                                            | engine, `GriddlerEngine`    | ERROR     |          |                    |
-| 5  | `java.net.Socket`                                                                | engine, `GriddlerEngine`    | ERROR     |          |                    |
-| 6  | `java.util.List`                                                                 | engine, `GriddlerEngine`    | PASSED    |          |                    |
-| 7  | `com.connorjensen.griddlers.model.Griddler`                                      | engine, `GriddlerEngine`    | PASSED    |          |                    |
-| 8  | `com.connorjensen.griddlers.tools.TerminalGriddler`                              | `model`, `Griddler`         | ERROR     |          |                    |
-| 9  | `java.io.File`                                                                   | `model`, `Griddler`         | ERROR     |          |                    |
-| 10 | `org.junit.jupiter.api.Test`                                                     | engine, `GriddlerEngine`    | ERROR     |          |                    |
-| 11 | `java.io.InputStream`                                                            | test tree, engine package   | ERROR     |          |                    |
-| 12 | none — `new com.connorjensen.griddlers.tools.TerminalGriddler()` written in full | engine, `GriddlerEngine`    | ERROR     |          |                    |
+| #  | The import                                                                       | Written in                | Predicted | Observed | Which rule decided                                                     |
+|----|----------------------------------------------------------------------------------|---------------------------|-----------|----------|------------------------------------------------------------------------|
+| 1  | `com.connorjensen.griddlers.tools.TerminalGriddler`                              | `GriddlerEngine`          | ERROR     |          | `<disallow pkg="com\.connorjensen\.griddlers\.tools" regex="true"/>`   |
+| 2  | `com.connorjensen.griddlers.engine.GriddlerEngine`                               | `tools/TerminalGriddler`  | PASSED    |          | tools:`<allow pkg="com\.connorjensen\.griddlers" regex="true"/>`       |
+| 3  | `java.io.File`                                                                   | `GriddlerEngine`          | ERROR     |          | `<disallow pkg="java" regex="true"/>`                                  |
+| 4  | `java.nio.file.Files`                                                            | `GriddlerEngine`          | ERROR     |          | `<disallow pkg="java" regex="true"/>`                                  |
+| 5  | `java.net.Socket`                                                                | `GriddlerEngine`          | ERROR     |          | `<disallow pkg="java" regex="true"/>`                                  |
+| 6  | `java.util.List`                                                                 | `GriddlerEngine`          | PASSED    |          | `<allow pkg="java\.util" regex="true"/>`                               |
+| 7  | `com.connorjensen.griddlers.model.Griddler`                                      | `GriddlerEngine`          | PASSED    |          | `<allow pkg="com\.connorjensen\.griddlers\.model" regex="true"/>`      |
+| 8  | `com.connorjensen.griddlers.tools.TerminalGriddler`                              | `model/Griddler`          | ERROR     |          | `<disallow pkg="com\.connorjensen\.griddlers\.tools" regex="true"/>`   |
+| 9  | `java.io.File`                                                                   | `model/Griddler`          | ERROR     |          | `<disallow pkg="java" regex="true"/>`                                  |
+| 10 | `org.junit.jupiter.api.Test`                                                     | `GriddlerEngine`          | ERROR     |          | `<disallow pkg="org\.junit\.jupiter" regex="true"/>`                   |
+| 11 | `java.io.InputStream`                                                            | test tree, engine package | ERROR     |          | `<disallow pkg="java" regex="true"/>`                                  |
+| 12 | none — `new com.connorjensen.griddlers.tools.TerminalGriddler()` written in full | `GriddlerEngine`          | ERROR     |          | `<module name="MatchXpath">...` bans FQCN in new/instantiated declares |
+| 13 | `org.junit.jupiter.api.Test`                                                     | `test/.../GriddlerEngine` | PASSED    |          | `<file name=".*Test" regex="true">...` allow junit in `*.Test` files   |
 
 Rows 4 and 5 are the same constraint as row 3 in a different package. Rows 8 and 9 are the same two constraints again, in a package that is neither the engine root nor `tools`. Row 11's answer is decided by a box you closed in the `Must be true` list, and it is the row 2.4 depends on. Row 12 has no import line in it anywhere.
 

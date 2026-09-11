@@ -1,4 +1,4 @@
-package com.connorjensen.griddlers;
+package com.connorjensen.griddlers.engine;
 
 import com.connorjensen.griddlers.model.Griddler;
 
