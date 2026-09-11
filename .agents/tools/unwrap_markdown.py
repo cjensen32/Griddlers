@@ -27,10 +27,11 @@ FENCE = re.compile(r"^\s*(```|~~~)")  # any indent: fences nest inside list item
 HEADING = re.compile(r"^\s{0,3}#{1,6}\s")
 HRULE = re.compile(r"^\s{0,3}([-*_])(\s*\1){2,}\s*$")
 TABLE = re.compile(r"^\s*\|")
-LIST = re.compile(r"^(\s*)([-*+]|\d+[a-z]?[.)])\s+")
+LIST = re.compile(r"^(\s*)([-*+]|\d+[a-z]?[.)]|[A-Za-z][.)])\s+")  # includes lettered sub-items: "a." "B)" under a numbered step
 QUOTE = re.compile(r"^\s*>\s?")
 INDENT_CODE = re.compile(r"^ {4,}\S")
 QUOTE_BLANK = re.compile(r"^\s*>\s*$")
+NOTE = re.compile(r"^\s*[!?]\d+\s")  # JOURNAL.md learner (!n) and agent (?n) note markers
 BOLD_LED = re.compile(r"^\s*(>\s?)?\*\*")
 BOLD_LABEL = re.compile(r"^\s*(>\s?)?\*\*[^*]+:\*\*")
 SENTENCE_END = re.compile(r"[.!?]['\"”’)]?\s*$")
@@ -53,7 +54,7 @@ def structural(line):
 
 def keep_break(cur, nxt):
     """True when the break between cur and nxt is deliberate, not a hard wrap."""
-    if structural(nxt) or LIST.match(nxt):
+    if structural(nxt) or LIST.match(nxt) or NOTE.match(nxt):
         return True, "structural"
     if QUOTE.match(cur) and not QUOTE.match(nxt):
         return True, "structural"

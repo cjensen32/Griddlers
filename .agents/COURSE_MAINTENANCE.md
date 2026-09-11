@@ -23,16 +23,16 @@ Only one chapter is open at a time. A chapter that is not open has no lessons, n
 2. **Written:** the lesson's task and its named verification with test tier.
 3. **Green:** the named test passes and the commit has landed.
 
-Exactly two lessons are written at a time — the current one and the one queued behind it. When the current lesson goes green, the next stub is written out and a new stub joins the queue. Writing further ahead is the failure this model exists to prevent: a lesson drafted five ahead assumes the earlier ones were solved its way, and when they were not, either the earlier lesson gets padded to fit or the later one stops making sense.
+Exactly one lesson is written at a time. When the current lesson goes green, the next one is written against the code that actually exists by then. Writing ahead is the failure this model exists to prevent: a lesson drafted before the one under it is green assumes choices that have not been made yet, and when they were made differently, either the earlier lesson gets padded to fit or the later one stops making sense. Writing one at a time also removes the refit that a queue makes necessary, which was the larger cost in practice.
 
 Keep lesson files short. A lesson states what to build and what to verify; the explanation belongs in the conversation, and the proof belongs in the test.
 
 Two states sit outside the three above, and both exist because the learner asked for them rather than because the model needed them.
 
 - **Optional:** a lesson the chapter does not depend on. It is written, it is skippable, and it does not block the capstone. Chapter 2's Git lesson became one on 2026-09-07: the learner was already fluent in the material and the machinery it described was already installed and working, so the assignment became a read-through of the conventions and moved to the end of the chapter. Give an optional lesson an em-dash in the Hours column, mark it `optional` in the chapter README, and say in the lesson's own first paragraph that it builds nothing and blocks nothing.
-- **Ahead:** a lesson written past the two-at-a-time limit at the learner's explicit request. It is a declared exception, not a mistake, and the collector notes it rather than warning about it. The risk the limit exists to prevent still applies in full: a lesson written before the one under it is green assumes choices that have not been made yet, so an `ahead` lesson is refitted against what was actually built before it is opened, exactly like a `queued` one. Do not write a second lesson `ahead`.
+- **Ahead:** a lesson written past the current one at the learner's explicit request. It is a declared exception, not a mistake, and the collector notes it rather than warning about it. The risk the limit exists to prevent still applies in full: a lesson written before the one under it is green assumes choices that have not been made yet, so an `ahead` lesson is refitted against what was actually built before it is opened. Do not write a second lesson `ahead`.
 
-Neither state exempts a lesson from the refit. An `optional` lesson still gets corrected when the code it describes changes, and an `ahead` lesson is refitted twice: once when the lesson under it goes green, and again if what was built diverged from what its own file assumed.
+Neither state exempts a lesson from the refit. An `optional` lesson still gets corrected when the code it describes changes, and an `ahead` lesson is refitted when the lesson under it goes green.
 
 A checkbox specifies what must exist, never how to build it. The learner solves a lesson the shortest way its boxes allow, which is the correct way to solve it - so anything a later lesson or the capstone depends on that no box names will not be there when that lesson opens. Write the box as the outcome and let the mechanism that satisfies it be what the learner has to find. "`mvn validate` fails the build on a style violation" is a specification; "add an `<execution>` binding Checkstyle to `validate`" is a step-by-step guide wearing a checkbox, and teaches nothing the learner did not already read. Be thorough in the requirements, never in the instructions.
 
@@ -54,10 +54,9 @@ One turn of this loop per lesson. The agent writes the assignment; the learner w
 4. The learner submits the lesson.
 5. The agent reviews the submission and approves it, or returns it with what is missing and which concept to revisit - never with the correction written out.
 6. The learner commits, and the lesson's hours are recorded in the chapter README's per-lesson Hours column. A guess is fine; an unrecorded lesson is not.
-7. **The agent refits the queued lesson to what was actually built.** This is the step that keeps the chapter coherent: the queued lesson was written before the learner's choices existed, so its file names, its assumptions, and its verification are corrected against the approved result before the learner ever opens it.
-8. Only once the queued lesson is refitted does the agent write out the stub behind it, so a written lesson is always waiting.
+7. **The agent writes the next lesson against what was actually built.** This is the step that keeps the chapter coherent, and writing one at a time is what makes it a single pass rather than a correction: the next lesson's file names, assumptions, and verification come from the approved result rather than from a guess made before it existed.
 
-Steps 3 and 5 through 8 are a procedure rather than a state rule, and `.agents/skills/review-submission/SKILL.md` owns it: what to collect before reviewing anything, the journal audit that runs without being asked for, how a lesson is returned, the optional follow-up step and its three tags, the feedback the learner raises at submission and the consensus it must reach before anything is edited, and what closes the cycle afterward. Read that skill before processing a submission.
+Steps 3 and 5 through 7 are a procedure rather than a state rule, and `.agents/skills/review-submission/SKILL.md` owns it: what to collect before reviewing anything, the journal audit that runs without being asked for, how a lesson is returned, the optional follow-up step and its three tags, the feedback the learner raises at submission and the consensus it must reach before anything is edited, and what closes the cycle afterward. Read that skill before processing a submission.
 
 Every lesson names observable verification and its test tier. The learner writes the test; naming a gap is help, filling it is not.
 
