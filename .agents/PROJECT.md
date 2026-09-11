@@ -31,9 +31,11 @@ Dependency direction is `tools -> engine`, never the reverse. Browser play logic
 ## Course state
 
 - Chapter 1 is complete and remains in the separate Job Application Tracker repository.
-- Chapter 2 is open and owns `lessons/ch02-the-workshop-rebuilt/`.
+- Chapter 2 is open and owns `lessons/ch02-the-workshop-rebuilt/`. It ends with a terminal application that runs, is interactable, and creates basic nonograms - not a copy of Chapter 1's tracker, but a working program rather than a toolchain with nothing behind it.
 - Chapters 3-14 are goal lines in `lessons/SYLLABUS.md` and gain lessons only on arrival.
-- Only one chapter is open at a time, and only two of its lessons are written at once.
+- Only one chapter is open at a time, and only one of its lessons is written at once. The next lesson is drafted when the current one closes, against the code that actually exists by then.
+- A lesson is a checkpoint that establishes real features in real files. Completing one must mean the application does something it could not do before, never that a set of instructions was followed.
+- Production code tracks toward roughly 50% complete by the midpoint of a chapter and 80-90% entering its capstone, so the capstone is a welcome challenge that carries the work to finished rather than a build from scratch.
 
 ## Definition of done
 

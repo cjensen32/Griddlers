@@ -63,16 +63,18 @@ A row is added when a lesson first requires the term. Scope and definition are f
 | 2.2    | qa    | line vs branch coverage     | test coverage: `line` is % lines covered; `branch` is % if/else/switch coverage |
 | 2.3    | qa    | `ImportControl`             | defines/controls which packages/classes can be imported in your project         |
 | 2.3    | qa    | `strategyOnMismatch`        |                                                                                 |
-| 2.3    | qa    | `<propertyExpansion>`       |                                                                                 |
 | 2.3    | qa    | includeTestSourceDirectory  |                                                                                 |
 | 2.3    | qa    | DTD                         |                                                                                 |
-| 2.3    | qa    | plugin vs analyzer version  |                                                                                 |
 | 2.3    | qa    | coverage exclusion          |                                                                                 |
 | 2.3    | qa    | `COVEREDRATIO`              |                                                                                 |
-| 2.3    | mvn   | execution order in a phase  |                                                                                 |
-| 2.3    | mvn   | plugin `<dependencies>`     |                                                                                 |
-| 2.3    | java  | fully-qualified reference   |                                                                                 |
 | 2.3    | java  | package-private access      |                                                                                 |
+| 2.3    | qa    | `<subpackage>` vs `<file>`  |                                                                                 |
+| 2.3    | qa    | node resolution order       |                                                                                 |
+| 2.3    | java  | composition root            |                                                                                 |
+| 2.3    | java  | run-length encoding         |                                                                                 |
+| 2.3    | java  | unmodifiable collection     |                                                                                 |
+| 2.3    | test  | `@TempDir`                  |                                                                                 |
+| 2.3    | test  | deterministic output        |                                                                                 |
 
 ### Your notes
 
@@ -83,9 +85,9 @@ A row is added when a lesson first requires the term. Scope and definition are f
 
 ### Agent marks
 
-?1 the definition describes a static import. An aggregator artifact is a dependency that ships no code of its own - `junit-jupiter` exists to pull `junit-jupiter-api`, `-params`, and `-engine` in transitively. Your !4 already suspected this. Settle it against `mvn dependency:tree`.
+?1 the definition describes a static import. An aggregator artifact is a dependency that ships no code of its own - `junit-jupiter` exists to pull `junit-jupiter-api`, `-params`, and `-engine` in transitively. Your !4 already suspected this. Settle it against `mvn dependency:tree`. **Accepted 2026-09-11** - the row describes the artifact now, not a static import.
 ?2 the row still states the version your own !2 corrects. Fold the footnote into the row so the row is the reference.
-?3 `transivity` is right; `phases of the mvn lifecycle` is the wrong axis. Lesson 2.3 puts a hard boundary between two classpaths and will settle which one scope indexes on.
+?3 `transivity` is right; `phases of the mvn lifecycle` is the wrong axis. **Rerouted 2026-09-11 from 2.3 to 2.4.** The 2.3 refit dropped the classpath material, and 2.4 is the better home anyway: it hands a real classpath to a child JVM, so which classpath a scope indexes on stops being a definition and becomes something the harness either gets right or hangs on.
 
 ## Open gaps
 
@@ -98,11 +100,12 @@ What a lesson left for a later one, because no checkbox named it. Agent-maintain
 | 2.1    | build | no `<execution>` block written           | 2.2        |
 | 2.1    | term  | `aggregator artifact (junit)`, see `?1`  | 2.2        |
 | 2.1    | term  | `Surefire default includes`, see `?2`    | 2.2        |
-| 2.1    | term  | `dependency scope`, see `?3`             | 2.3        |
+| 2.1    | term  | `dependency scope`, see `?3`             | 2.4        |
 | 2.2    | build | Checkstyle never reads `src/test/java`   | 2.3        |
 | 2.2    | build | JaCoCo's 0.8 line rule excludes `Main`   | 2.3        |
 | 2.2    | build | analyzer versions pinned inconsistently  | 2.5        |
 | 2.2    | git   | `core.hooksPath` documented only in-hook | 2.6        |
+| 2.3    | build | POM mechanics dropped in the 2.3 refit   | 2.5        |
 
 ## Capstone gap counts
 

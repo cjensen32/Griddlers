@@ -23,13 +23,6 @@
       <property name="file" value="import-control.xml"/>
     </module>
 
-    <!-- Disable FQCN instantiation, only imports at top allowed -->
-    <module name="MatchXpath">
-      <property name="query" value="//LITERAL_NEW/DOT"/>
-      <message key="matchxpath.match"
-               value="FQCN instantiations are forbidden."/>
-    </module>
-
     <!-- Disable `java.lang.System` use in `model` and `engine` packages -->
     <module name="RegexpSinglelineJava">
       <property name="format" value="\bSystem\b"/>
