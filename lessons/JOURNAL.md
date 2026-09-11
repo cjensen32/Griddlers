@@ -61,7 +61,7 @@ A row is added when a lesson first requires the term. Scope and definition are f
 | 2.2    | qa    | `google-java-format`        | `spotless` has an integrated ruleset to format code to google java standards    |
 | 2.2    | qa    | check goal vs apply goal    | `check` looks for unformatted code; `apply` reformats all according to config   |
 | 2.2    | qa    | line vs branch coverage     | test coverage: `line` is % lines covered; `branch` is % if/else/switch coverage |
-| 2.3    | qa    | `ImportControl`             |                                                                                 |
+| 2.3    | qa    | `ImportControl`             | defines/controls which packages/classes can be imported in your project         |
 | 2.3    | qa    | `strategyOnMismatch`        |                                                                                 |
 | 2.3    | qa    | `<propertyExpansion>`       |                                                                                 |
 | 2.3    | qa    | includeTestSourceDirectory  |                                                                                 |
