@@ -58,5 +58,11 @@
   <file name=".*Test" regex="true">
     <allow pkg="org\.junit\.jupiter" regex="true"/>
   </file>
+  <file name="Main">
+    <allow pkg="java\.io" regex="true"/>
+    <allow pkg="java\.nio" regex="true"/>
+    <allow pkg="com\.connorjensen\.griddlers\.model" regex="true"/>
+    <allow pkg="com\.connorjensen\.griddlers\.engine" regex="true"/>
+  </file>
 
 </import-control>

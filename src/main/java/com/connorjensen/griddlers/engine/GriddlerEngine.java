@@ -1,22 +1,21 @@
 package com.connorjensen.griddlers.engine;
 
+import java.util.List;
+
+import com.connorjensen.griddlers.model.Cell;
 import com.connorjensen.griddlers.model.Griddler;
 
 public class GriddlerEngine {
-  private Long size;
-  private String engineName;
+  private GriddlerEngine() {}
 
-  public GriddlerEngine(Long size, String engineName) {
-    this.size = size;
-    this.engineName = engineName;
-  }
-
-  public GriddlerEngine() {
-    this.size = 10L;
-    this.engineName = "Griddler Engine";
-  }
-
-  public Griddler makeGriddler() {
-    return new Griddler(this.size);
+  public static String render(Griddler griddler) {
+    StringBuilder griddlerString = new StringBuilder();
+    for (List<Cell> row : griddler.getCells()) {
+      for (Cell cell : row) {
+        griddlerString.append(cell.asciiStr());
+      }
+      griddlerString.append("\n");
+    }
+    return griddlerString.toString();
   }
 }

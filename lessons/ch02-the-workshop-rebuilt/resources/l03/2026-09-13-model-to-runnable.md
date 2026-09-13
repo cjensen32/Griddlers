@@ -8,7 +8,7 @@ Every code example belongs to one of two invented projects, a **café receipt pr
 
 ## 1. The starting line
 
-A model layer at 100% line and branch coverage is a strong claim and a narrow one. It says these types hold what you handed them, reject what they should, and give back copies rather than handles. It says nothing about where the next behaviour goes, because the next behaviour does not exist yet and a model has no way to ask for it.
+A model layer at 100% line and branch coverage is a strong claim and a narrow one. It says these types hold what you handed them, reject what they should, and give back copies rather than handles. It says nothing about where the next behavior goes, because the next behavior does not exist yet and a model has no way to ask for it.
 
 That is the real shape of this gap. It is not "write three classes" — the three classes are about forty minutes of typing. It is four decisions, each cheap now and expensive in Chapter 3, that the three classes fall out of:
 
@@ -21,13 +21,13 @@ Answer those four and the code is obvious. Skip them and you will write code tha
 
 ## 2. The gap, as a table
 
-| Have | Missing | The decision underneath |
-|---|---|---|
-| a value type per cell state, carrying a payload | a fixture that produces the same grid on every run | who owns a deterministic demo — computation, I/O, or the composition root (§3) |
-| a validated grid that copies on the way in and on the way out | a rendered string | which layer turns state into characters (§4) |
-| a build that forbids `engine` and `model` from touching a file or a stream | a file on disk, written the same way twice | whether the destination is a parameter or an ambient fact (§5) |
-| a `Main` that compiles | a program that runs | what wiring is, and why it is one class's entire job (§6) |
-| two tier 1 test files that hold their classes | a tier 1 test per new class, each one naming the class it constructs | what makes a test file belong to the class in its filename (§7) |
+| Have                                                              | Missing                                            | The decision underneath                                                        |
+|-------------------------------------------------------------------|----------------------------------------------------|--------------------------------------------------------------------------------|
+| a value type per cell state, carrying a payload                   | a fixture that produces the same grid on every run | who owns a deterministic demo — computation, I/O, or the composition root (§3) |
+| a validated grid that copies on the way in and on the way out     | a rendered string                                  | which layer turns state into characters (§4)                                   |
+| a build that forbids `engine`/`model` from touching a file/stream | a file on disk, written the same way twice         | whether the destination is a parameter or an ambient fact (§5)                 |
+| a `Main` that compiles                                            | a program that runs                                | what wiring is, and why it is one class's entire job (§6)                      |
+| two tier 1 test files that hold their classes                     | a tier 1 test per new class                        | what makes a test file belong to the class in its filename (§7)                |
 
 The right-hand column is the work. The middle column is what the middle of the lesson looks like when the right-hand column has been answered badly — everything present, everything green, nothing where it belongs.
 
@@ -86,11 +86,11 @@ Nothing here is stored on `Order`, everything here is a function of it, and ever
 
 Three splits, all defensible, with different bills:
 
-| The glyph lives | Reads as | The bill |
-|---|---|---|
-| on the model type | an intrinsic property of the state | a second presentation forces a second field, or a rewrite of every constant |
+| The glyph lives          | Reads as                                  | The bill                                                                                                        |
+|--------------------------|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| on the model type        | an intrinsic property of the state        | a second presentation forces a second field, or a rewrite of every constant                                     |
 | in the computation layer | a transform, next to the other transforms | the layer required to stay deterministic now owns a display concern, and Chapter 3's solver has to walk past it |
-| in the printing layer | presentation, where presentation goes | one more class, and the model stays a pure alphabet |
+| in the printing layer    | presentation, where presentation goes     | one more class, and the model stays a pure alphabet                                                             |
 
 The café's version of this argument is money. The model stores `int unitCents`, because cents are what a price *is*. `"£4.50"`, `"4,50 €"`, and a right-aligned column of the same number are what a price *looks like*, and the moment there are two of them a stored string is the wrong shape:
 
@@ -112,7 +112,7 @@ Whichever you choose, **write the choice down with a date.** "The glyph stays on
 ### One naming trap on the way past
 
 ```java
-// Reads as an override of Object.toString(). Is not one — the signatures differ,
+// Reads as an override of Object.render(). Is not one — the signatures differ,
 // so this is an overload, and @Override on it would not compile.
 public String toString(Order order) { ... }
 
