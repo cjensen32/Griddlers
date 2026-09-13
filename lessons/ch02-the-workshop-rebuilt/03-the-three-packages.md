@@ -46,8 +46,8 @@ Each part below ends the same way, so it is stated once here rather than repeate
    2. A failed write is not silent.
    3. `Main` wires it, runs it, and prints.
 6. [x] *(optional)* **Watch the rule bite.**
-    a. Reach across the boundary in `GriddlerEngine`.
-    b. Run `mvn -B checkstyle:check`, read it, revert.
+   1. Reach across the boundary in `GriddlerEngine`.
+   2. Run `mvn -B checkstyle:check`, read it, revert.
 
 ### Must be true
 
@@ -55,9 +55,9 @@ Each part below ends the same way, so it is stated once here rather than repeate
 - [x] the same text is written to a file, and two runs produce identical bytes
 - [x] the rendered text comes back from a method that returns it, so a test reads it without capturing stdout
 - [x] no class under `engine/` or `model/` names `System`, a file, a socket, or a stream
-- [ ] every class you added has a tier 1 test mirroring its package, per `lessons/TESTING_STANDARDS.md`
-- [ ] `mvn -B verify` is green and the `0.8` rule passes without the number moving
-- [ ] Part 1 is one commit, and `git status` is clean after it
+- [x] every class you added has a tier 1 test mirroring its package, per `lessons/TESTING_STANDARDS.md`
+- [x] `mvn -B verify` is green and the `0.8` rule passes without the number moving
+- [x] Part 1 is one commit, and `git status` is clean after it
 
 ## Part 2 — a nonogram
 
@@ -66,13 +66,13 @@ A grid is not yet a nonogram. The puzzle is the clues: for each row and each col
 ### The work
 
 1. **Derive the row clues.**
-    a. Run-lengths per row, in the engine.
+   a. Run-lengths per row, in the engine.
 2. **Derive the column clues.**
-    a. Same rule, walking columns.
+   a. Same rule, walking columns.
 3. **Add clue gutters to the render.**
-    a. Column clues above, row clues to the left.
+   a. Column clues above, row clues to the left.
 4. **Take a size argument in `Main`.**
-    a. `10` prints a 10x10, not only the 4x4.
+   a. `10` prints a 10x10, not only the 4x4.
 
 ### Must be true
 

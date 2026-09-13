@@ -1,15 +1,19 @@
 package com.connorjensen.griddlers.tools;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
-import com.connorjensen.griddlers.engine.GriddlerEngine;
+public final class TerminalGriddler {
+  private final Path destination;
 
-public class TerminalGriddler {
-  private Path outputFile;
-  private GriddlerEngine griddlerEngine;
+  public TerminalGriddler(Path destination) {
+    this.destination = Objects.requireNonNull(destination, "destination is required");
+  }
 
-  public TerminalGriddler() {
-    this.outputFile = Path.of(System.getProperty("user.home"), "Downloads");
-    this.griddlerEngine = new GriddlerEngine();
+  public void griddlerToFile(String griddlerString) throws IOException {
+    Files.writeString(destination, griddlerString, StandardCharsets.UTF_8);
   }
 }
