@@ -12,7 +12,7 @@ One is written at a time. When the current lesson goes green, the next is writte
 |-----|----------------------------------------------------------|---------|----------|------|------|
 | 2.1 | [The POM, from memory](01-the-pom.md)                    | 4.80    | green    | ☑   | 6    |
 | 2.2 | [Quality gates, from memory](02-the-quality-gates.md)    | 4.50    | green    | ☑   | 4    |
-| 2.3 | [The three packages](03-the-three-packages.md)           | 2.7     | current  | ☐   | —    |
+| 2.3 | [The three packages](03-the-three-packages.md)           | 2.7     | current  | ☐   | 1    |
 | 2.4 | [The end-to-end harness](04-the-end-to-end-harness.md)   |         | ahead    | ☐   | —    |
 | 2.5 | [The failure catalogue](05-the-failure-catalogue.md)     |         | stub     | ☐   | —    |
 | 2.6 | [Git + commit grammar](06-git-and-the-commit-grammar.md) | —       | optional | ☐   | —    |
