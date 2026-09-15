@@ -5,13 +5,13 @@ public enum Cell {
   FILLED("#"),
   UNKNOWN("x");
 
-  private final String asciiStr;
+  private final String glyph;
 
-  Cell(String asciiStr) {
-    this.asciiStr = asciiStr;
+  Cell(String glyph) {
+    this.glyph = glyph;
   }
 
   public String asciiStr() {
-    return this.asciiStr;
+    return this.glyph;
   }
 }
