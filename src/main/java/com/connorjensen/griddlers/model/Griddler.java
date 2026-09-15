@@ -43,7 +43,8 @@ public final class Griddler {
   public List<List<Cell>> getCells() {
     List<List<Cell>> cellsCopy = new ArrayList<>();
     for (List<Cell> row : cells) {
-      cellsCopy.add(new ArrayList<>(row));
+      List<Cell> newRow = List.copyOf(row);
+      cellsCopy.add(new ArrayList<>(newRow));
     }
     return List.copyOf(cellsCopy);
   }
