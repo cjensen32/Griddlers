@@ -26,8 +26,9 @@ Not fixtures. These are dated notes written during the lesson and kept afterward
 |---------------------------------------------|-----------------------------------------------------------------------------------|
 | `l03/2026-09-12-single-type-test-shapes.md` | a complete test file for an enum, a record, a class, and an interface             |
 | `l03/2026-09-13-model-to-runnable.md`       | the four decisions between a finished `model` and a program that prints and saves |
+| `l03/2026-09-14-the-refit-handoff.md`       | where the refit stands, what is left in each production file, and the commit split |
 
-Both use invented domains for every code example. A note that worked through the lesson's own classes would be the solution with a date on it.
+The first two use invented domains for every code example, and the third carries no code at all. A note that worked through the lesson's own classes would be the solution with a date on it.
 
 ## Lesson 2.4 — the subprocess harness
 

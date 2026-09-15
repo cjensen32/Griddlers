@@ -229,13 +229,13 @@ Two things follow from that miss, and they are both invisible in a green run. `R
 
 **Coverage hides this in both directions.** A class can read 100% because some *other* class's test happened to execute it, and a class can read 0% while the test file bearing its name passes. The percentage measures which lines ran, never which file meant to run them. The check costs nothing: open each new test file and search it for `new ClassName`. If the name in the filename never appears after `new`, the file is misnamed.
 
-| Class | Tier | What its own test file must own |
-|---|---|---|
-| the computation class | 1 | values in, values out; each derived fact; the boundary rows of the derivation |
-| the rendering class | 1 | exact text for one small fixture, trailing newline included |
-| the writing class | 1 | a `@TempDir` destination, the bytes on disk, the charset, and what a failed write does |
-| the composition root | 3 | a real JVM through `ProcessBuilder`, exit code and exact stdout |
-| all of them wired | 2 | one complete path, real collaborators, assembled the way `main` assembles them |
+| Class                 | Tier | What its own test file must own                                                        |
+|-----------------------|------|----------------------------------------------------------------------------------------|
+| the computation class | 1    | values in, values out; each derived fact; the boundary rows of the derivation          |
+| the rendering class   | 1    | exact text for one small fixture, trailing newline included                            |
+| the writing class     | 1    | a `@TempDir` destination, the bytes on disk, the charset, and what a failed write does |
+| the composition root  | 3    | a real JVM through `ProcessBuilder`, exit code and exact stdout                        |
+| all of them wired     | 2    | one complete path, real collaborators, assembled the way `main` assembles them         |
 
 `../../../TESTING_STANDARDS.md` sets the proportion: dozens of tier 1, a handful of tier 2 per chapter, one or two tier 3 and no more. Part 1 owes tier 1 for each new class. Tier 3 is 2.4's.
 
@@ -313,14 +313,14 @@ About this checkout on 2026-09-13, not about the café.
 
 ## Pointers for this half
 
-| Pointer | What to look for |
-|---|---|
-| [`java.nio.file.Files`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/nio/file/Files.html) | `writeString` and `readString` with an explicit `Charset`, and what the default `OpenOption`s do |
-| [`java.nio.charset.StandardCharsets`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/nio/charset/StandardCharsets.html) | why the constant is better than the string, and what the platform default costs a test |
-| [`java.nio.file.Path`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/nio/file/Path.html) | `of` and `resolve`, which is how a `@TempDir` becomes a destination |
-| [`java.util.Objects`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Objects.html) | `requireNonNull` with a message, and the exception type it commits you to |
-| [`java.util.EnumMap`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/EnumMap.html) | a presentation-layer mapping that leaves the model alone |
-| [`java.util.Formatter`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Formatter.html) | width, precision, and the `-` flag — the whole alignment vocabulary in one page |
-| [try-with-resources](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html) | what it replaces, and why a method that closes for you is better than remembering |
-| [JUnit 5 User Guide](https://junit.org/junit5/docs/current/user-guide/) | `@TempDir` on a parameter versus a field, and when the directory is cleaned up |
-| [`jacoco:check`](https://www.eclemma.org/jacoco/trunk/doc/check-mojo.html) | what a `CLASS` element rule reports when one class is at zero, and what an exclusion is promising |
+| Pointer                                                                                                                                    | What to look for                                                                                  |
+|--------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| [`java.nio.file.Files`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/nio/file/Files.html)                             | `writeString` and `readString` with an explicit `Charset`, and what the default `OpenOption`s do  |
+| [`java.nio.charset.StandardCharsets`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/nio/charset/StandardCharsets.html) | why the constant is better than the string, and what the platform default costs a test            |
+| [`java.nio.file.Path`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/nio/file/Path.html)                               | `of` and `resolve`, which is how a `@TempDir` becomes a destination                               |
+| [`java.util.Objects`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Objects.html)                                 | `requireNonNull` with a message, and the exception type it commits you to                         |
+| [`java.util.EnumMap`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/EnumMap.html)                                 | a presentation-layer mapping that leaves the model alone                                          |
+| [`java.util.Formatter`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Formatter.html)                             | width, precision, and the `-` flag — the whole alignment vocabulary in one page                   |
+| [try-with-resources](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html)                                   | what it replaces, and why a method that closes for you is better than remembering                 |
+| [JUnit 5 User Guide](https://junit.org/junit5/docs/current/user-guide/)                                                                    | `@TempDir` on a parameter versus a field, and when the directory is cleaned up                    |
+| [`jacoco:check`](https://www.eclemma.org/jacoco/trunk/doc/check-mojo.html)                                                                 | what a `CLASS` element rule reports when one class is at zero, and what an exclusion is promising |
