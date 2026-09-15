@@ -78,6 +78,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
+          <systemPropertyVariables>
+            <junit.jupiter.execution.parallel.enabled>false</junit.jupiter.execution.parallel.enabled>
+          </systemPropertyVariables>
           <excludes>
             <exclude>**/Main.java</exclude>
           </excludes>
@@ -177,7 +180,12 @@
                     <limit>
                       <counter>LINE</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>0.8</minimum>
+                      <minimum>0.9</minimum>
+                    </limit>
+                    <limit>
+                      <counter>BRANCH</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>0.9</minimum>
                     </limit>
                   </limits>
                 </rule>
