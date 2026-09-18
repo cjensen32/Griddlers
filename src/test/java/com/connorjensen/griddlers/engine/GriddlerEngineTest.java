@@ -1,12 +1,12 @@
 package com.connorjensen.griddlers.engine;
 
 import static com.connorjensen.griddlers.engine.GriddlerEngine.Layout;
+import static com.connorjensen.griddlers.engine.GriddlerEngine.alternatingCells;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.bottomAlign;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.deriveClueList;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.drawBody;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.drawTopClues;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.measure;
-import static com.connorjensen.griddlers.engine.GriddlerEngine.alternatingCells;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.randomizeCells;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.render;
 import static org.junit.jupiter.api.Assertions.assertAll;
