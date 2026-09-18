@@ -12,7 +12,9 @@ Each part below ends the same way, so it is stated once here rather than repeate
 
 | Resource                                                                                                       | What it's for                                                                         |
 |----------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| [`resources/l03/`](resources/l03/)                                                                             | etc files                                                                             |
+| [`resources/l03/the-refit-handoff.md`](resources/l03/the-refit-handoff.md)                                     | where this lesson stands, what is left, and the commit split that closes it           |
+| [`resources/test-shapes.md`](resources/test-shapes.md)                                                         | what a finished test file looks like for an enum, a record, a class, or an interface  |
+| [`resources/changing-code.md`](resources/changing-code.md)                                                     | moving code that already works, and reading a failure before reading the code         |
 | [Nonogram](https://en.wikipedia.org/wiki/Nonogram)                                                             | Runs of filled cells, in order, separated by at least one gap                         |
 | [Survey of Paint-by-Number Puzzle Solvers](https://webpbn.com/survey/)                                         | Where this goes in Chapter 3. Read the problem statement now and the algorithms later |
 | [`ImportControl`](https://checkstyle.org/checks/imports/importcontrol.html)                                    | `strategyOnMismatch` — the three things your rewritten rule file leans on             |
@@ -67,7 +69,7 @@ A grid is not yet a nonogram. The puzzle is the clues: for each row and each col
 
 `render` and `render` are two render paths sharing a private border helper, and only one of them is the program's output — `Main` calls the gutter version and nothing calls the other. They also disagree about how wide a cell is: one hardcodes three, the other measures. That is one path too many, and both of them are in `engine`.
 
-Where rendering lives was left open in [`resources/l03/2026-09-13-model-to-runnable.md`](resources/l03/2026-09-13-model-to-runnable.md) §4, on the grounds that the split only gets decided by a second presentation. The syllabus has three of them queued: Chapter 3 replaces `#`, `.`, and `x` with `█`, `·`, and `✕`; Chapter 9 writes the same puzzle as JSON; Chapter 10 draws it in a browser. None of those three calls a method that turns a grid into a bordered ASCII block, and all three call the clue derivation. That is the decision arriving, not a preference.
+Where rendering lives was left open earlier in this lesson, on the grounds that the split only gets decided by a second presentation. The syllabus has three of them queued: Chapter 3 replaces `#`, `.`, and `x` with `█`, `·`, and `✕`; Chapter 9 writes the same puzzle as JSON; Chapter 10 draws it in a browser. None of those three calls a method that turns a grid into a bordered ASCII block, and all three call the clue derivation. That is the decision arriving, not a preference.
 
 So settle it here rather than in 2.5, and write the answer down with a date. `import-control.xml` will not settle it for you — a `String` is not a stream, so the rule that keeps `engine` away from files has no opinion about a renderer, and this one is yours.
 

@@ -59,6 +59,8 @@ Future `src/**`, `pom.xml`, `config/**`, `puzzles/**`, `web/**`, `.editorconfig`
 
 `archive/` holds closed material in four directories: `project-init-session/` for the handoff, `chapter-01/` for the completed chapter's review and glossary, `plans/` for approved plans once their work has landed, and `session-artifacts/` for the local record of what each session changed under `.agents/`. Each is written once and not revised afterward. `session-artifacts/` is the only one that is untracked, and the only one an agent adds to as a matter of course.
 
+"Not revised" governs the content of an archived file, never the size of the archive. On 2026-09-18 the learner had `project-init-session/` distilled: its ten numbered turn directories were removed and replaced by a single `PROVENANCE.md` recording what each turn asked for and changed. No surviving file was edited, the three promoted `*-FINAL.md` documents were moved up from `10/` unchanged, and `git log` holds what was removed. A distillation of that kind is the learner's call and wants a dated plan under `plans/`; an edit to a file that stays is still forbidden.
+
 Every tracked path belongs to one manifest. The root `README.md` may link to every surface but owns no agent rule or lesson contract.
 
 ## Dependency direction
