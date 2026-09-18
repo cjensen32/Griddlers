@@ -15,12 +15,12 @@ public class CellTest {
   @ParameterizedTest
   @EnumSource(Cell.class)
   void everyCellAsciiStrIsNonBlank(Cell cell) {
-    assertFalse(cell.asciiStr().isBlank());
+    assertFalse(cell.glyph().isBlank());
   }
 
   @Test
   void noCellSharesAsciiStr() {
-    long distinctAsciiStr = Arrays.stream(Cell.values()).map(Cell::asciiStr).distinct().count();
+    long distinctAsciiStr = Arrays.stream(Cell.values()).map(Cell::glyph).distinct().count();
 
     assertEquals(Cell.values().length, distinctAsciiStr);
   }
@@ -28,6 +28,6 @@ public class CellTest {
   @ParameterizedTest
   @CsvSource({"EMPTY, .", "FILLED, #", "UNKNOWN, x"})
   void everyCellCarriesExpectedAsciiStr(Cell cell, String expected) {
-    assertEquals(expected, cell.asciiStr());
+    assertEquals(expected, cell.glyph());
   }
 }

@@ -41,9 +41,17 @@ The chapter was reordered at your request. Git and the commit grammar was 2.3; i
 
 The bigger change is what the lesson asks for. The chapter had drifted into configuration with almost no code behind it: rules nothing exercised, five probe fixtures existing only because real code gave the rules nothing to bite on, and a thirteen-row verdict matrix to be filled once and never reopened. That was a failure in how the lessons were written — they could be completed without producing anything worthwhile. The matrix and the `resources/l03/` fixtures are gone, and 2.3 now builds a `Griddler` with a real grid, derives its clues, and prints a nonogram. The same rules get exercised on the way to something that works.
 
-2.3 ships in two parts, each ending green with its own commit, so neither is a three-hour sitting. `.agents/reference/COURSE_STANDARDS.md` records the lesson format this established.
+2.3 ships in parts, each ending green with its own commit, so none is a three-hour sitting. It opened with two; see below for why it now has three. `.agents/reference/COURSE_STANDARDS.md` records the lesson format this established.
 
 `import-control.xml` and `checkstyle.xml` were simplified by the course author at your request, and are yours to review. The two-at-a-time rule is dropped: one lesson is written at a time, so 2.4 is `ahead` and gets refit against what you actually build here before you open it.
+
+## What changed on 2026-09-19
+
+2.3 grew a third part. The lesson was read back against the checkout rather than against memory, and several of its ticked boxes turned out to describe things the code does not do — `Griddler` rejecting non-square shapes, `Main` printing an `x`, a coverage number that had not moved. Those are corrected in place, and the work that is genuinely still open became `Part 3 — closing it out` rather than being quietly dropped or left in a reference note where a ticked lesson would never send you.
+
+Four close-out answers were blanked for rewriting, each with a note saying what the previous attempt got wrong. Two of those corrections are measurements rather than opinions: the `import-control.xml` reorder question was re-tested by reordering the real file, and the claim that Chapter 3 leaves the terminal is contradicted by this chapter's own syllabus row.
+
+The third part also adopts one requirement 2.3 never made: a tier 2 flow test. `lessons/TESTING_STANDARDS.md` has asked for one per user-visible flow since Chapter 1, the repository has none, and without one 2.4's subprocess would be the first thing ever to exercise the whole wiring — which is the most expensive place to find a wiring bug.
 
 ## What already exists
 
