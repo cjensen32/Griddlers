@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class Griddler {
-  private final int size;
+  private final int width;
+  private final int height;
   private final List<List<Cell>> cells;
 
   public Griddler(List<List<Cell>> cells) {
@@ -13,6 +14,11 @@ public final class Griddler {
       throw new IllegalArgumentException("Griddler shape must have cells");
     }
     this.cells = new ArrayList<>();
+    if (cells.getFirst() == null) {
+      throw new IllegalArgumentException("Rows must not be null");
+    }
+
+    width = cells.getFirst().size(); // all rows should be this size
     for (List<Cell> row : cells) {
       if (row == null) {
         throw new IllegalArgumentException("Griddler rows must not be null");
@@ -20,8 +26,8 @@ public final class Griddler {
       if (row.isEmpty()) {
         throw new IllegalArgumentException("Griddler rows must have values");
       }
-      if (row.size() != cells.size()) {
-        throw new IllegalArgumentException("Griddler shape must be square");
+      if (row.size() != width) {
+        throw new IllegalArgumentException("Griddler shape must be non-ragged");
       }
       for (Cell cell : row) {
         if (cell == null) {
@@ -30,11 +36,11 @@ public final class Griddler {
       }
       this.cells.add(new ArrayList<>(row));
     }
-    this.size = cells.size();
+    this.height = cells.size();
   }
 
   private void checkBounds(int row, int column) {
-    if (row < 0 || row >= size || column < 0 || column >= size) {
+    if (row < 0 || row >= height || column < 0 || column >= width) {
       throw new IndexOutOfBoundsException(
           "Griddler index: {" + row + ", " + column + "} - is out of bounds");
     }
@@ -62,7 +68,11 @@ public final class Griddler {
     this.cells.get(row).set(column, cell);
   }
 
-  public int getSize() {
-    return this.size;
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
   }
 }

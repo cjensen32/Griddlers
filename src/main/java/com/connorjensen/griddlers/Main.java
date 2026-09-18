@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Random;
 
 import com.connorjensen.griddlers.engine.GriddlerEngine;
 import com.connorjensen.griddlers.model.Cell;
@@ -29,14 +30,14 @@ public final class Main {
     List<List<Cell>> cells;
 
     if (parsed.randomize()) {
-      cells = GriddlerEngine.randomizeCells(parsed.size());
+      cells = GriddlerEngine.randomizeCells(parsed.size(), new Random());
     } else {
       cells = GriddlerEngine.nonRandomizeCells(parsed.size());
     }
 
     Griddler griddler = new Griddler(cells);
-    Gutter griddlerGutters = GriddlerEngine.gutters(griddler);
-    String griddlerString = GriddlerEngine.renderWithGutters(griddler, griddlerGutters);
+    Gutter griddlerGutters = GriddlerEngine.clues(griddler);
+    String griddlerString = GriddlerEngine.render(griddler, griddlerGutters);
 
     terminalGriddler.griddlerToFile(griddlerString);
     System.out.print(griddlerString);

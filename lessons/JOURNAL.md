@@ -14,6 +14,8 @@ A row is added when a lesson first requires the term. Scope and definition are f
 | 2.1    | junit | JUnit Platform              | Structural foundation of starting the test framework on jvm                     |
 | 2.1    | junit | JUnit Jupiter               | Core of the JUnit Framework, contains annotations, models, and extensions       |
 | 2.1    | junit | aggregator artifact (junit) | Import artifact that exists to import several different packages together !4 ?1 |
+| 2.3    | junit | `@TempDir`                  | Allows easy creation of temporary directories for testing file ops directly     |
+| 2.3    | junit | deterministic output        | Disabling parallel testing ensures reliable, single thread test execution       |
 | 2.1    | mvn   | Surefire                    | Standard plugin for executing tests during `mvn test` lifecycle phase           |
 | 2.1    | mvn   | Surefire default includes   | Surefire includes all test classes containing `**/*Test.java` !2 ?2             |
 | 2.1    | mvn   | `target/`                   | Maven default output for build-generated artifacts/files                        |
@@ -55,6 +57,10 @@ A row is added when a lesson first requires the term. Scope and definition are f
 | 2.1    | java  | `-Xlint`                    | `javac` flag to control warnings categories; `-Xlint` = all reccomended         |
 | 2.2    | java  | Java agent (`-javaagent`)   | load a language agent from a `.jar` with options (see `java.lang.instrument`??) |
 | 2.2    | java  | bytecode instrumentation    | allows intercepting of the `.class` files before loading to memory              |
+| 2.3    | java  | package-private access      | Default access value, allows file-internal classes/etc; can't be imported       |
+| 2.3    | java  | composition root            | Central location where app deps are instantiated and wired `Main.java`          |
+| 2.3    | java  | run-length encoding         | StringBuilder uses this algorithm to minimize runtime garbage/heap size         |
+| 2.3    | java  | unmodifiable collection     | a 'list' of non-updatable elements; can't remove directly from object           |
 | 2.2    | qa    | Checkstyle                  | plugin to report on violations of code style; can fail if configured to do so   |
 | 2.2    | qa    | Spotless                    | plugin to format code; `apply` goal rewrites files with configuration defined   |
 | 2.2    | qa    | JaCoCo                      | plugin to create reports on the code coverage                                   |
@@ -62,19 +68,13 @@ A row is added when a lesson first requires the term. Scope and definition are f
 | 2.2    | qa    | check goal vs apply goal    | `check` looks for unformatted code; `apply` reformats all according to config   |
 | 2.2    | qa    | line vs branch coverage     | test coverage: `line` is % lines covered; `branch` is % if/else/switch coverage |
 | 2.3    | qa    | `ImportControl`             | defines/controls which packages/classes can be imported in your project         |
-| 2.3    | qa    | `strategyOnMismatch`        |                                                                                 |
-| 2.3    | qa    | includeTestSourceDirectory  |                                                                                 |
-| 2.3    | qa    | DTD                         |                                                                                 |
-| 2.3    | qa    | coverage exclusion          |                                                                                 |
-| 2.3    | qa    | `COVEREDRATIO`              |                                                                                 |
-| 2.3    | java  | package-private access      |                                                                                 |
-| 2.3    | qa    | `<subpackage>` vs `<file>`  |                                                                                 |
-| 2.3    | qa    | node resolution order       |                                                                                 |
-| 2.3    | java  | composition root            |                                                                                 |
-| 2.3    | java  | run-length encoding         |                                                                                 |
-| 2.3    | java  | unmodifiable collection     |                                                                                 |
-| 2.3    | test  | `@TempDir`                  |                                                                                 |
-| 2.3    | test  | deterministic output        |                                                                                 |
+| 2.3    | qa    | `strategyOnMismatch`        | defines what it should do if an allow or disallow isn't found for an import     |
+| 2.3    | qa    | includeTestSourceDirectory  | boolean for checkstyle to apply rules to the `src/test/` directory              |
+| 2.3    | qa    | DTD                         | Document Type Definition; used as a blueprint for java xml files/configs        |
+| 2.3    | qa    | coverage exclusion          | Files/Directories that SHOULDN'T be included in jacoco.                         |
+| 2.3    | qa    | `COVEREDRATIO`              | Inside a `<limit><value>` property. calculation of coverage as % covered        |
+| 2.3    | qa    | `<subpackage>` vs `<file>`  | Subpackage: directory specific rules. File: file specific rules                 |
+| 2.3    | qa    | node resolution order       | How Checkstyle performs its search, default checks one node at a time           |
 
 ### Your notes
 
