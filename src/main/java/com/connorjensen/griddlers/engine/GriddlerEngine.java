@@ -17,7 +17,7 @@ public final class GriddlerEngine {
     }
   }
 
-  public static List<List<Cell>> nonRandomizeCells(int width, int height) {
+  public static List<List<Cell>> alternatingCells(int width, int height) {
     List<List<Cell>> cells = new ArrayList<>(height);
 
     // Create unrandomized cells
@@ -171,7 +171,7 @@ public final class GriddlerEngine {
     for (int i = 0; i < cells.size(); i++) {
       List<Cell> row = cells.get(i);
 
-      sb.append(drawBorder(cells.getFirst().size(), layout.cellWidth(), layout.lGutterWidth()));
+      sb.append(rowSeparator(cells.getFirst().size(), layout.cellWidth(), layout.lGutterWidth()));
 
       sb.append(rowClueStrings.get(i));
       sb.append("|");
@@ -182,7 +182,7 @@ public final class GriddlerEngine {
       }
       sb.append("\n");
     }
-    sb.append(drawBorder(cells.getFirst().size(), layout.cellWidth(), layout.lGutterWidth()));
+    sb.append(rowSeparator(cells.getFirst().size(), layout.cellWidth(), layout.lGutterWidth()));
 
     return sb.toString();
   }
@@ -211,7 +211,7 @@ public final class GriddlerEngine {
     return " ".repeat(leftSpaces) + value + " ".repeat(rightSpaces);
   }
 
-  private static String drawBorder(int columns, int cellWidth, int lGutterWidth) {
+  private static String rowSeparator(int columns, int cellWidth, int lGutterWidth) {
     StringBuilder sb = new StringBuilder();
     sb.repeat("-", lGutterWidth);
     sb.repeat("+" + "-".repeat(cellWidth), columns);
