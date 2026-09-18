@@ -13,7 +13,7 @@ public final class TerminalGriddler {
     this.destination = Objects.requireNonNull(destination, "destination is required");
   }
 
-  public void griddlerToFile(String griddlerString) throws IOException {
+  public void write(String griddlerString) throws IOException {
     Files.writeString(destination, griddlerString, StandardCharsets.UTF_8);
   }
 }

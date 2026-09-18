@@ -226,30 +226,30 @@ DELETE (remove it) · REVIEW (your call, not mine) · ADD (missing) · MERGE / S
 | ◆ `gutters()` :20-58            | REFACTOR | split into `runs` + row + column — N3        | Done?   |
 | ◆ `render()` :63                | DELETE   | dead; only its own test calls it             | Removed |
 | ◆ `renderWithGutters()` :83     | RENAME   | → `render()` once :63 is gone                | Renamed |
-| ◆ `renderWithGutters()` :83-170 | REFACTOR | 88 lines, four jobs — N4                     |         |
-| ◆ `renderXBorder()` :173        | RENAME   | → `rowSeparator()`; it draws a rule          |         |
-| ◆ `center()` :177               | KEEP     | does what it says                            |         |
-| ◆ `nonRandomizeCells()` :186    | RENAME   | → `alternatingCells()`; named for a negative |         |
-| ◆ `randomizeCells()` :200       | REFACTOR | take a `Random`; `new Random()` at :203 — N5 |         |
+| ◆ `renderWithGutters()` :83-170 | REFACTOR | 88 lines, four jobs — N4                     | Done    |
+| ◆ `renderXBorder()` :173        | RENAME   | → `rowSeparator()`; it draws a rule          | Done    |
+| ◆ `center()` :177               | KEEP     | does what it says                            | Noted   |
+| ◆ `nonRandomizeCells()` :186    | RENAME   | → `alternatingCells()`; named for a negative | Done    |
+| ◆ `randomizeCells()` :200       | REFACTOR | take a `Random`; `new Random()` at :203 — N5 | Done    |
 
 ### 9.3 `tools`
 
-| Item                                    | Verdict  | Why                                |
-|-----------------------------------------|----------|------------------------------------|
-| ◆ `CLIParser` :5                        | REFACTOR | private ctor wants `final`         |
-| ◆ `CLIParser.parse()` :43-52            | REFACTOR | `-r` dropped before a flag — §3.1  |
-| ◆ `CLIParser.ParsedArgs` :8             | REVIEW   | nullable `outPath` if §2.1 lands   |
-| `TerminalGriddler` :9                   | RENAME   | never touches a terminal           |
-| `TerminalGriddler.griddlerToFile()` :16 | RENAME   | → `write()`; not griddler-specific |
+| Item                                    | Verdict  | Why                                | Status |
+|-----------------------------------------|----------|------------------------------------|--------|
+| ◆ `CLIParser` :5                        | REFACTOR | private ctor wants `final`         | Done   |
+| ◆ `CLIParser.parse()` :43-52            | REFACTOR | `-r` dropped before a flag — §3.1  | ??     |
+| ◆ `CLIParser.ParsedArgs` :8             | REVIEW   | nullable `outPath` if §2.1 lands   | ??     |
+| `TerminalGriddler` :9                   | RENAME   | never touches a terminal           | ??     |
+| `TerminalGriddler.griddlerToFile()` :16 | RENAME   | → `write()`; not griddler-specific | Done   |
 
 ### 9.4 Root
 
-| Item                   | Verdict  | Why                                |
-|------------------------|----------|------------------------------------|
-| ◆ `Main` :16           | KEEP     | wiring, one branch, a print        |
-| ◆ `Main.main()` :41-42 | REFACTOR | print before write — §2.2          |
-| ◆ `Main.main()` :20    | REFACTOR | temp dir built before parse — §2.1 |
-| ◆ `Main.main()` :20    | ADD      | print destination to stderr — N6   |
+| Item                   | Verdict  | Why                                | Status |
+|------------------------|----------|------------------------------------|--------|
+| ◆ `Main` :16           | KEEP     | wiring, one branch, a print        | Noted  |
+| ◆ `Main.main()` :41-42 | REFACTOR | print before write — §2.2          |        |
+| ◆ `Main.main()` :20    | REFACTOR | temp dir built before parse — §2.1 |        |
+| ◆ `Main.main()` :20    | ADD      | print destination to stderr — N6   |        |
 
 ### 9.5 Tests — `GriddlerEngineTest.java`
 

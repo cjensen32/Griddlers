@@ -32,14 +32,14 @@ public final class Main {
     if (parsed.randomize()) {
       cells = GriddlerEngine.randomizeCells(parsed.size(), new Random());
     } else {
-      cells = GriddlerEngine.nonRandomizeCells(parsed.size(), parsed.size());
+      cells = GriddlerEngine.alternatingCells(parsed.size(), parsed.size());
     }
 
     Griddler griddler = new Griddler(cells);
     Gutter griddlerGutters = GriddlerEngine.clues(griddler);
     String griddlerString = GriddlerEngine.render(griddler, griddlerGutters);
 
-    terminalGriddler.griddlerToFile(griddlerString);
+    terminalGriddler.write(griddlerString);
     System.out.print(griddlerString);
   }
 }

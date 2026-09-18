@@ -36,8 +36,8 @@ class TerminalGriddlerTest {
     Path target = dir.resolve("griddler.txt");
     Path targetTwo = dir.resolve("griddler2.txt");
 
-    new TerminalGriddler(target).griddlerToFile(EXPECTED_STRING);
-    new TerminalGriddler(targetTwo).griddlerToFile(EXPECTED_STRING);
+    new TerminalGriddler(target).write(EXPECTED_STRING);
+    new TerminalGriddler(targetTwo).write(EXPECTED_STRING);
 
     assertArrayEquals(Files.readAllBytes(target), Files.readAllBytes(targetTwo));
   }
@@ -46,7 +46,7 @@ class TerminalGriddlerTest {
   void griddlerToFileProducesIdenticalData(@TempDir Path dir) throws IOException {
     Path target = dir.resolve("griddler.txt");
 
-    new TerminalGriddler(target).griddlerToFile(EXPECTED_STRING);
+    new TerminalGriddler(target).write(EXPECTED_STRING);
 
     assertEquals(EXPECTED_STRING, Files.readString(target, StandardCharsets.UTF_8));
   }

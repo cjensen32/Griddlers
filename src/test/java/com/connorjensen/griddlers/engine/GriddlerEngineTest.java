@@ -1,12 +1,12 @@
 package com.connorjensen.griddlers.engine;
 
 import static com.connorjensen.griddlers.engine.GriddlerEngine.Layout;
+import static com.connorjensen.griddlers.engine.GriddlerEngine.alternatingCells;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.bottomAlign;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.deriveClueList;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.drawBody;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.drawTopClues;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.measure;
-import static com.connorjensen.griddlers.engine.GriddlerEngine.nonRandomizeCells;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.randomizeCells;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.render;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -55,7 +55,7 @@ public class GriddlerEngineTest {
     @ParameterizedTest(name = "{0} non-randomize correctly shapes rows/cols")
     @CsvSource({"1", "3", "4", "7", "11"})
     void nonRandomizeCellsAlternatesFillByRowAndColumn(int size) {
-      List<List<Cell>> resultCells = nonRandomizeCells(size, size);
+      List<List<Cell>> resultCells = alternatingCells(size, size);
 
       for (int i = 0; i < size; i++) {
         Cell rowVal = (i % 2 == 0) ? Cell.FILLED : Cell.EMPTY;
@@ -357,7 +357,7 @@ public class GriddlerEngineTest {
               | . | # | . | # |
               +---+---+---+---+
               """,
-              nonRandomizeCells(4, 6),
+              alternatingCells(4, 6),
               new Gutter(blankGutter(6), blankGutter(4))),
           arguments(
               "8 x 7: Non Square Griddler matches Golden Output",
@@ -378,7 +378,7 @@ public class GriddlerEngineTest {
               | # | . | # | . | # | . | # | . |
               +---+---+---+---+---+---+---+---+
               """,
-              nonRandomizeCells(8, 7),
+              alternatingCells(8, 7),
               new Gutter(blankGutter(8), blankGutter(7))));
     }
 
@@ -404,7 +404,7 @@ public class GriddlerEngineTest {
               | . | # | . | # |
               +---+---+---+---+
               """,
-              nonRandomizeCells(4, 4),
+              alternatingCells(4, 4),
               new Gutter(blankGutter(4), blankGutter(4))),
           arguments(
               "8 x 8: Square Griddler matches Golden Output",
@@ -427,7 +427,7 @@ public class GriddlerEngineTest {
               | . | # | . | # | . | # | . | # |
               +---+---+---+---+---+---+---+---+
               """,
-              nonRandomizeCells(8, 8),
+              alternatingCells(8, 8),
               new Gutter(blankGutter(8), blankGutter(8))));
     }
 
