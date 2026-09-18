@@ -124,7 +124,7 @@ Small, mechanical, and worth doing in one commit before 2.4.
 
 **Rename:**
 
-5. **`Gutter.xAxisGutters` / `yAxisGutters` → `rowClues` / `columnClues`.** A gutter is the strip a renderer prints into; these are clues. Chapter 9's JSON and Chapter 10's DOM both carry these numbers and neither has a gutter. And "x-axis holds row clues" reads backwards to most people.
+5. **`Gutter.xAxisGutters` / `columnClues` → `rowClues` / `columnClues`.** A gutter is the strip a renderer prints into; these are clues. Chapter 9's JSON and Chapter 10's DOM both carry these numbers and neither has a gutter. And "x-axis holds row clues" reads backwards to most people.
 6. **`Gutter` has no defensive copy.** The record hands out the engine's own mutable `ArrayList`s at both levels. A compact constructor copying both levels closes it — and gives `GutterTest` a real thing to assert, which resolves item 2 above.
 7. **`TerminalGriddler` writes a file and never touches a terminal.** Rename it for the write it performs. Do it before 2.4 asserts stdout, so the class that owns output isn't a surprise by then.
 8. **`Cell.asciiStr()` names an encoding.** See §6 — ASCII is staying through Chapter 2, so the name is true today and wrong the moment Chapter 3 lands. `glyph()` is true in both.
@@ -206,31 +206,31 @@ DELETE (remove it) · REVIEW (your call, not mine) · ADD (missing) · MERGE / S
 
 ### 9.1 `model`
 
-| Item                               | Verdict  | Why                                 | Status   |
-|------------------------------------|----------|-------------------------------------|----------|
-| `Cell`                             | KEEP     | enum, three constants, one field    | Reviewed |
-| `Cell.asciiStr()` :14              | RENAME   | `glyph()` — ASCII name dies in Ch3  | Renamed  |
-| `Griddler` ctor :10                | REVIEW   | square-only; rectangles land in 2.5 |          |
-| `Griddler.getCells()` :43          | REFACTOR | deep copy on every call — N1        | Done?    |
-| `Griddler.getCell/setCell/getSize` | KEEP     | `setCell` is the Q8 seam            |          |
-| `Griddler.checkBounds` :36         | KEEP     | private, one job                    |          |
-| ◆ `Gutter` fields :5               | RENAME   | → `rowClues` / `columnClues`        |          |
-| ◆ `Gutter` :5                      | REFACTOR | compact ctor, copy both levels — N2 |          |
+| Item                               | Verdict  | Why                                 | Status           |
+|------------------------------------|----------|-------------------------------------|------------------|
+| `Cell`                             | KEEP     | enum, three constants, one field    | Reviewed         |
+| `Cell.asciiStr()` :14              | RENAME   | `glyph()` — ASCII name dies in Ch3  | Renamed          |
+| `Griddler` ctor :10                | REVIEW   | square-only; rectangles land in 2.5 | Done?            |
+| `Griddler.getCells()` :43          | REFACTOR | deep copy on every call — N1        | Done? Refactor?  |
+| `Griddler.getCell/setCell/getSize` | KEEP     | `setCell` is the Q8 seam            | is this issue??  |
+| `Griddler.checkBounds` :36         | KEEP     | private, one job                    | Reviewed         |
+| ◆ `Gutter` fields :5               | RENAME   | → `rowClues` / `columnClues`        | Renamed          |
+| ◆ `Gutter` :5                      | REFACTOR | compact ctor, copy both levels — N2 | Done, need test? |
 
 ### 9.2 `engine` — `GriddlerEngine.java`
 
-| Item                            | Verdict  | Why                                          |
-|---------------------------------|----------|----------------------------------------------|
-| ◆ class :12                     | REFACTOR | private ctor wants `final`                   |
-| ◆ `gutters()` :15               | RENAME   | → `clues()`; returns clues, not layout       |
-| ◆ `gutters()` :20-58            | REFACTOR | split into `runs` + row + column — N3        |
-| ◆ `render()` :63                | DELETE   | dead; only its own test calls it             |
-| ◆ `renderWithGutters()` :83     | RENAME   | → `render()` once :63 is gone                |
-| ◆ `renderWithGutters()` :83-170 | REFACTOR | 88 lines, four jobs — N4                     |
-| ◆ `renderXBorder()` :173        | RENAME   | → `rowSeparator()`; it draws a rule          |
-| ◆ `center()` :177               | KEEP     | does what it says                            |
-| ◆ `nonRandomizeCells()` :186    | RENAME   | → `alternatingCells()`; named for a negative |
-| ◆ `randomizeCells()` :200       | REFACTOR | take a `Random`; `new Random()` at :203 — N5 |
+| Item                            | Verdict  | Why                                          | Status  |
+|---------------------------------|----------|----------------------------------------------|---------|
+| ◆ class :12                     | REFACTOR | private ctor wants `final`                   | Added   |
+| ◆ `gutters()` :15               | RENAME   | → `clues()`; returns clues, not layout       | Done?   |
+| ◆ `gutters()` :20-58            | REFACTOR | split into `runs` + row + column — N3        | Done?   |
+| ◆ `render()` :63                | DELETE   | dead; only its own test calls it             | Removed |
+| ◆ `renderWithGutters()` :83     | RENAME   | → `render()` once :63 is gone                | Renamed |
+| ◆ `renderWithGutters()` :83-170 | REFACTOR | 88 lines, four jobs — N4                     |         |
+| ◆ `renderXBorder()` :173        | RENAME   | → `rowSeparator()`; it draws a rule          |         |
+| ◆ `center()` :177               | KEEP     | does what it says                            |         |
+| ◆ `nonRandomizeCells()` :186    | RENAME   | → `alternatingCells()`; named for a negative |         |
+| ◆ `randomizeCells()` :200       | REFACTOR | take a `Random`; `new Random()` at :203 — N5 |         |
 
 ### 9.3 `tools`
 
@@ -340,7 +340,7 @@ DELETE (remove it) · REVIEW (your call, not mine) · ADD (missing) · MERGE / S
 
 ### 9.10 Notes
 
-**N1** — `getCells()` rebuilds the whole grid per call, and both render loops call it once per row (`GriddlerEngine:68`, `:137`). Hoist to one call per render.
+**N1** — `getCells()` rebuilds the whole grid per call, and both render loops call it once per row (`GriddlerEngine:68`, `:137`). Hoist to one call per render. **[!?] - please explain, do you mean to have it stored as another private variable or what would be the ideal way to store an immutable/copy of the cells?**
 
 **N2** — The record hands out the engine's own mutable `ArrayList`s at both levels, so a caller can rewrite clues after they were derived. A compact constructor copying both levels closes it — and gives `GutterTest` something real to assert.
 
@@ -379,8 +379,8 @@ DELETE (remove it) · REVIEW (your call, not mine) · ADD (missing) · MERGE / S
 89 rows, 45 of them staged.
 
 | KEEP | RENAME | REFACTOR | REVIEW | DELETE | ADD | MERGE | EXTEND | other |
-|---|---|---|---|---|---|---|---|---|
-| 27 | 17 | 16 | 9 | 6 | 4 | 4 | 3 | 4 |
+|------|--------|----------|--------|--------|-----|-------|--------|-------|
+| 27   | 17     | 16       | 9      | 6      | 4   | 4     | 3      | 4     |
 
 *other* = 1 each of REWRITE, SPLIT, FIX, DONE.
 

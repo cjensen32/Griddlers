@@ -38,6 +38,7 @@
     <allow pkg="java\.util" regex="true"/>
 
     <file name=".*Test" regex="true">
+      <allow pkg="com\.connorjensen\.griddlers\.engine" regex="true"/>
       <allow pkg="org\.junit\.jupiter" regex="true"/>
     </file>
   </subpackage>

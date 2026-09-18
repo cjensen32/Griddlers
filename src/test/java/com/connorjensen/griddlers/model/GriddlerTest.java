@@ -16,18 +16,28 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 class GriddlerTest {
   // Distinct row values make swapped row and column indices detectable.
-  private static final List<List<Cell>> INITIAL_CELLS =
+  private static final List<List<Cell>> SQUARE_CELLS =
       List.of(
           List.of(Cell.FILLED, Cell.FILLED, Cell.FILLED, Cell.FILLED),
           List.of(Cell.UNKNOWN, Cell.UNKNOWN, Cell.UNKNOWN, Cell.UNKNOWN),
           List.of(Cell.EMPTY, Cell.EMPTY, Cell.EMPTY, Cell.EMPTY),
           List.of(Cell.EMPTY, Cell.EMPTY, Cell.EMPTY, Cell.EMPTY));
-  private static final int GRID_SIZE = 4;
+  private static final List<List<Cell>> RECT_CELLS =
+      List.of(
+          List.of(Cell.FILLED, Cell.FILLED, Cell.FILLED, Cell.FILLED),
+          List.of(Cell.UNKNOWN, Cell.UNKNOWN, Cell.UNKNOWN, Cell.UNKNOWN),
+          List.of(Cell.FILLED, Cell.FILLED, Cell.FILLED, Cell.FILLED),
+          List.of(Cell.EMPTY, Cell.EMPTY, Cell.EMPTY, Cell.EMPTY),
+          List.of(Cell.EMPTY, Cell.EMPTY, Cell.EMPTY, Cell.EMPTY));
+
+  private static final int GRID_WIDTH = 4;
   private Griddler grid;
+  private Griddler rectGrid;
 
   @BeforeEach
   void setUp() {
-    grid = new Griddler(INITIAL_CELLS);
+    grid = new Griddler(SQUARE_CELLS);
+    rectGrid = new Griddler(RECT_CELLS);
   }
 
   // 1. Construction and validation
@@ -36,11 +46,12 @@ class GriddlerTest {
   class ConstructionAndValidation {
     @Test
     void constructorPreservesCellValues() {
-      assertEquals(INITIAL_CELLS, grid.getCells());
+      assertEquals(SQUARE_CELLS, grid.getCells());
+      assertEquals(RECT_CELLS, rectGrid.getCells());
     }
 
     @Test
-    @DisplayName("Constructor accepts 1 x 1 grid")
+    @DisplayName("build 1 x 1 grid")
     void constructorAcceptsSmallestGrid() {
       List<List<Cell>> smallestGridPossible = List.of(List.of(Cell.EMPTY));
       Griddler smallestGriddler = new Griddler(smallestGridPossible);
@@ -75,12 +86,6 @@ class GriddlerTest {
               List.of(Cell.EMPTY, Cell.EMPTY, Cell.EMPTY),
               List.of(Cell.EMPTY, Cell.EMPTY));
 
-      List<List<Cell>> cellsWithRectangularShape =
-          List.of(
-              List.of(Cell.EMPTY, Cell.EMPTY),
-              List.of(Cell.EMPTY, Cell.EMPTY),
-              List.of(Cell.EMPTY, Cell.EMPTY));
-
       List<List<Cell>> cellsWithUnevenShape =
           List.of(
               List.of(Cell.EMPTY, Cell.EMPTY, Cell.EMPTY),
@@ -88,7 +93,6 @@ class GriddlerTest {
               List.of(Cell.EMPTY, Cell.EMPTY, Cell.EMPTY));
 
       assertThrows(IllegalArgumentException.class, () -> new Griddler(cellsWithRaggedRows));
-      assertThrows(IllegalArgumentException.class, () -> new Griddler(cellsWithRectangularShape));
       assertThrows(IllegalArgumentException.class, () -> new Griddler(cellsWithUnevenShape));
     }
 
@@ -123,14 +127,14 @@ class GriddlerTest {
   class DimensionsAndLookup {
     @Test
     void getSizeReturnsGridDimension() {
-      assertEquals(GRID_SIZE, grid.getSize());
+      assertEquals(GRID_WIDTH, grid.getWidth());
     }
 
     @Test
     void getCellsReturnsRowsWithExpectedSize() {
       List<List<Cell>> cells = grid.getCells();
       for (List<Cell> row : cells) {
-        assertEquals(GRID_SIZE, row.size());
+        assertEquals(GRID_WIDTH, row.size());
       }
     }
 
@@ -156,7 +160,7 @@ class GriddlerTest {
       Griddler smallestGriddler = new Griddler(smallestGridPossible);
 
       assertEquals(Cell.EMPTY, smallestGriddler.getCell(0, 0));
-      assertEquals(1, smallestGriddler.getSize());
+      assertEquals(1, smallestGriddler.getWidth());
     }
   }
 
