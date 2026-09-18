@@ -1,14 +1,19 @@
 package com.connorjensen.griddlers.engine;
 
+import static com.connorjensen.griddlers.engine.GriddlerEngine.Layout;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.bottomAlign;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.deriveClueList;
+import static com.connorjensen.griddlers.engine.GriddlerEngine.drawBody;
+import static com.connorjensen.griddlers.engine.GriddlerEngine.drawTopClues;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.measure;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.nonRandomizeCells;
 import static com.connorjensen.griddlers.engine.GriddlerEngine.randomizeCells;
+import static com.connorjensen.griddlers.engine.GriddlerEngine.render;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
@@ -50,7 +55,7 @@ public class GriddlerEngineTest {
     @ParameterizedTest(name = "{0} non-randomize correctly shapes rows/cols")
     @CsvSource({"1", "3", "4", "7", "11"})
     void nonRandomizeCellsAlternatesFillByRowAndColumn(int size) {
-      List<List<Cell>> resultCells = nonRandomizeCells(size);
+      List<List<Cell>> resultCells = nonRandomizeCells(size, size);
 
       for (int i = 0; i < size; i++) {
         Cell rowVal = (i % 2 == 0) ? Cell.FILLED : Cell.EMPTY;
@@ -71,6 +76,7 @@ public class GriddlerEngineTest {
 
       assertEquals(expectedCells, randomizeCells(2, random));
     }
+
     @ParameterizedTest(name = "Random({0}) returns square of requested size")
     @CsvSource({"8", "5", "1", "25"})
     void randomizeCellsReturnsSquareOfRequestedSize(int size) {
@@ -152,30 +158,29 @@ public class GriddlerEngineTest {
       return Stream.of(
           arguments(
               "measure() keeps cellWidth minimum of 3 ",
-              new Gutter(List.of(), List.of()),
-              new GriddlerEngine.Layout(0, 2, 3, 0)),
+              new Layout(0, 2, 3, 0),
+              new Gutter(List.of(), List.of())),
           arguments(
               "measure() widens cellWidth for multi-digit clues",
-              new Gutter(List.of(), List.of(List.of(10))),
-              new GriddlerEngine.Layout(0, 2, 5, 1)),
+              new Layout(0, 2, 5, 1),
+              new Gutter(List.of(), List.of(List.of(10)))),
           arguments(
               "measure() widens gutterWidth for multi-digit clues",
-              new Gutter(List.of(List.of(10)), List.of()),
-              new GriddlerEngine.Layout(1, 3, 3, 0)),
+              new Layout(1, 3, 3, 0),
+              new Gutter(List.of(List.of(10)), List.of())),
           arguments(
               "measure() forces odd cellWidth",
-              new Gutter(List.of(), List.of(List.of(100))),
-              new GriddlerEngine.Layout(0, 2, 5, 1)),
+              new Layout(0, 2, 5, 1),
+              new Gutter(List.of(), List.of(List.of(100)))),
           arguments(
               "cellWidth = 7; is odd; >=1 padding on both sides",
-              new Gutter(List.of(), List.of(List.of(1000))),
-              new GriddlerEngine.Layout(0, 2, 7, 1)));
+              new Layout(0, 2, 7, 1),
+              new Gutter(List.of(), List.of(List.of(1000)))));
     }
 
     @ParameterizedTest(name = "{0}")
     @MethodSource("deriveMeasureWidth")
-    void testMeasureWidthCalculation(
-        String testName, Gutter gutter, GriddlerEngine.Layout expected) {
+    void testMeasureWidthCalculation(String testName, Layout expected, Gutter gutter) {
       assertEquals(expected, measure(gutter));
     }
 
@@ -184,16 +189,16 @@ public class GriddlerEngineTest {
           arguments(
               "xClueSize determined by longest rowClues list ",
               new Gutter(List.of(List.of(1), List.of(1, 1, 1, 1, 1, 1)), List.of()),
-              new GriddlerEngine.Layout(6, 2, 3, 0)),
+              new Layout(6, 2, 3, 0)),
           arguments(
               "yClueSize determined by longest columnClues list",
               new Gutter(List.of(), List.of(List.of(1), List.of(1, 1, 1, 1, 1, 1))),
-              new GriddlerEngine.Layout(0, 2, 3, 6)));
+              new Layout(0, 2, 3, 6)));
     }
 
     @ParameterizedTest(name = "x/y Clue size measurements are correct: {0}")
     @MethodSource("deriveMeasureCases")
-    void testMeasureXYCalculation(String testName, Gutter gutter, GriddlerEngine.Layout expected) {
+    void testMeasureXYCalculation(String testName, Gutter gutter, Layout expected) {
       assertEquals(expected, measure(gutter));
     }
   }
@@ -203,28 +208,241 @@ public class GriddlerEngineTest {
   class LanePadding {
     private static Stream<Arguments> paddingCases() {
       return Stream.of(
-        arguments(List.of(1), 3, 3, List.of("   ", "   ", " 1 ")),
-        arguments(List.of(), 3, 1, List.of(" ", " ", " ")),
-        arguments(List.of(1, 2, 3), 3, 3, List.of(" 1 ", " 2 ", " 3 "))
-      );
+          arguments(
+              "Returns exactly lane count entries", List.of("   ", "   ", " 1 "), List.of(1), 3, 3),
+          arguments(
+              "Returns all blank lanes for empty clues",
+              List.of("   ", "   ", "   "),
+              List.of(),
+              3,
+              3),
+          arguments(
+              "Fills every lane when clue count equals lane count",
+              List.of(" 1 ", " 2 ", " 3 "),
+              List.of(1, 2, 3),
+              3,
+              3),
+          arguments(
+              "Widens field for multi-digit clue",
+              List.of("     ", " 10  ", "  5  "),
+              List.of(10, 5),
+              3,
+              5));
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{0}")
     @MethodSource("paddingCases")
-    void testPaddingCases(List<Integer> clues, int laneCount, int clueWidth, List<String> expected) {
+    void testPaddingCases(
+        String name, List<String> expected, List<Integer> clues, int laneCount, int clueWidth) {
       assertEquals(expected, bottomAlign(clues, laneCount, clueWidth));
     }
   }
 
   @Nested
-  @DisplayName("Header Rendering tests")
-  class HeaderRendering {}
+  @DisplayName("drawTopClues() tests")
+  class HeaderRendering {
+    private static Stream<Arguments> drawTopCluesCases() {
+      return Stream.of(
+          arguments(
+              "Emits one line per lane",
+              """
+              |
+              |
+              |
+              """,
+              new Layout(0, 0, 0, 3),
+              List.of()),
+          arguments(
+              "Aligns each column over its grid column",
+              """
+              | 1 | 2 |
+              """,
+              new Layout(0, 0, 3, 1),
+              List.of(List.of(1), List.of(2))),
+          arguments(
+              "Renders column with no clues",
+              """
+              |   | 2 |
+              """,
+              new Layout(0, 0, 3, 1),
+              List.of(List.of(), List.of(2))),
+          arguments(
+              "Aligns each column over its grid column",
+              """
+                |
+              """,
+              new Layout(2, 1, 1, 1),
+              List.of()));
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("drawTopCluesCases")
+    void testTopCluesCases(
+        String name, String expected, Layout layout, List<List<Integer>> columnClues) {
+      assertEquals(expected, drawTopClues(layout, columnClues));
+    }
+  }
 
   @Nested
-  @DisplayName("Body Rendering tests")
-  class BodyRendering {}
+  @DisplayName("drawBody() tests")
+  class BodyRendering {
+    private static Stream<Arguments> drawBodyCases() {
+      return Stream.of(
+          arguments(
+              "Emits border above every row and at bottom",
+              """
+              -+---+
+               | # |
+              -+---+
+              """,
+              new Layout(1, 1, 3, 0),
+              List.of(List.of()),
+              List.of(List.of(Cell.FILLED))),
+          arguments(
+              "Right aligns row clues in left gutter",
+              """
+              ----+---+
+              1 1 | # |
+              ----+---+
+              """,
+              new Layout(2, 2, 3, 0),
+              List.of(List.of(1, 1)),
+              List.of(List.of(Cell.FILLED))),
+          arguments(
+              "Renders correct with blank clues; renders non-square grid",
+              """
+              --+---+
+              1 | # |
+              --+---+
+                | # |
+              --+---+
+              """,
+              new Layout(1, 2, 3, 0),
+              List.of(List.of(1), List.of()),
+              List.of(List.of(Cell.FILLED), List.of(Cell.FILLED))));
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("drawBodyCases")
+    void testBodyCases(
+        String name,
+        String expected,
+        Layout layout,
+        List<List<Integer>> columnClues,
+        List<List<Cell>> cells) {
+      assertEquals(expected, drawBody(layout, columnClues, cells));
+    }
+  }
 
   @Nested
-  @DisplayName("Full Rendering tests")
-  class FullRendering {}
+  @DisplayName("render() (Full process) tests")
+  class FullRendering {
+
+    private static Stream<Arguments> drawNonSquareCases() {
+      return Stream.of(
+          arguments(
+              "4 x 6: Non Square Griddler matches Golden Output",
+              """
+              +---+---+---+---+
+              | # | . | # | . |
+              +---+---+---+---+
+              | . | # | . | # |
+              +---+---+---+---+
+              | # | . | # | . |
+              +---+---+---+---+
+              | . | # | . | # |
+              +---+---+---+---+
+              | # | . | # | . |
+              +---+---+---+---+
+              | . | # | . | # |
+              +---+---+---+---+
+              """,
+              nonRandomizeCells(4, 6),
+              new Gutter(blankGutter(6), blankGutter(4))),
+          arguments(
+              "8 x 7: Non Square Griddler matches Golden Output",
+              """
+              +---+---+---+---+---+---+---+---+
+              | # | . | # | . | # | . | # | . |
+              +---+---+---+---+---+---+---+---+
+              | . | # | . | # | . | # | . | # |
+              +---+---+---+---+---+---+---+---+
+              | # | . | # | . | # | . | # | . |
+              +---+---+---+---+---+---+---+---+
+              | . | # | . | # | . | # | . | # |
+              +---+---+---+---+---+---+---+---+
+              | # | . | # | . | # | . | # | . |
+              +---+---+---+---+---+---+---+---+
+              | . | # | . | # | . | # | . | # |
+              +---+---+---+---+---+---+---+---+
+              | # | . | # | . | # | . | # | . |
+              +---+---+---+---+---+---+---+---+
+              """,
+              nonRandomizeCells(8, 7),
+              new Gutter(blankGutter(8), blankGutter(7))));
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("drawNonSquareCases")
+    void renderNonSquareGriddler(
+        String name, String expected, List<List<Cell>> cells, Gutter gutter) {
+      assertEquals(expected, render(new Griddler(cells), gutter));
+    }
+
+    private static Stream<Arguments> drawSquareCases() {
+      return Stream.of(
+          arguments(
+              "4 x 4: Square Griddler matches Golden Output",
+              """
+              +---+---+---+---+
+              | # | . | # | . |
+              +---+---+---+---+
+              | . | # | . | # |
+              +---+---+---+---+
+              | # | . | # | . |
+              +---+---+---+---+
+              | . | # | . | # |
+              +---+---+---+---+
+              """,
+              nonRandomizeCells(4, 4),
+              new Gutter(blankGutter(4), blankGutter(4))),
+          arguments(
+              "8 x 8: Square Griddler matches Golden Output",
+              """
+              +---+---+---+---+---+---+---+---+
+              | # | . | # | . | # | . | # | . |
+              +---+---+---+---+---+---+---+---+
+              | . | # | . | # | . | # | . | # |
+              +---+---+---+---+---+---+---+---+
+              | # | . | # | . | # | . | # | . |
+              +---+---+---+---+---+---+---+---+
+              | . | # | . | # | . | # | . | # |
+              +---+---+---+---+---+---+---+---+
+              | # | . | # | . | # | . | # | . |
+              +---+---+---+---+---+---+---+---+
+              | . | # | . | # | . | # | . | # |
+              +---+---+---+---+---+---+---+---+
+              | # | . | # | . | # | . | # | . |
+              +---+---+---+---+---+---+---+---+
+              | . | # | . | # | . | # | . | # |
+              +---+---+---+---+---+---+---+---+
+              """,
+              nonRandomizeCells(8, 8),
+              new Gutter(blankGutter(8), blankGutter(8))));
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("drawSquareCases")
+    void renderSquareGriddler(String name, String expected, List<List<Cell>> cells, Gutter gutter) {
+      assertEquals(expected, render(new Griddler(cells), gutter));
+    }
+
+    private static List<List<Integer>> blankGutter(int size) {
+      List<List<Integer>> blankGutter = new ArrayList<>(List.of());
+      for (int i = 0; i < size; i++) {
+        blankGutter.add(List.of());
+      }
+      return blankGutter;
+    }
+  }
 }

@@ -17,13 +17,13 @@ public final class GriddlerEngine {
     }
   }
 
-  public static List<List<Cell>> nonRandomizeCells(int size) {
-    List<List<Cell>> cells = new ArrayList<>(size);
+  public static List<List<Cell>> nonRandomizeCells(int width, int height) {
+    List<List<Cell>> cells = new ArrayList<>(height);
 
     // Create unrandomized cells
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < height; i++) {
       List<Cell> newRow = new ArrayList<>();
-      for (int j = 0; j < size; j++) {
+      for (int j = 0; j < width; j++) {
         newRow.add(((i + j) % 2 == 0) ? Cell.FILLED : Cell.EMPTY);
       }
       cells.add(newRow);
@@ -99,7 +99,7 @@ public final class GriddlerEngine {
     Layout layout = measure(gutters);
 
     return drawTopClues(layout, gutters.columnClues())
-        + drawBody(layout, griddler.getCells(), gutters.rowClues());
+        + drawBody(layout, gutters.rowClues(), griddler.getCells());
   }
 
   static Layout measure(Gutter gutter) {
@@ -158,7 +158,7 @@ public final class GriddlerEngine {
     return sb.toString();
   }
 
-  static String drawBody(Layout layout, List<List<Cell>> cells, List<List<Integer>> rowClues) {
+  static String drawBody(Layout layout, List<List<Integer>> rowClues, List<List<Cell>> cells) {
     StringBuilder sb = new StringBuilder();
     List<String> rowClueStrings = new ArrayList<>();
 

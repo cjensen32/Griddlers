@@ -32,7 +32,7 @@ public final class Main {
     if (parsed.randomize()) {
       cells = GriddlerEngine.randomizeCells(parsed.size(), new Random());
     } else {
-      cells = GriddlerEngine.nonRandomizeCells(parsed.size());
+      cells = GriddlerEngine.nonRandomizeCells(parsed.size(), parsed.size());
     }
 
     Griddler griddler = new Griddler(cells);
