@@ -19,51 +19,27 @@ mvn -B verify -Dspotless.check.skip=true -Dcheckstyle.skip=true
   BUILD SUCCESS
 ```
 
-**The build is red, on one line.**
-
-```
-mvn -B verify
-  GriddlerEngineTest.java:9:1: Wrong lexicographical order for
-  '...GriddlerEngine.alternatingCells' import. Should be before
-  '...GriddlerEngine.measure'. [CustomImportOrder]
-```
-
-Spotless rejects it in `validate` and Checkstyle rejects the same line again. `git status` is clean, so **HEAD itself is red** — C052's "green pipeline" no longer holds. §2 is the fix and it is one command.
+(ARCHIVED CONTENT REMOVED)
 
 **Almost everything the old notes asked for has landed.** All of this is verified in the tree and comes off your list for good: seeded randomness through a `Random` parameter, `clues()` and `deriveClueList` split out of the old interleaved pass, one render path, `measure` and `bottomAlign` as separately tested helpers, a rectangular `Griddler` carrying `width` and `height`, `Gutter`'s defensive copy at both levels, `TerminalGriddler.write`, and the `-r` flag-order bug — `-r -s 20` and `-s 20 -r` now agree.
 
 What follows is what is left.
 
-## 2. The one line between you and green
+## 2. The one line between you and green (ARCHIVED)
 
-```
-mvn -B spotless:apply
-mvn -B verify
-```
+## 3. Ticked boxes that are no longer true (RESOLVED 2026-09-19)
 
-Do it alone and do it first. Nothing else should land on top of a red HEAD, because the next failure you see will be attributed to whatever you were actually working on.
+Four were found and all four are now corrected in `../../03-the-three-packages.md` itself, so the lesson is the place to read them: `Griddler` rejecting non-square shapes, `Main` printing an `x` that neither generator can produce, a coverage rule described as unmoved when it went `0.8` → `0.9`, and a ticked item whose own text admitted the default output path was still open.
 
-Worth thirty seconds while you are here: this class of failure is invisible until `verify` runs, and you have now shipped it once. A `pre-commit` hook running `mvn -B spotless:check -q` is the cheap prevention, and `.githooks/` is already wired up via `core.hooksPath`.
+One survives as a live finding rather than a lesson correction, because it is in the suite rather than in the lesson: `GriddlerTest:81` carries `@DisplayName("Constructor rejects Ragged, Rectangular, & Uneven cells")` over a method that only asserts ragged. A display name is what a reader sees in the report, so it is worse than a stale comment. §5 has it.
 
-## 3. Ticked boxes that are no longer true
-
-Three, and the first one matters.
-
-**Part 1, item 2.3 — "Reject an empty, ragged, or non-square shape."** `Griddler` now carries `width` and `height` separately, and `GriddlerTest.RECT_CELLS` is a 5×4 that constructs without complaint. Non-square shapes are accepted. The box is false as written.
-
-The same false claim is repeated inside the suite: `GriddlerTest:81` carries `@DisplayName("Constructor rejects Ragged, Rectangular, & Uneven cells")` over a method that only asserts ragged. A display name is what a reader sees in the report, so this one is worse than a stale comment.
-
-This is close-out question 7 arriving in 2.3 rather than in 2.5. Two honest ways to close it: correct the box to "ragged" and record in your Q7 answer that rectangles landed early, or the reverse. Either is fine. A ticked box against a false statement is the thing this course keeps trying not to do.
-
-**Part 2, item 7.2 — "One render path, in one place."** This is now genuinely true, so leave it ticked. `render` is the only public renderer; `measure`, `bottomAlign`, `drawTopClues` and `drawBody` are package-private and each has its own test table.
-
-**Part 2, item 8** — the trailing clause, "Where the default output path belongs is still open", is still open, and still sitting in `Main`. §5 has it.
+The open work those corrections exposed became the lesson's **Part 3**.
 
 ## 4. Close-out questions still open
 
-Material to answer from. The answers are yours to write.
+Material to answer from. The answers are yours to write, and as of 2026-09-19 they live in `../../03-the-three-packages.md` — the four that needed rewriting are blanked there, each with a note saying what the previous attempt got wrong. Those notes carry their own evidence; what is below is the longer working for the four questions this guide had already looked into.
 
-**Q4 — what would keeping `UUID` have cost the Part 1 test?** You wrote "don't know; believe this is stale/resolved". It is answerable, and the evidence is in your own suite. Compare the two shapes you ended up with: `Gutter` is a record and gets value equality free, which is why `cluesDerivesRowAndColumnClues` asserts a whole expected `Gutter` against a derived one in a single `assertEquals`. `Griddler` is a class with no `equals`, which is why every test in `GriddlerTest` has to go through `getCells()` or `getCell()`. Ask what an identity field does to each of those two shapes, and the answer writes itself.
+**Q4 — what would keeping `UUID` have cost the Part 1 test? (ANSWERED)** Your answer moved into the lesson on 2026-09-19. It is right; the note beside it only makes the mechanism exact, because the mechanism is what generalises. `Gutter` is a record and gets value equality free, which is why `cluesDerivesRowAndColumnClues` asserts a whole expected `Gutter` against a derived one in a single `assertEquals`. `Griddler` is a class with no `equals`, which is why every test in `GriddlerTest` goes through `getCells()` or `getCell()`. An identity field is what puts a type permanently in the second category.
 
 **Q5 — should 2.4 assert stdout for one fixed size?** Answerable from the checkout now. `Main` has two paths: the default is fully deterministic and safe to freeze into a golden string; the `-r` path calls `new Random()` at `Main:33` with no seed and cannot be asserted at all. So the question is really "does 2.4 freeze the deterministic path, or do you make the other one deterministic first" — and the `[!?]` below is the second option.
 
@@ -79,30 +55,30 @@ Open items only. Line numbers are current as of 2026-09-18.
 
 ### `model`
 
-| Item | Verdict | Why |
-|---|---|---|
-| `Cell.asciiStr()` :14 | RENAME | `glyph()` is true today and still true after Chapter 3. `asciiStr` names an encoding that is about to stop being the encoding. |
-| `Griddler` :23-24 | TEST GAP | The in-loop `row == null` guard is unreachable by the current fixture, because `constructorRejectsNullRow` puts the null row *first*, where `:17` catches it. JaCoCo reports 1 line and 1 branch missed, and they are these. A null in a later row is the case that reaches it. |
-| `Griddler` :17 | REVIEW | That first-row guard duplicates the loop's. One of the two is redundant; deciding which is what §5's coverage gap is really telling you. |
-| `Gutter.deepCopyClues` :17 | REVIEW | A null inner list is dropped rather than rejected, so the copy comes back shorter than the input. `dropsNullInnerLists` now pins that as intended behaviour — which is fine as a decision and bad as an accident. A shortened clue list is how a `Gutter` whose row count disagrees with its `Griddler` gets built. |
+| Item                       | Verdict  | Why                                                                                                                                                                                                                                                                                                                 |
+|----------------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Cell.asciiStr()` :14      | RENAME   | `glyph()` is true today and still true after Chapter 3. `asciiStr` names an encoding that is about to stop being the encoding.                                                                                                                                                                                      |
+| `Griddler` :23-24          | TEST GAP | The in-loop `row == null` guard is unreachable by the current fixture, because `constructorRejectsNullRow` puts the null row *first*, where `:17` catches it. JaCoCo reports 1 line and 1 branch missed, and they are these. A null in a later row is the case that reaches it.                                     |
+| `Griddler` :17             | REVIEW   | That first-row guard duplicates the loop's. One of the two is redundant; deciding which is what §5's coverage gap is really telling you.                                                                                                                                                                            |
+| `Gutter.deepCopyClues` :17 | REVIEW   | A null inner list is dropped rather than rejected, so the copy comes back shorter than the input. `dropsNullInnerLists` now pins that as intended behaviour — which is fine as a decision and bad as an accident. A shortened clue list is how a `Gutter` whose row count disagrees with its `Griddler` gets built. |
 
 ### `engine`
 
-| Item | Verdict | Why |
-|---|---|---|
-| `Layout` access :142, :145, :166 | FIX | The private fields are read directly at `:142`, `:145` and `:166`, while `layout.cellWidth()` on that same line `:145` uses the accessor. Both compile **only** because `Layout` is nested inside `GriddlerEngine`. See `../changing-code.md` §8 — this is the trap, and today is the cheap day to fix it. |
-| `randomizeCells(int size, …)` :34 | REFACTOR | Takes one dimension while `alternatingCells(int width, int height)` takes two. Rectangles are now a `Griddler` fact, and the two generators disagree about that. |
-| `render` :98 and its helpers | KEEP | One path, one place, each helper directly tested. Item 7.2 is honest. |
+| Item                              | Verdict  | Why                                                                                                                                                                                                                                                                                                        |
+|-----------------------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Layout` access :142, :145, :166  | FIX      | The private fields are read directly at `:142`, `:145` and `:166`, while `layout.cellWidth()` on that same line `:145` uses the accessor. Both compile **only** because `Layout` is nested inside `GriddlerEngine`. See `../changing-code.md` §8 — this is the trap, and today is the cheap day to fix it. |
+| `randomizeCells(int size, …)` :34 | REFACTOR | Takes one dimension while `alternatingCells(int width, int height)` takes two. Rectangles are now a `Griddler` fact, and the two generators disagree about that.                                                                                                                                           |
+| `render` :98 and its helpers      | KEEP     | One path, one place, each helper directly tested. Item 7.2 is honest.                                                                                                                                                                                                                                      |
 
 ### `tools`
 
-| Item | Verdict | Why |
-|---|---|---|
-| `CLIParser` :5 | REFACTOR | `public class` with a private constructor; wants `final`. `GriddlerEngine` got it and this did not. Nothing catches it — `FinalClass` is not among the modules in `checkstyle.xml`, and adding it would catch this by rule instead of by inspection. |
-| `CLIParser` :39 | TEST GAP | `size < 1` is unreachable through `-s -1`, because the `startsWith("-")` guard at `:31` rejects that first. `-s 0` is the only way in. 1 of 4 branches missed. |
-| `TerminalGriddler` :9 | RENAME | It writes a file and never touches a terminal. Do it before 2.4 freezes stdout, so the class that owns output is not a surprise by then. |
-| *missing* | ADD | "A failed write is not silent" is Part 1 item 5.2, ticked, and nothing tests it. |
-| *missing* | ADD | The constructor's `requireNonNull` at `:13` is untested. |
+| Item                  | Verdict  | Why                                                                                                                                                                                                                                                  |
+|-----------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `CLIParser` :5        | REFACTOR | `public class` with a private constructor; wants `final`. `GriddlerEngine` got it and this did not. Nothing catches it — `FinalClass` is not among the modules in `checkstyle.xml`, and adding it would catch this by rule instead of by inspection. |
+| `CLIParser` :39       | TEST GAP | `size < 1` is unreachable through `-s -1`, because the `startsWith("-")` guard at `:31` rejects that first. `-s 0` is the only way in. 1 of 4 branches missed.                                                                                       |
+| `TerminalGriddler` :9 | RENAME   | It writes a file and never touches a terminal. Do it before 2.4 freezes stdout, so the class that owns output is not a surprise by then.                                                                                                             |
+| *missing*             | ADD      | "A failed write is not silent" is Part 1 item 5.2, ticked, and nothing tests it.                                                                                                                                                                     |
+| *missing*             | ADD      | The constructor's `requireNonNull` at `:13` is untested.                                                                                                                                                                                             |
 
 ### Root
 
