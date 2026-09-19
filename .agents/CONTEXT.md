@@ -56,7 +56,7 @@ Until the learner reaches the named lesson, agents must not create or scaffold `
 
 ## Commit messages
 
-The tracked hook prepends `C###`. Write the subject as `SCOPE(area): summary`, where scope is `COURSE` for course and repository documentation, `GAME` for learner implementation, `PROGRESS` for learner progress, and `FIX` for corrections to earlier implementation, and area is the lesson or surface being worked on.
+The tracked hook prepends `C###`. Write the subject as `SCOPE(area): summary`, where scope is `COURSE` for course and repository documentation, `CODE` for the program being built and the files that gate it, `PROGRESS` for a checkpoint that builds nothing, and `FIX` for corrections to earlier implementation, and area is the lesson or surface being worked on. These four are exhaustive: build and rule-file configuration such as `pom.xml`, `checkstyle.xml`, and `import-control.xml` is `CODE(pom.xml)` and not a scope of its own.
 
 A subject that already says what changed and why is a finished commit message. Prefer it. Add a body only when the subject leaves something genuinely unclear, and keep it to what the diff cannot say for itself.
 
