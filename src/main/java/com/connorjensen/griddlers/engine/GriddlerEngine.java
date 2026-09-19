@@ -177,7 +177,7 @@ public final class GriddlerEngine {
       sb.append("|");
 
       for (Cell cell : row) {
-        sb.append(center(cell.asciiStr(), layout.cellWidth()));
+        sb.append(center(cell.glyph(), layout.cellWidth()));
         sb.append("|");
       }
       sb.append("\n");

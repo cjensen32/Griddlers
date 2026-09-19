@@ -11,7 +11,7 @@ public enum Cell {
     this.glyph = glyph;
   }
 
-  public String asciiStr() {
+  public String glyph() {
     return this.glyph;
   }
 }
